@@ -1,0 +1,57 @@
+{
+  "slug": "input",
+  "schemaVersion": 2,
+  "name": "Input",
+  "category": "form",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["input", "text-field"],
+  "variantDimensions": {
+    "state": ["default", "focus", "error", "disabled"],
+    "size": ["md"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Default input",
+      "whySelected": "Standard form field on dark surfaces; dark ground with neutral border.",
+      "traits": {
+        "background": "var(--color-surface-container-low)",
+        "color": "var(--foreground)",
+        "border": "1px solid var(--border)",
+        "borderRadius": "var(--radius-sm)",
+        "minHeight": "var(--size-input-height)",
+        "paddingInline": "var(--space-4)",
+        "fontSize": "var(--font-size-body)",
+        "fontFamily": "var(--font-family-body)"
+      },
+      "childrenDigest": ["placeholder text"]
+    },
+    {
+      "name": "Focus input",
+      "whySelected": "Active state uses yellow brand glow to match hazard-yellow accent system.",
+      "traits": {
+        "borderColor": "var(--primary)",
+        "boxShadow": "var(--shadow-5)",
+        "outline": "none"
+      },
+      "childrenDigest": ["placeholder text"]
+    },
+    {
+      "name": "Error input",
+      "whySelected": "Validation failure state using magenta tertiary accent.",
+      "traits": {
+        "borderColor": "var(--error)",
+        "boxShadow": "0 0 .625rem rgba(255,26,172,.3)"
+      },
+      "childrenDigest": ["placeholder text", "error hint"]
+    }
+  ],
+  "anatomy": ["root", "input", "placeholder", "focus-glow"],
+  "structurePatterns": ["single-line text", "full width within container"],
+  "usageHints": {
+    "priorityHint": "Use in contact, newsletter, and search forms on dark surfaces.",
+    "a11y": "Focus glow must be visible against dark backgrounds."
+  },
+  "doNotInvent": ["search icon", "clear button", "character counter"],
+  "unknowns": ["placeholder color opacity", "disabled background opacity"]
+}

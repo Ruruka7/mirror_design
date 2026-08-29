@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield · Card</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* Page scaffold — NOT extracted */
+body { margin:0; padding:12px; background:var(--background); font-family:var(--font-body); color:var(--color-on-surface); }
+.row { display:flex; gap:8px; align-items:flex-start; margin-bottom:12px; }
+.label { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); width:92px; flex-shrink:0; padding-top:6px; }
+.divider { border:none; border-top:1px solid var(--rule); margin:4px 0 12px; }
+
+/* @component-css-start */
+.card { flex:1; min-width:0; display:flex; flex-direction:column; gap:10px; padding:var(--space-6); border:1px solid var(--border); color:var(--color-on-surface); transition:filter var(--transition-fast); }
+.card-dark { background:var(--color-surface); clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%); filter:drop-shadow(var(--shadow-2)); }
+.card-dark:hover { filter:drop-shadow(var(--shadow-2)) brightness(1.06); }
+.card-glow { background:var(--color-surface-container); clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%); filter:drop-shadow(var(--shadow-5)); border-color:var(--primary); }
+.card-glow:hover { filter:drop-shadow(var(--shadow-5)) brightness(1.06); }
+.card-compact { background:var(--color-surface-container-low); border-radius:var(--radius-sm); border-color:var(--rule); padding:var(--space-4); gap:6px; }
+.card-compact:hover { filter:brightness(1.06); }
+.card-eyebrow { font-family:var(--font-mono); font-size:var(--font-size-eyebrow); font-weight:var(--font-weight-eyebrow); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+.card-heading { margin:0; font-family:var(--font-display); font-size:var(--font-size-h4); font-weight:var(--font-weight-h4); line-height:var(--line-height-h4); }
+.card-compact .card-heading { font-size:var(--font-size-body); font-weight:700; }
+.card-body { margin:0; font-family:var(--font-body); font-size:var(--font-size-body); line-height:var(--line-height-body); color:var(--color-muted-foreground); word-break:keep-all; overflow-wrap:break-word; }
+.card-compact .card-body { font-size:var(--font-size-caption); }
+.card-cta { font-family:var(--font-mono); font-size:var(--font-size-mono); color:var(--link); text-decoration:none; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:color var(--transition-fast); }
+.card-cta:hover { color:var(--link-hover); }
+.card-media { height:84px; background:linear-gradient(135deg,var(--endfield-neutral-700),var(--endfield-neutral-900)); border:1px solid var(--rule); border-radius:var(--radius-sm); position:relative; overflow:hidden; }
+.card-media::after { content:""; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,rgba(255,251,0,.05) 4px,rgba(255,251,0,.05) 5px); }
+/* @component-css-end */
+</style>
+</head>
+<body>
+<div class="row">
+  <span class="label">深色卡片</span>
+  <div class="card card-dark" data-evidence-sample="dark-surface-card">
+    <span class="card-eyebrow">核心特性</span>
+    <h3 class="card-heading">源石能源核心</h3>
+    <p class="card-body">模块化反应单元提供稳定能量输出，适配极端环境下的长期作业需求。</p>
+    <a class="card-cta" href="#">查看详情 ›</a>
+  </div>
+</div>
+<div class="row">
+  <span class="label">辉光卡片</span>
+  <div class="card card-glow" data-evidence-sample="glow-card">
+    <h3 class="card-heading">勘探者协议·启航</h3>
+    <p class="card-body">全新赛季现已开放，组建远征队深入未知区域，解锁专属奖励。</p>
+    <div class="card-media" aria-hidden="true"></div>
+  </div>
+</div>
+<hr class="divider">
+<div class="row">
+  <span class="label">紧凑卡片</span>
+  <div class="card card-compact" data-evidence-sample="compact-tinted-card">
+    <span class="card-eyebrow">区域档案</span>
+    <h3 class="card-heading">塔拉托尔荒原</h3>
+    <p class="card-body">威胁等级 III · 资源富集区</p>
+  </div>
+</div>
+</body>
+</html>

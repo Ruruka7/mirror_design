@@ -1,0 +1,105 @@
+/* ═══════════════════════════════════════════════════════════════
+   components.css — Design System Component Definitions
+   Auto-extracted from preview/component-*.html
+   DO NOT EDIT MANUALLY — regenerate via extract-components-css.mjs
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Badge ─────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">色调</span> <span class="badge badge-primary" data-evidence-sample="Primary badge">预约</span> <span class="badge badge-accent" data-evidence-sample="Accent badge">已确认</span> <span class="badge badge-tertiary" data-evidence-sample="Tertiary badge">事件</span> <span class="badge badge-neutral" data-evidence-sample="Neutral badge">资讯</span> <span class="badge badge-success" data-evi...
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+.badge { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--font-size-caption); font-weight: var(--font-weight-h4); line-height: var(--line-height-caption); text-transform: uppercase; letter-spacing: var(--tracking-tight); white-space: nowrap; min-width: 38px; flex-shrink: 0; }
+.badge-primary { background: var(--endfield-primary-100); color: var(--endfield-primary-900); }
+.badge-accent { background: var(--endfield-accent-100); color: var(--endfield-accent-900); }
+.badge-tertiary { background: var(--endfield-tertiary-100); color: var(--endfield-tertiary-900); }
+.badge-neutral { background: var(--endfield-neutral-800); color: var(--endfield-neutral-100); }
+.badge-success { background: var(--endfield-success-100); color: var(--endfield-success-900); }
+.badge-error { background: var(--endfield-error-100); color: var(--endfield-error-900); }
+
+/* ── Button ────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">主操作</span><button class="btn btn-md btn-primary" data-evidence-sample="Primary medium">立即部署</button><button class="btn btn-md btn-primary" data-evidence-sample="Primary medium" disabled>立即部署</button>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+.btn { display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-family: var(--font-family-base); text-transform: uppercase; letter-spacing: var(--tracking-tight); transition: var(--transition-fast); clip-path: polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%); flex-shrink: 0; white-space: nowrap; }
+.btn-sm { min-height: var(--size-button-sm); min-width: var(--size-button-sm); padding: 0 var(--space-3); font-size: var(--font-size-caption); font-weight: var(--font-weight-eyebrow); }
+.btn-md { min-height: var(--size-button-md); min-width: var(--size-button-md); padding: 0 var(--space-5); font-size: var(--font-size-body); font-weight: var(--font-weight-h4); }
+.btn-lg { min-height: var(--size-button-lg); min-width: var(--size-button-lg); padding: 0 var(--space-6); font-size: var(--font-size-lead); font-weight: var(--font-weight-h4); }
+.btn-primary { background: var(--primary); color: var(--color-on-primary); filter: drop-shadow(var(--shadow-5)); }
+.btn-primary:not(:disabled):hover { filter: drop-shadow(var(--shadow-5)) brightness(.92); }
+.btn-accent { background: var(--accent); color: var(--color-on-accent); filter: drop-shadow(0 0 .625rem rgba(0,255,162,.3)); }
+.btn-accent:not(:disabled):hover { background: var(--accent-hover); }
+.btn-outline { background: transparent; color: var(--foreground); border: 2px solid var(--border); }
+.btn-outline:not(:disabled):hover { background: var(--color-surface); }
+.btn-ghost { background: transparent; color: var(--foreground); clip-path: none; }
+.btn-ghost:not(:disabled):hover { color: var(--primary); }
+.btn:focus-visible { outline: none; filter: drop-shadow(var(--shadow-5)); }
+.btn:disabled { opacity: .4; cursor: not-allowed; filter: none; }
+
+/* ── Card ──────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">深色卡片</span> <div class="card card-dark" data-evidence-sample="dark-surface-card"> <span class="card-eyebrow">核心特性</span> <h3 class="card-heading">源石能源核心</h3> <p class="card-body">模块化反应单元提供稳定能量输出，适配极端环境下的长期作业需求。</p> <a class="card-cta" href="#">查看详情 ›</a>
+*/
+.card { flex:1; min-width:0; display:flex; flex-direction:column; gap:10px; padding:var(--space-6); border:1px solid var(--border); color:var(--color-on-surface); transition:filter var(--transition-fast); }
+.card-dark { background:var(--color-surface); clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%); filter:drop-shadow(var(--shadow-2)); }
+.card-dark:hover { filter:drop-shadow(var(--shadow-2)) brightness(1.06); }
+.card-glow { background:var(--color-surface-container); clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%); filter:drop-shadow(var(--shadow-5)); border-color:var(--primary); }
+.card-glow:hover { filter:drop-shadow(var(--shadow-5)) brightness(1.06); }
+.card-compact { background:var(--color-surface-container-low); border-radius:var(--radius-sm); border-color:var(--rule); padding:var(--space-4); gap:6px; }
+.card-compact:hover { filter:brightness(1.06); }
+.card-eyebrow { font-family:var(--font-mono); font-size:var(--font-size-eyebrow); font-weight:var(--font-weight-eyebrow); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+.card-heading { margin:0; font-family:var(--font-display); font-size:var(--font-size-h4); font-weight:var(--font-weight-h4); line-height:var(--line-height-h4); }
+.card-compact .card-heading { font-size:var(--font-size-body); font-weight:700; }
+.card-body { margin:0; font-family:var(--font-body); font-size:var(--font-size-body); line-height:var(--line-height-body); color:var(--color-muted-foreground); word-break:keep-all; overflow-wrap:break-word; }
+.card-compact .card-body { font-size:var(--font-size-caption); }
+.card-cta { font-family:var(--font-mono); font-size:var(--font-size-mono); color:var(--link); text-decoration:none; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:color var(--transition-fast); }
+.card-cta:hover { color:var(--link-hover); }
+.card-media { height:84px; background:linear-gradient(135deg,var(--endfield-neutral-700),var(--endfield-neutral-900)); border:1px solid var(--rule); border-radius:var(--radius-sm); position:relative; overflow:hidden; }
+.card-media::after { content:""; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,rgba(255,251,0,.05) 4px,rgba(255,251,0,.05) 5px); }
+
+/* ── Cta Link ──────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">Default</span> <a class="cta-link cta-link--default" href="#" data-evidence-sample="default-cta-link">探索终端<span class="indicator" aria-hidden="true">→</span></a> <a class="cta-link cta-link--default" href="#" data-evidence-sample="default-cta-link">进入作战区<span class="indicator" aria-hidden="true">→</span></a>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .cta-link { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-family-base); font-weight: var(--font-weight-h4); text-transform: uppercase; letter-spacing: var(--tracking-tight); text-decoration: none; white-space: nowrap; transition: color var(--transition-fast); cursor: pointer; }
+  .cta-link .indicator { display: inline-block; }
+  .cta-link--default { color: var(--link); }
+  .cta-link--default:hover { color: var(--link-hover); }
+  .cta-link--accent { color: var(--accent); }
+  .cta-link--accent:hover { color: var(--accent-hover); }
+  .cta-link--subtle { color: var(--muted-foreground); font-weight: var(--font-weight-body); text-transform: none; letter-spacing: normal; }
+  .cta-link--subtle:hover { color: var(--foreground); }
+
+/* ── Input ─────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">默认</span> <div class="ef-field"> <input class="ef-input" type="text" placeholder="输入你的邮箱地址" data-evidence-sample="Default input">
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+.ef-field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.ef-input { display: block; width: 100%; box-sizing: border-box; background: var(--color-surface-container-low); color: var(--color-foreground); border: 1px solid var(--color-border); border-radius: var(--radius-sm); min-height: var(--size-input-height); padding: 0 var(--space-4); font-family: var(--font-body); font-size: var(--font-size-body); line-height: var(--line-height-body); outline: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); }
+.ef-input::placeholder { color: var(--muted-foreground); }
+.ef-input:hover { border-color: var(--muted-foreground); }
+.ef-input:focus { border-color: var(--primary); box-shadow: var(--shadow-5); }
+.ef-input.is-error { border-color: var(--error); box-shadow: 0 0 .625rem rgba(255,26,172,.3); }
+.ef-input.is-error:focus { border-color: var(--error); box-shadow: 0 0 .625rem rgba(255,26,172,.3); }
+.ef-input:disabled { opacity: .6; cursor: not-allowed; }
+.ef-hint { font-family: var(--font-body); font-size: var(--font-size-caption); line-height: var(--line-height-caption); color: var(--error); }
+
+/* ── Navigation ────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">默认</span>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .nav { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 72px; padding: 0 var(--space-6); background: var(--background); color: var(--foreground); border-bottom: 1px solid var(--border); box-sizing: border-box; font-family: var(--font-display); font-size: var(--font-size-body); text-transform: uppercase; letter-spacing: var(--tracking-tight); }
+  .nav-logo { display: inline-flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+  .nav-logo-mark { width: 28px; height: 28px; background: var(--primary); border-radius: var(--radius-sm); flex-shrink: 0; }
+  .nav-items { display: flex; align-items: center; gap: var(--space-6); }
+  .nav-link { display: flex; align-items: center; align-self: stretch; color: var(--foreground); text-decoration: none; padding: 0 2px; border-bottom: 2px solid transparent; transition: border-color var(--transition-fast); white-space: nowrap; }
+  .nav-link:hover { border-bottom-color: var(--primary); }
+  .nav-link.active { color: var(--primary); border-bottom: 2px solid var(--primary); font-weight: var(--font-weight-h4); }
+  .nav-utility { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+  .nav-utility-link { color: var(--foreground); text-decoration: none; padding: 6px 10px; border-radius: var(--radius-sm); transition: background var(--transition-fast); white-space: nowrap; font-size: var(--font-size-caption); }
+  .nav-utility-link:hover { background: var(--color-surface-container-high); }
+  .nav-scrolled { background: var(--color-surface); }

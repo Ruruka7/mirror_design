@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input — Endfield</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* Page scaffold — NOT extracted */
+body { margin: 0; padding: 12px; background: var(--color-surface); font-family: var(--font-body); color: var(--color-on-surface); }
+.row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
+.label { font-family: var(--font-mono); font-size: var(--font-size-caption); font-weight: var(--font-weight-eyebrow); letter-spacing: .08em; text-transform: uppercase; color: var(--muted-foreground); width: 92px; flex-shrink: 0; line-height: var(--size-input-height); }
+.divider { border: none; border-top: 1px solid var(--color-outline-variant); margin: 12px 0; }
+/* @component-css-start */
+/* Component definitions — extracted to components.css by deterministic script */
+.ef-field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.ef-input { display: block; width: 100%; box-sizing: border-box; background: var(--color-surface-container-low); color: var(--color-foreground); border: 1px solid var(--color-border); border-radius: var(--radius-sm); min-height: var(--size-input-height); padding: 0 var(--space-4); font-family: var(--font-body); font-size: var(--font-size-body); line-height: var(--line-height-body); outline: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); }
+.ef-input::placeholder { color: var(--muted-foreground); }
+.ef-input:hover { border-color: var(--muted-foreground); }
+.ef-input:focus { border-color: var(--primary); box-shadow: var(--shadow-5); }
+.ef-input.is-error { border-color: var(--error); box-shadow: 0 0 .625rem rgba(255,26,172,.3); }
+.ef-input.is-error:focus { border-color: var(--error); box-shadow: 0 0 .625rem rgba(255,26,172,.3); }
+.ef-input:disabled { opacity: .6; cursor: not-allowed; }
+.ef-hint { font-family: var(--font-body); font-size: var(--font-size-caption); line-height: var(--line-height-caption); color: var(--error); }
+/* @component-css-end */
+</style>
+</head>
+<body>
+<div class="row">
+  <span class="label">默认</span>
+  <div class="ef-field">
+    <input class="ef-input" type="text" placeholder="输入你的邮箱地址" data-evidence-sample="Default input">
+  </div>
+</div>
+<div class="row">
+  <span class="label">错误</span>
+  <div class="ef-field">
+    <input class="ef-input is-error" type="text" placeholder="输入干员代号" value="SP-0001" data-evidence-sample="Error input">
+    <span class="ef-hint">代号格式不符，请使用字母与数字组合</span>
+  </div>
+</div>
+<hr class="divider">
+<div class="row">
+  <span class="label">禁用</span>
+  <div class="ef-field">
+    <input class="ef-input" type="text" placeholder="该字段已锁定" disabled data-evidence-sample="Default input">
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENDFIELD 终末地 — Design System Showcase</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../components.css">
+<style>
+/* ══ Page-layer CSS — layout only, no component overrides ══ */
+:root{--uikit-sidebar-w:240px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--background);color:var(--foreground);font-family:var(--font-family-base);font-size:var(--font-size-body);line-height:var(--line-height-body);-webkit-font-smoothing:antialiased}
+
+/* ── Required layout guard skeleton ── */
+.uikit-shell{width:100%;max-width:1184px;margin:0 auto;overflow:hidden;display:flex;flex-direction:column;min-width:0;min-height:100vh}
+.uikit-sidebar,.uikit-main,.uikit-toolbar{min-width:0}
+.uikit-sidebar{overflow:hidden;max-width:100%}
+[data-component]{min-width:0;max-width:100%;overflow:hidden}
+.uikit-toolbar{display:flex;align-items:center;gap:var(--space-2)}
+.uikit-responsive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6)}
+.uikit-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.uikit-truncate{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.uikit-nowrap{white-space:nowrap;flex-shrink:0}
+.uikit-action-cell{display:flex;align-items:center;gap:8px;min-width:0;max-width:160px;overflow:hidden}
+.uikit-action{min-width:0;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── Hero ── */
+.hero{position:relative;padding:var(--space-9) var(--space-6) var(--space-8);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,rgba(255,251,0,.04) 4px,rgba(255,251,0,.04) 5px);pointer-events:none}
+.hero-inner{position:relative;display:flex;flex-direction:column;gap:var(--space-6);max-width:760px}
+.hero-eyebrow{font-family:var(--font-mono);font-size:var(--font-size-eyebrow);font-weight:var(--font-weight-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero-title{font-family:var(--font-impact);font-size:clamp(64px,11vw,130px);font-weight:var(--font-weight-mega);line-height:var(--line-height-mega);letter-spacing:var(--tracking-tightest);text-transform:uppercase;margin:0;word-break:keep-all;overflow-wrap:break-word}
+.hero-sub{font-family:var(--font-body);font-size:var(--font-size-lead);font-weight:var(--font-weight-lead);line-height:var(--line-height-lead);color:var(--color-muted-foreground);margin:0;max-width:34em}
+.hero-badges{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+.hero-ctas{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+
+/* ── Section ── */
+.section{padding:var(--space-8) var(--space-6)}
+.section-head{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-7)}
+.section-eyebrow{font-family:var(--font-mono);font-size:var(--font-size-eyebrow);font-weight:var(--font-weight-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.section-title{font-family:var(--font-display);font-size:var(--font-size-h2);font-weight:var(--font-weight-h2);line-height:var(--line-height-h2);letter-spacing:var(--tracking-tight);margin:0;text-transform:uppercase;word-break:keep-all;overflow-wrap:break-word}
+
+/* ── Worldview 2-col ── */
+.worldview-layout{display:grid;grid-template-columns:var(--uikit-sidebar-w) minmax(0,1fr);gap:var(--space-7);padding:var(--space-8) var(--space-6)}
+.wv-index{display:flex;flex-direction:column;gap:var(--space-1)}
+.wv-index-head{font-family:var(--font-mono);font-size:var(--font-size-eyebrow);font-weight:var(--font-weight-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:var(--space-3)}
+.wv-index-link{font-family:var(--font-display);font-size:var(--font-size-body);color:var(--color-muted-foreground);text-decoration:none;padding:var(--space-2) var(--space-3);border-left:2px solid transparent;transition:color var(--transition-fast),border-color var(--transition-fast);text-transform:uppercase;letter-spacing:var(--tracking-tight);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wv-index-link:hover{color:var(--foreground);border-left-color:var(--primary)}
+.wv-index-link.active{color:var(--primary);border-left-color:var(--primary);font-weight:var(--font-weight-h4)}
+.wv-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+
+/* ── Newsletter ── */
+.newsletter{display:flex;align-items:flex-end;gap:var(--space-6);flex-wrap:wrap;padding:var(--space-6);background:var(--color-surface);border:1px solid var(--border);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);margin:var(--space-8) var(--space-6) 0}
+.newsletter-intro{flex:1;min-width:200px}
+.newsletter-title{font-family:var(--font-display);font-size:var(--font-size-h4);font-weight:var(--font-weight-h4);margin:0 0 var(--space-1);line-height:var(--line-height-h4)}
+.newsletter-sub{font-family:var(--font-body);font-size:var(--font-size-caption);color:var(--color-muted-foreground);margin:0}
+.newsletter-form{display:flex;align-items:flex-start;gap:var(--space-3);flex-wrap:wrap;min-width:280px}
+
+/* ── Characters / Roster ── */
+.search-row{display:flex;align-items:flex-end;gap:var(--space-4);margin:var(--space-8) var(--space-6) var(--space-7);flex-wrap:wrap}
+.search-row .ef-field{max-width:360px;flex:1}
+.roster-featured{padding:0 var(--space-6)}
+.roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5);padding:0 var(--space-6) var(--space-8)}
+.char-actions{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+
+/* ── Footer ── */
+.footer{padding:var(--space-7) var(--space-6);border-top:1px solid var(--border);background:var(--color-surface-container-low);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-top:auto}
+.footer-brand{font-family:var(--font-mono);font-size:var(--font-size-caption);color:var(--muted-foreground);letter-spacing:.08em;text-transform:uppercase}
+.footer-links{display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap}
+.footer-links a{font-family:var(--font-mono);font-size:var(--font-size-caption);color:var(--muted-foreground);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color var(--transition-fast)}
+.footer-links a:hover{color:var(--primary)}
+
+/* ── View transition ── */
+.view{animation:fadeUp .4s var(--ease-emphasized) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── Responsive ── */
+@media (max-width:900px){
+  .worldview-layout{grid-template-columns:minmax(0,1fr)}
+  .wv-cards{grid-template-columns:minmax(0,1fr)}
+  .roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .uikit-responsive-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .uikit-toolbar{flex-direction:column;align-items:stretch}
+  .uikit-responsive-grid{grid-template-columns:minmax(0,1fr)}
+  .roster-grid{grid-template-columns:minmax(0,1fr)}
+  .hero{padding:var(--space-7) var(--space-4) var(--space-6)}
+  .section{padding:var(--space-7) var(--space-4)}
+  .worldview-layout{padding:var(--space-7) var(--space-4)}
+  .newsletter{margin:var(--space-6) var(--space-4) 0}
+  .search-row{margin:var(--space-7) var(--space-4) var(--space-6)}
+  .roster-featured,.roster-grid{padding-left:var(--space-4);padding-right:var(--space-4)}
+  .footer{padding:var(--space-6) var(--space-4);flex-direction:column;align-items:flex-start}
+  .nav{padding:0 var(--space-4)}
+  .nav-items{gap:var(--space-3)}
+  .nav-utility{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .view{animation:none}
+  *{transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const {useState} = React;
+
+const VIEWS = [
+  {key:'home', label:'首页'},
+  {key:'worldview', label:'世界观'},
+  {key:'characters', label:'角色'},
+];
+
+const REGIONS = [
+  {name:'塔拉二期', type:'侵蚀区', status:'已开放', badge:'success', desc:'高温侵蚀地带，源石浓度临界，远征队需配备甲级防护。'},
+  {name:'北地冰原', type:'荒野区', status:'限制进入', badge:'neutral', desc:'永冻层下的废弃工业设施，残留大量前时代工程机械。'},
+  {name:'巨栖城', type:'据点', status:'核心区', badge:'primary', desc:'终末地的最后移动城邦，干员编队的集结与补给枢纽。'},
+  {name:'ARK牌号', type:'技术档案', status:'机密', badge:'tertiary', desc:'干员与装备的统一编号体系，记录所有已知作战单元。'},
+];
+
+const OPERATORS = [
+  {name:'焰影', role:'突击', arkid:'ARK-0741', desc:'高机动突击干员，擅长侵蚀区近距突破与火力压制。', featured:true, locked:false},
+  {name:'铁骸', role:'守护', arkid:'ARK-0329', desc:'重装守护干员，携带可展开式源石护盾发生器。', featured:false, locked:false},
+  {name:'霜林', role:'工程', arkid:'ARK-0512', desc:'工程专家，负责据点防御工事搭建与能源管线维护。', featured:false, locked:false},
+  {name:'烬牙', role:'狙击', arkid:'ARK-0908', desc:'远程狙击干员，侵蚀区制高点压制与情报标记。', featured:false, locked:true},
+];
+
+function Navigation({view, setView}) {
+  return (
+    <nav className="nav" data-component="navigation">
+      <a className="nav-logo" href="#" onClick={e=>{e.preventDefault();setView('home')}}>
+        <span className="nav-logo-mark"></span>
+        <span className="uikit-nowrap">ENDFIELD</span>
+      </a>
+      <div className="nav-items">
+        {VIEWS.map(v => (
+          <a key={v.key}
+             className={'nav-link uikit-nowrap' + (view===v.key ? ' active' : '')}
+             href={'#'+v.key}
+             onClick={e=>{e.preventDefault();setView(v.key)}}>
+            {v.label}
+          </a>
+        ))}
+      </div>
+      <div className="nav-utility">
+        <a className="nav-utility-link" href="#" onClick={e=>e.preventDefault()}>开发组</a>
+        <a className="nav-utility-link" href="#" onClick={e=>e.preventDefault()}>关注我们</a>
+      </div>
+    </nav>
+  );
+}
+
+function HomeView({setView}) {
+  return (
+    <div className="view">
+      <section className="hero">
+        <div className="hero-inner">
+          <span className="hero-eyebrow">ARK PROTOCOL // 终末地</span>
+          <h1 className="hero-title">终末地</h1>
+          <p className="hero-sub">在工业末日废土之上，探索未知侵蚀区，集结你的干员编队，重建秩序。</p>
+          <div className="hero-badges">
+            <span className="badge badge-accent" data-component="badge">NEW</span>
+            <span className="badge badge-tertiary" data-component="badge">限时</span>
+            <span className="badge badge-neutral" data-component="badge">ARK牌号</span>
+          </div>
+          <div className="hero-ctas">
+            <button className="btn btn-lg btn-primary" data-component="button" onClick={()=>setView('characters')}>预约</button>
+            <button className="btn btn-lg btn-outline" data-component="button" onClick={()=>setView('worldview')}>探索</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">核心系统</span>
+          <h2 className="section-title">终末地 核心特性</h2>
+        </div>
+        <div className="uikit-responsive-grid">
+          <div className="card card-glow" data-component="card">
+            <span className="card-eyebrow">核心特性</span>
+            <h3 className="card-heading">源石能源核心</h3>
+            <p className="card-body">模块化反应单元提供稳定能量输出，适配极端环境下的长期作业需求。</p>
+            <a className="card-cta" href="#" onClick={e=>e.preventDefault()}>查看详情 ›</a>
+          </div>
+          <div className="card card-dark" data-component="card">
+            <div className="card-media"></div>
+            <span className="card-eyebrow">世界观</span>
+            <h3 className="card-heading">侵蚀区档案</h3>
+            <p className="card-body">记录已知侵蚀区的地形、气候与威胁等级，为远征提供情报支撑。</p>
+            <a className="card-cta" href="#" onClick={e=>e.preventDefault()}>进入档案 ›</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">深入终末地</span>
+          <h2 className="section-title">进入作战区</h2>
+        </div>
+        <div className="hero-ctas">
+          <a className="cta-link cta-link--default" href="#" onClick={e=>{e.preventDefault();setView('characters')}} data-component="cta-link">
+            进入作战区<span className="indicator" aria-hidden="true">→</span>
+          </a>
+          <a className="cta-link cta-link--accent" href="#" onClick={e=>e.preventDefault()} data-component="cta-link">
+            查看开发组<span className="indicator" aria-hidden="true">→</span>
+          </a>
+          <button className="btn btn-sm btn-outline" data-component="button" disabled>敬请期待</button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function WorldviewView() {
+  return (
+    <div className="view">
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">世界观</span>
+          <h2 className="section-title">侵蚀区 档案</h2>
+        </div>
+      </section>
+
+      <div className="worldview-layout">
+        <aside className="uikit-sidebar">
+          <div className="wv-index-head">区域索引</div>
+          <nav className="wv-index">
+            <a className="wv-index-link active" href="#" onClick={e=>e.preventDefault()}>塔拉二期</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>北地冰原</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>巨栖城</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>ARK牌号</a>
+          </nav>
+        </aside>
+        <main className="uikit-main">
+          <div className="wv-cards">
+            {REGIONS.map(r => (
+              <div key={r.name} className="card card-dark" data-component="card">
+                <div className="card-media"></div>
+                <span className="card-eyebrow">{r.type}</span>
+                <h3 className="card-heading">{r.name}</h3>
+                <p className="card-body">{r.desc}</p>
+                <span className={'badge badge-' + r.badge} data-component="badge">{r.status}</span>
+                <a className="card-cta" href="#" onClick={e=>e.preventDefault()}>深入 ›</a>
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
+
+      <div className="newsletter">
+        <div className="newsletter-intro">
+          <h3 className="newsletter-title">开发组 通讯</h3>
+          <p className="newsletter-sub">订阅以接收侵蚀区情报更新与干员部署动态。</p>
+        </div>
+        <form className="newsletter-form" onSubmit={e=>e.preventDefault()}>
+          <div className="ef-field" data-component="input">
+            <input className="ef-input" type="email" placeholder="输入你的邮箱地址" aria-label="邮箱地址" />
+          </div>
+          <button className="btn btn-md btn-primary" data-component="button" type="submit">订阅</button>
+          <button className="btn btn-md btn-outline" data-component="button" type="button" disabled>暂停发放</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function CharactersView() {
+  const featured = OPERATORS[0];
+  const roster = OPERATORS.slice(1);
+  return (
+    <div className="view">
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">角色</span>
+          <h2 className="section-title">干员 编队</h2>
+        </div>
+      </section>
+
+      <div className="search-row">
+        <div className="ef-field" data-component="input">
+          <label className="uikit-nowrap" style={{fontFamily:'var(--font-mono)',fontSize:'var(--font-size-eyebrow)',color:'var(--muted-foreground)',letterSpacing:'.08em',textTransform:'uppercase'}}>检索干员</label>
+          <input className="ef-input is-error" type="text" placeholder="搜索干员 / ARK牌号" aria-label="搜索干员" />
+          <span className="ef-hint">无匹配干员档案</span>
+        </div>
+      </div>
+
+      <div className="roster-featured">
+        <div className="card card-glow" data-component="card">
+          <div className="card-media"></div>
+          <span className="card-eyebrow">{featured.role}干员</span>
+          <h3 className="card-heading">{featured.name}</h3>
+          <p className="card-body">{featured.desc}</p>
+          <div className="char-actions">
+            <span className="badge badge-tertiary" data-component="badge">{featured.role}</span>
+            <span className="badge badge-neutral" data-component="badge">{featured.arkid}</span>
+          </div>
+          <div className="char-actions">
+            <button className="btn btn-md btn-primary" data-component="button">领取</button>
+            <a className="cta-link cta-link--default" href="#" onClick={e=>e.preventDefault()} data-component="cta-link">
+              查看档案<span className="indicator" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="roster-grid">
+        {roster.map(op => (
+          <div key={op.name} className="card card-dark" data-component="card">
+            <span className="card-eyebrow">{op.role}干员</span>
+            <h3 className="card-heading">{op.name}</h3>
+            <p className="card-body">{op.desc}</p>
+            <div className="char-actions">
+              <span className="badge badge-neutral" data-component="badge">{op.arkid}</span>
+              {op.locked ? (
+                <button className="btn btn-sm btn-outline" data-component="button" disabled>已锁定</button>
+              ) : (
+                <a className="cta-link cta-link--subtle" href="#" onClick={e=>e.preventDefault()} data-component="cta-link">详情</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <section className="section">
+        <div className="hero-ctas">
+          <a className="cta-link cta-link--accent" href="#" onClick={e=>e.preventDefault()} data-component="cta-link">
+            全部角色<span className="indicator" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function Footer({setView}) {
+  return (
+    <footer className="footer">
+      <span className="footer-brand">©2026 ENDFIELD 终末地</span>
+      <div className="footer-links">
+        <a href="#" onClick={e=>{e.preventDefault();setView('worldview')}}>世界观</a>
+        <a href="#" onClick={e=>{e.preventDefault();setView('characters')}}>角色</a>
+        <a href="#" onClick={e=>e.preventDefault()}>开发组</a>
+        <a href="#" onClick={e=>e.preventDefault()}>关注我们</a>
+        <a href="#" onClick={e=>e.preventDefault()}>ARK牌号</a>
+      </div>
+    </footer>
+  );
+}
+
+function App() {
+  const [view, setView] = useState('home');
+  return (
+    <div className="uikit-shell" data-layout-guard="uikit-v1" style={{'--uikit-sidebar-w':'240px'}}>
+      <Navigation view={view} setView={setView} />
+      <main className="uikit-main">
+        {view==='home' && <HomeView setView={setView} />}
+        {view==='worldview' && <WorldviewView />}
+        {view==='characters' && <CharactersView />}
+      </main>
+      <Footer setView={setView} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

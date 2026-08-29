@@ -1,0 +1,74 @@
+{
+  "slug": "badge",
+  "schemaVersion": 2,
+  "name": "Badge",
+  "category": "status",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["badge", "tag", "status"],
+  "variantDimensions": {
+    "tone": ["primary", "accent", "tertiary", "neutral", "success", "error"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Primary badge",
+      "whySelected": "Hazard yellow tag for highlighted items such as 'NEW' or '预约'.",
+      "traits": {
+        "background": "var(--endfield-primary-100)",
+        "color": "var(--endfield-primary-900)",
+        "borderRadius": "var(--radius-full)",
+        "paddingInline": "var(--space-3)",
+        "paddingBlock": "var(--space-1)",
+        "fontSize": "var(--font-size-caption)",
+        "fontWeight": "var(--font-weight-h4)",
+        "textTransform": "uppercase",
+        "letterSpacing": "var(--tracking-tight)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Accent badge",
+      "whySelected": "Neon green tag for confirm or active states.",
+      "traits": {
+        "background": "var(--endfield-accent-100)",
+        "color": "var(--endfield-accent-900)",
+        "borderRadius": "var(--radius-full)",
+        "paddingInline": "var(--space-3)",
+        "paddingBlock": "var(--space-1)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Tertiary badge",
+      "whySelected": "Magenta tag for special or event-driven labels.",
+      "traits": {
+        "background": "var(--endfield-tertiary-100)",
+        "color": "var(--endfield-tertiary-900)",
+        "borderRadius": "var(--radius-full)",
+        "paddingInline": "var(--space-3)",
+        "paddingBlock": "var(--space-1)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Neutral badge",
+      "whySelected": "Passive metadata such as date or category.",
+      "traits": {
+        "background": "var(--endfield-neutral-800)",
+        "color": "var(--endfield-neutral-100)",
+        "borderRadius": "var(--radius-full)",
+        "paddingInline": "var(--space-3)",
+        "paddingBlock": "var(--space-1)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "label"],
+  "structurePatterns": ["inline pill", "uppercase text", "single word or short phrase"],
+  "usageHints": {
+    "priorityHint": "Use primary sparingly for most important; neutral for routine metadata.",
+    "a11y": "Ensure tint/ink contrast meets 4.5:1 on dark backgrounds."
+  },
+  "doNotInvent": ["dismiss icon", "click behavior", "avatar chips"],
+  "unknowns": ["dark theme tint values for badge backgrounds"]
+}

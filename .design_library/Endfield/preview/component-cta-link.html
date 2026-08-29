@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTA Link — Endfield</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  /* Page scaffold — NOT extracted */
+  body { margin: 0; padding: 12px; background: var(--color-surface); font-family: var(--font-family-base); color: var(--color-on-surface); }
+  .row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .label { display: inline-block; width: 92px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted-foreground); white-space: nowrap; flex-shrink: 0; }
+  .divider { border: none; border-top: 1px solid var(--color-border); margin: 8px 0; }
+
+  /* @component-css-start */
+  /* Component definitions — extracted to components.css by deterministic script */
+  .cta-link { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-family-base); font-weight: var(--font-weight-h4); text-transform: uppercase; letter-spacing: var(--tracking-tight); text-decoration: none; white-space: nowrap; transition: color var(--transition-fast); cursor: pointer; }
+  .cta-link .indicator { display: inline-block; }
+  .cta-link--default { color: var(--link); }
+  .cta-link--default:hover { color: var(--link-hover); }
+  .cta-link--accent { color: var(--accent); }
+  .cta-link--accent:hover { color: var(--accent-hover); }
+  .cta-link--subtle { color: var(--muted-foreground); font-weight: var(--font-weight-body); text-transform: none; letter-spacing: normal; }
+  .cta-link--subtle:hover { color: var(--foreground); }
+  /* @component-css-end */
+</style>
+</head>
+<body>
+  <div class="row">
+    <span class="label">Default</span>
+    <a class="cta-link cta-link--default" href="#" data-evidence-sample="default-cta-link">探索终端<span class="indicator" aria-hidden="true">→</span></a>
+    <a class="cta-link cta-link--default" href="#" data-evidence-sample="default-cta-link">进入作战区<span class="indicator" aria-hidden="true">→</span></a>
+  </div>
+  <div class="row">
+    <span class="label">Accent</span>
+    <a class="cta-link cta-link--accent" href="#" data-evidence-sample="accent-cta-link">立即部署<span class="indicator" aria-hidden="true">→</span></a>
+    <a class="cta-link cta-link--accent" href="#" data-evidence-sample="accent-cta-link">激活协议<span class="indicator" aria-hidden="true">→</span></a>
+  </div>
+  <hr class="divider">
+  <div class="row">
+    <span class="label">Subtle</span>
+    <a class="cta-link cta-link--subtle" href="#" data-evidence-sample="subtle-cta-link">了解更多</a>
+    <a class="cta-link cta-link--subtle" href="#" data-evidence-sample="subtle-cta-link">查看档案</a>
+  </div>
+</body>
+</html>

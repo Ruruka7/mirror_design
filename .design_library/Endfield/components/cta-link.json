@@ -1,0 +1,60 @@
+{
+  "slug": "cta-link",
+  "schemaVersion": 2,
+  "name": "CTA Link",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["link", "cta"],
+  "variantDimensions": {
+    "variant": ["default", "accent", "subtle"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Default CTA link",
+      "whySelected": "Primary section exit — hazard yellow text with arrow indicator and optional stripe underline.",
+      "traits": {
+        "color": "var(--link)",
+        "fontWeight": "var(--font-weight-h4)",
+        "fontFamily": "var(--font-family-body)",
+        "textDecoration": "none",
+        "textTransform": "uppercase",
+        "letterSpacing": "var(--tracking-tight)",
+        "gap": "var(--space-2)",
+        "hoverColor": "var(--link-hover)",
+        "transition": "var(--transition-fast)"
+      },
+      "childrenDigest": ["label text", "arrow indicator"]
+    },
+    {
+      "name": "Accent CTA link",
+      "whySelected": "High-energy conversion point using neon green to draw attention.",
+      "traits": {
+        "color": "var(--accent)",
+        "fontWeight": "var(--font-weight-h4)",
+        "textTransform": "uppercase",
+        "gap": "var(--space-2)",
+        "hoverColor": "var(--accent-hover)"
+      },
+      "childrenDigest": ["label text", "arrow indicator"]
+    },
+    {
+      "name": "Subtle CTA link",
+      "whySelected": "Footer or secondary navigation links with neutral styling.",
+      "traits": {
+        "color": "var(--muted-foreground)",
+        "fontWeight": "var(--font-weight-body)",
+        "hoverColor": "var(--foreground)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "label", "indicator"],
+  "structurePatterns": ["inline flex", "arrow as trailing element", "uppercase labels"],
+  "usageHints": {
+    "priorityHint": "Use default CTA after section copy; accent CTA for conversion moments.",
+    "a11y": "Indicator arrow should be decorative; label alone must describe destination."
+  },
+  "doNotInvent": ["external-link icon", "animated arrow", "visited state"],
+  "unknowns": ["arrow glyph character", "stripe underline pattern"]
+}

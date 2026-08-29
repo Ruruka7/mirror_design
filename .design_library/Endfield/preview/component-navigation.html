@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Navigation — Endfield</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  /* Page scaffold — NOT extracted */
+  body { margin: 0; padding: 12px; background: var(--background); font-family: var(--font-body); color: var(--foreground); }
+  .row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .label { width: 92px; flex-shrink: 0; font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; width: 100%; }
+
+  /* @component-css-start */
+  /* Component definitions — extracted to components.css by deterministic script */
+  .nav { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 72px; padding: 0 var(--space-6); background: var(--background); color: var(--foreground); border-bottom: 1px solid var(--border); box-sizing: border-box; font-family: var(--font-display); font-size: var(--font-size-body); text-transform: uppercase; letter-spacing: var(--tracking-tight); }
+  .nav-logo { display: inline-flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+  .nav-logo-mark { width: 28px; height: 28px; background: var(--primary); border-radius: var(--radius-sm); flex-shrink: 0; }
+  .nav-items { display: flex; align-items: center; gap: var(--space-6); }
+  .nav-link { display: flex; align-items: center; align-self: stretch; color: var(--foreground); text-decoration: none; padding: 0 2px; border-bottom: 2px solid transparent; transition: border-color var(--transition-fast); white-space: nowrap; }
+  .nav-link:hover { border-bottom-color: var(--primary); }
+  .nav-link.active { color: var(--primary); border-bottom: 2px solid var(--primary); font-weight: var(--font-weight-h4); }
+  .nav-utility { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+  .nav-utility-link { color: var(--foreground); text-decoration: none; padding: 6px 10px; border-radius: var(--radius-sm); transition: background var(--transition-fast); white-space: nowrap; font-size: var(--font-size-caption); }
+  .nav-utility-link:hover { background: var(--color-surface-container-high); }
+  .nav-scrolled { background: var(--color-surface); }
+  /* @component-css-end */
+</style>
+</head>
+<body>
+  <div class="row"><span class="label">默认</span></div>
+  <div class="row">
+    <nav class="nav" data-evidence-sample="top-navigation">
+      <div class="nav-logo">
+        <span class="nav-logo-mark"></span>
+        <span>ENDFIELD</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link active" href="#" data-evidence-sample="active-nav-link">首页</a>
+        <a class="nav-link" href="#">作战</a>
+        <a class="nav-link" href="#">基建</a>
+        <a class="nav-link" href="#">档案</a>
+        <a class="nav-link" href="#">招募</a>
+      </div>
+      <div class="nav-utility">
+        <a class="nav-utility-link" href="#">语言</a>
+        <a class="nav-utility-link" href="#">联系</a>
+      </div>
+    </nav>
+  </div>
+  <hr class="divider">
+  <div class="row"><span class="label">滚动</span></div>
+  <div class="row">
+    <nav class="nav nav-scrolled" data-evidence-sample="scrolled-state">
+      <div class="nav-logo">
+        <span class="nav-logo-mark"></span>
+        <span>ENDFIELD</span>
+      </div>
+      <div class="nav-items">
+        <a class="nav-link" href="#">首页</a>
+        <a class="nav-link active" href="#" data-evidence-sample="active-nav-link">作战</a>
+        <a class="nav-link" href="#">基建</a>
+        <a class="nav-link" href="#">档案</a>
+        <a class="nav-link" href="#">招募</a>
+      </div>
+      <div class="nav-utility">
+        <a class="nav-utility-link" href="#">语言</a>
+        <a class="nav-utility-link" href="#">联系</a>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>

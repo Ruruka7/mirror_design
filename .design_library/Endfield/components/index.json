@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "sourceKind": "from-scratch",
+  "libraryName": "Endfield",
+  "components": [
+    {
+      "slug": "button",
+      "name": "Button",
+      "category": "action",
+      "confidence": "high",
+      "variantCount": 7,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Hazard-yellow solid buttons on dark ground with angular clip-path corners; secondary variants use outlined transparent with thick borders."
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "category": "surface",
+      "confidence": "high",
+      "variantCount": 4,
+      "priorityHint": "secondary",
+      "keyInsightSeed": "Dark surface containers on near-black ground with colored glow shadows and angular clip-path geometric cutouts."
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "category": "form",
+      "confidence": "medium",
+      "variantCount": 4,
+      "priorityHint": "secondary",
+      "keyInsightSeed": "Dark fields with neutral borders and yellow focus glow; industrial form language with angular corners."
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "category": "status",
+      "confidence": "high",
+      "variantCount": 6,
+      "priorityHint": "tertiary",
+      "keyInsightSeed": "Multi-accent status pills in hazard yellow, neon green, magenta, and neutral tints; circular or pill-shaped."
+    },
+    {
+      "slug": "cta-link",
+      "name": "CTA Link",
+      "category": "action",
+      "confidence": "high",
+      "variantCount": 3,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Yellow text links with arrow indicators and optional hazard-stripe underline; high-energy section exits."
+    },
+    {
+      "slug": "navigation",
+      "name": "Navigation",
+      "category": "shell",
+      "confidence": "high",
+      "variantCount": 2,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Dark top navigation with yellow active indicator and Novecentosanswide display labels in uppercase."
+    }
+  ]
+}

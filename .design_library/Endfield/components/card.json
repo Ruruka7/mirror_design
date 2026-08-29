@@ -1,0 +1,59 @@
+{
+  "slug": "card",
+  "schemaVersion": 2,
+  "name": "Card",
+  "category": "surface",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["card", "panel", "container"],
+  "variantDimensions": {
+    "padding": ["default", "compact"],
+    "tone": ["dark", "glow", "tinted"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Dark surface card",
+      "whySelected": "Standard content container on dark marketing pages; dark surface with subtle glow shadow.",
+      "traits": {
+        "background": "var(--color-surface)",
+        "color": "var(--foreground)",
+        "clipPath": "polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)",
+        "padding": "var(--space-6)",
+        "boxShadow": "var(--shadow-2)",
+        "border": "1px solid var(--border)"
+      },
+      "childrenDigest": ["eyebrow badge", "heading", "body", "cta-link"]
+    },
+    {
+      "name": "Glow card",
+      "whySelected": "Featured content with yellow brand glow shadow for high emphasis.",
+      "traits": {
+        "background": "var(--color-surface-container)",
+        "clipPath": "polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)",
+        "padding": "var(--space-6)",
+        "boxShadow": "var(--shadow-5)",
+        "border": "1px solid var(--primary)"
+      },
+      "childrenDigest": ["heading", "body", "media"]
+    },
+    {
+      "name": "Compact tinted card",
+      "whySelected": "Dense metadata or location items with minimal elevation.",
+      "traits": {
+        "background": "var(--color-surface-container-low)",
+        "borderRadius": "var(--radius-sm)",
+        "padding": "var(--space-4)",
+        "border": "1px solid var(--rule)"
+      },
+      "childrenDigest": ["eyebrow", "heading", "body"]
+    }
+  ],
+  "anatomy": ["root", "clip-path-corner", "content", "optional footer"],
+  "structurePatterns": ["vertical stack", "angular corner cut", "glow shadow elevation"],
+  "usageHints": {
+    "priorityHint": "Use dark cards for standard content; glow cards for featured items.",
+    "a11y": "Maintain sufficient contrast between card surface and page background."
+  },
+  "doNotInvent": ["image thumbnails", "hover lift animation", "expand/collapse behavior"],
+  "unknowns": ["exact clip-path corner size", "hover glow intensity"]
+}

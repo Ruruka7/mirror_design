@@ -1,0 +1,25 @@
+{
+  "brand": "Endfield",
+  "language": "zh",
+  "kitType": "marketing",
+  "readOrder": [
+    { "file": "README.md", "purpose": "Brand context, content fundamentals, visual foundations — read first for design intent" },
+    { "file": "SKILL.md", "purpose": "Skill entry point and quick essentials" },
+    { "file": "css.json", "purpose": "Structured token understanding source — read to understand color / type / spacing / radius values" },
+    { "file": "colors_and_type.css", "purpose": "Runtime CSS variables — link into HTML; do not read for token understanding when css.json exists" },
+    { "file": "components/index.json", "purpose": "Component index and cross-component patterns" },
+    { "file": "components.css", "purpose": "Aggregated component CSS extracted from preview pages" }
+  ],
+  "components": ["button", "card", "input", "badge", "cta-link", "navigation"],
+  "componentSourcePriority": {
+    "first": "preview/component-{slug}.html",
+    "second": "components/{slug}.json",
+    "fallback": "components/_evidence/{slug}.json"
+  },
+  "notes": [
+    "css.json is the token understanding source; colors_and_type.css is the runtime link source.",
+    "Preview DOM/CSS is the first source for component fidelity; component JSON provides intent/variants only.",
+    "Dark theme is default; .light class overrides tokens for light mode.",
+    "All color, radius, and spacing values originate from colors_and_type.css — do not introduce values not present there."
+  ]
+}
