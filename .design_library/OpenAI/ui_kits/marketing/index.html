@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI 营销 UI Kit</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--color-background); color: var(--color-foreground); font-family: var(--font-family-base); }
+    .uikit-shell { width: 100%; max-width: 1184px; margin: 0 auto; overflow: hidden; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--space-4); }
+    .uikit-sidebar, .uikit-main, .uikit-toolbar { min-width: 0; }
+    .uikit-sidebar { overflow: hidden; max-width: 100%; padding: var(--space-6) 0; }
+    .uikit-main { padding: var(--space-6) var(--space-6) var(--space-8) 0; }
+    [data-component] { min-width: 0; max-width: 100%; overflow: hidden; }
+    .uikit-toolbar { display: flex; align-items: center; gap: var(--space-2); }
+    .uikit-responsive-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+    .uikit-responsive-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .uikit-table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+    .uikit-truncate { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .uikit-nowrap { white-space: nowrap; flex-shrink: 0; }
+    .uikit-action-cell { display: flex; align-items: center; gap: 8px; min-width: 0; max-width: 160px; overflow: hidden; }
+    .uikit-action { min-width: 0; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .uikit-headline { text-wrap: balance; word-break: keep-all; }
+    .sidebar-link { display: flex; align-items: center; gap: var(--space-2); width: 100%; height: 40px; padding: 0 var(--space-3); border-radius: var(--radius-md); font-size: 14px; font-weight: 500; color: var(--color-foreground); text-decoration: none; white-space: nowrap; transition: background .15s, color .15s; }
+    .sidebar-link:hover { background: var(--color-muted); }
+    .sidebar-link.active { background: var(--color-muted); color: var(--color-primary); }
+
+    .page-section { margin-bottom: var(--space-8); }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-5); gap: var(--space-4); }
+    .section-title { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: var(--font-weight-h2); line-height: var(--line-height-h2); letter-spacing: var(--letter-spacing-h2); margin: 0; }
+    .section-link { font-size: var(--font-size-body); font-weight: 500; color: var(--color-primary); text-decoration: none; }
+    .section-link:hover { text-decoration: underline; }
+
+    .hero { text-align: center; padding: var(--space-8) var(--space-6); }
+    .hero-title { font-family: var(--font-display); font-size: var(--font-size-display); font-weight: var(--font-weight-display); line-height: var(--line-height-display); letter-spacing: var(--letter-spacing-display); margin: 0 0 var(--space-5); }
+    .hero-input-shell { position: relative; max-width: 720px; margin: 0 auto var(--space-5); background: var(--color-background); border-radius: var(--radius-xl); box-shadow: var(--shadow-1); padding: var(--space-4) 52px var(--space-4) var(--space-4); }
+    .hero-input-shell input { width: 100%; border: none; background: transparent; font-family: var(--font-body); font-size: var(--font-size-input); line-height: var(--line-height-body); color: var(--color-foreground); outline: none; }
+    .hero-input-shell input::placeholder { color: var(--color-muted-foreground); }
+    .hero-input-shell .send { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--color-muted-foreground); }
+    .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+    .pill { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--space-4); background: var(--color-muted); border-radius: var(--radius-full); font-size: var(--font-size-pill); font-weight: 500; color: var(--color-foreground); text-decoration: none; white-space: nowrap; transition: background .15s; }
+    .pill:hover { background: var(--neutral-300); }
+
+    .featured-card { display: block; position: relative; border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; background: var(--neutral-100); min-height: 360px; }
+    .featured-media { position: absolute; inset: 0; background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%); }
+    .featured-content { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--space-6); background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); color: #fff; }
+    .featured-eyebrow { font-size: var(--font-size-caption); font-weight: 500; opacity: 0.85; margin-bottom: var(--space-2); }
+    .featured-title { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 600; line-height: var(--line-height-h2); margin: 0 0 var(--space-2); }
+    .featured-meta { font-size: var(--font-size-caption); opacity: 0.8; }
+
+    .media-card { display: flex; flex-direction: column; background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; transition: box-shadow .15s, transform .15s; }
+    .media-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+    .media-card__image { height: 180px; background: linear-gradient(135deg, var(--neutral-200) 0%, var(--neutral-300) 100%); }
+    .media-card__body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+    .media-card__title { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: var(--font-weight-h4); line-height: var(--line-height-h4); color: var(--color-foreground); margin: 0; }
+    .media-card__meta { font-size: var(--font-size-caption); color: var(--color-muted-foreground); }
+
+    .cta-card { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-4); background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); }
+    .cta-card__title { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: var(--font-weight-h3); line-height: var(--line-height-h3); margin: 0; }
+    .cta-card__desc { font-size: var(--font-size-body); color: var(--color-muted-foreground); margin: 0; }
+
+    .footer { border-top: 1px solid var(--color-border); padding-top: var(--space-8); margin-top: var(--space-8); }
+    .footer-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-5); }
+    .footer-col h4 { font-size: var(--font-size-caption); font-weight: 600; margin: 0 0 var(--space-3); }
+    .footer-col a { display: block; font-size: var(--font-size-caption); color: var(--color-muted-foreground); text-decoration: none; margin-bottom: var(--space-2); }
+    .footer-col a:hover { color: var(--color-foreground); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding: var(--space-6) 0; margin-top: var(--space-6); border-top: 1px solid var(--color-border); }
+    .social { display: flex; gap: var(--space-3); }
+    .social a { font-size: var(--font-size-caption); color: var(--color-muted-foreground); text-decoration: none; }
+    .copyright { font-size: var(--font-size-caption); color: var(--color-muted-foreground); }
+
+    @media (max-width: 900px) {
+      .uikit-shell { grid-template-columns: minmax(0, 1fr); }
+      .uikit-sidebar { display: none; }
+      .uikit-main { padding: var(--space-4); }
+      .uikit-responsive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .uikit-toolbar { flex-direction: column; align-items: stretch; }
+      .uikit-responsive-grid { grid-template-columns: minmax(0, 1fr); }
+      .uikit-responsive-grid-2 { grid-template-columns: minmax(0, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-links { display: none; }
+      .hero { padding: var(--space-6) var(--space-4); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const views = ['home', 'products', 'start'];
+    const viewLabels = { home: '首页', products: '产品', start: '开始使用' };
+
+    const ArrowRight = () => (
+      <img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt="" className="cta-link__icon" />
+    );
+
+    const TopNav = ({ activeView, setView }) => (
+      <header data-component="navigation" style={{ position: 'sticky', top: 0, zIndex: 20 }}>
+        <nav className="nav nav-solid" style={{ height: '68px' }}>
+          <div className="nav-logo">OpenAI</div>
+          <div className="nav-links">
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setView('products'); }}>产品</a>
+            <a href="#" className="nav-link">研究</a>
+            <a href="#" className="nav-link">企业</a>
+            <a href="#" className="nav-link">开发人员</a>
+            <a href="#" className="nav-link">公司</a>
+            <a href="#" className="nav-link">基金会</a>
+          </div>
+          <div className="uikit-toolbar" style={{ gap: 'var(--space-3)' }}>
+            <i data-lucide="search" style={{ width: '20px', height: '20px', display: 'inline-block', color: 'var(--color-foreground)' }}></i>
+            <button className="btn secondary md" data-component="button">登录</button>
+            <button className="btn primary md" data-component="button">试用 ChatGPT</button>
+          </div>
+        </nav>
+      </header>
+    );
+
+    const Sidebar = ({ activeView, setView }) => (
+      <aside className="uikit-sidebar" data-component="navigation">
+        <div className="uikit-truncate" style={{ fontWeight: 600, marginBottom: 'var(--space-4)', padding: '0 var(--space-3)' }}>营销展示</div>
+        {views.map((v) => (
+          <a key={v} href="#" className={`sidebar-link ${activeView === v ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView(v); }}>
+            {viewLabels[v]}
+          </a>
+        ))}
+      </aside>
+    );
+
+    const Pill = ({ children }) => (
+      <a href="#" className="pill" data-component="badge">{children}</a>
+    );
+
+    const MediaCard = ({ title, category, date }) => (
+      <a href="#" className="media-card" data-component="card">
+        <div className="media-card__image"></div>
+        <div className="media-card__body">
+          <h3 className="media-card__title">{title}</h3>
+          <div className="media-card__meta">{category} · {date}</div>
+        </div>
+      </a>
+    );
+
+    const HomeView = () => (
+      <section style={{ display: 'block' }}>
+        <div className="hero page-section">
+          <h1 className="hero-title">有什么可以帮忙的？</h1>
+          <div className="hero-input-shell" data-component="input">
+            <input type="text" placeholder="给 ChatGPT 发送消息" />
+            <span className="send"><i data-lucide="arrow-up" style={{ width: '20px', height: '20px', display: 'inline-block' }}></i></span>
+          </div>
+          <div className="pills">
+            <Pill>了解 ChatGPT Business</Pill>
+            <Pill>与 ChatGPT 对话</Pill>
+            <Pill>研究</Pill>
+            <Pill>API 平台</Pill>
+            <Pill>更多</Pill>
+          </div>
+        </div>
+
+        <a href="#" className="featured-card page-section" data-component="card">
+          <div className="featured-media"></div>
+          <div className="featured-content">
+            <div className="featured-eyebrow">产品 · 18 分钟阅读</div>
+            <h2 className="featured-title">GPT-5.6：随宏大目标灵活扩展的前沿智能</h2>
+            <div className="featured-meta">2026 年 8 月 28 日</div>
+          </div>
+        </a>
+
+        <div className="page-section">
+          <div className="section-header">
+            <h2 className="section-title">最新动态</h2>
+            <a href="#" className="section-link">查看更多</a>
+          </div>
+          <div className="uikit-responsive-grid">
+            <MediaCard title="Sora 迎来新的视频生成能力" category="产品" date="2026 年 8 月 26 日" />
+            <MediaCard title="OpenAI 安全系统的最新进展" category="安全" date="2026 年 8 月 24 日" />
+            <MediaCard title="与新闻机构合作拓展版权许可" category="公司" date="2026 年 8 月 21 日" />
+          </div>
+        </div>
+
+        <div className="page-section">
+          <div className="section-header">
+            <h2 className="section-title">客户案例</h2>
+            <a href="#" className="section-link">查看全部</a>
+          </div>
+          <div className="uikit-responsive-grid">
+            <MediaCard title="摩根士丹利利用 GPT 重塑财富管理体验" category="金融" date="案例研究" />
+            <MediaCard title="Moderna 加速 mRNA 研究与开发" category="生命科学" date="案例研究" />
+            <MediaCard title="Canva 借助 DALL·E 3 释放创意" category="设计" date="案例研究" />
+          </div>
+        </div>
+
+        <div className="page-section">
+          <div className="section-header">
+            <h2 className="section-title">最新研究</h2>
+            <a href="#" className="section-link">查看全部</a>
+          </div>
+          <div className="uikit-responsive-grid">
+            <MediaCard title=" o1 推理模型的扩展规律" category="研究" date="2026 年 8 月" />
+            <MediaCard title="提升多语言对齐的新方法" category="研究" date="2026 年 8 月" />
+            <MediaCard title="用人类反馈强化学习改善语音模型" category="研究" date="2026 年 7 月" />
+          </div>
+        </div>
+
+        <div className="page-section">
+          <div className="section-header">
+            <h2 className="section-title">OpenAI 企业解决方案</h2>
+            <a href="#" className="section-link">了解更多</a>
+          </div>
+          <div className="uikit-responsive-grid-2">
+            <div className="cta-card" data-component="card">
+              <div>
+                <h3 className="cta-card__title">ChatGPT Business</h3>
+                <p className="cta-card__desc">安全、可扩展的 AI 助手，帮助团队更快完成写作、编码、分析与学习。</p>
+              </div>
+              <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">了解方案 <ArrowRight /></a>
+            </div>
+            <div className="cta-card" data-component="card">
+              <div>
+                <h3 className="cta-card__title">API 平台</h3>
+                <p className="cta-card__desc">将前沿模型集成到您的产品中，支持自定义微调与企业级部署。</p>
+              </div>
+              <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">查看文档 <ArrowRight /></a>
+            </div>
+          </div>
+        </div>
+
+        <div className="page-section">
+          <div className="section-header">
+            <h2 className="section-title">开始使用 ChatGPT</h2>
+            <a href="#" className="section-link">下载</a>
+          </div>
+          <div className="card" data-component="card">
+            <div className="uikit-toolbar" style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+              <div style={{ minWidth: 0 }}>
+                <h3 className="card__title">免费试用 ChatGPT</h3>
+                <p className="card__description" style={{ marginTop: 'var(--space-2)' }}>注册账号即可在网页、iOS 与 Android 上体验。</p>
+              </div>
+              <button className="btn primary md" data-component="button">立即开始</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const products = [
+      ['ChatGPT', '对话式 AI', '探索'],
+      ['GPT-5.6', '前沿推理', '了解'],
+      ['Sora', '视频生成', '预览'],
+      ['DALL·E 3', '图像生成', '体验'],
+      ['Whisper', '语音转录', 'API'],
+      ['API 平台', '开发者工具', '文档'],
+    ];
+
+    const ProductsView = () => (
+      <section style={{ display: 'block' }}>
+        <div className="section-header">
+          <h1 className="section-title" style={{ fontSize: 'var(--font-size-h1)' }}>产品</h1>
+          <button className="btn primary md" data-component="button">查看全部产品</button>
+        </div>
+        <p className="openai-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
+          从日常助手到企业级 API，OpenAI 产品帮助个人与团队安全地使用前沿 AI。
+        </p>
+        <div className="uikit-table-wrap" style={{ marginBottom: 'var(--space-8)' }}>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>产品</th>
+                <th>定位</th>
+                <th className="uikit-nowrap">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((row, i) => (
+                <tr key={i}>
+                  <td className="uikit-truncate" style={{ fontWeight: 500 }}>{row[0]}</td>
+                  <td className="uikit-truncate">{row[1]}</td>
+                  <td>
+                    <div className="uikit-action-cell">
+                      <button className="btn ghost sm uikit-action" data-component="button">{row[2]}</button>
+                      <i data-lucide="chevron-right" style={{ width: '16px', height: '16px', display: 'inline-block', flexShrink: 0, color: 'var(--color-muted-foreground)' }}></i>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <h2 className="openai-h4 uikit-headline" style={{ marginBottom: 'var(--space-5)' }}>热门能力</h2>
+        <div className="uikit-responsive-grid">
+          <div className="card card-raised" data-component="card">
+            <div className="card__eyebrow">GPT-5.6</div>
+            <h3 className="card__title">复杂推理与编码</h3>
+            <p className="card__description">在数学、科学和软件工程任务中展现更强的理解与规划能力。</p>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">了解更多 <ArrowRight /></a>
+          </div>
+          <div className="card" data-component="card">
+            <div className="card__eyebrow">Sora</div>
+            <h3 className="card__title">视频创作</h3>
+            <p className="card__description">通过自然语言生成高质量、风格多样的视频内容。</p>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">申请访问 <ArrowRight /></a>
+          </div>
+          <div className="card" data-component="card">
+            <div className="card__eyebrow">API</div>
+            <h3 className="card__title">实时语音与视觉</h3>
+            <p className="card__description">构建支持语音、图像与文本输入的多模态应用。</p>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">查看文档 <ArrowRight /></a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const StartView = () => (
+      <section style={{ display: 'block' }}>
+        <div className="section-header">
+          <h1 className="section-title" style={{ fontSize: 'var(--font-size-h1)' }}>开始使用 ChatGPT</h1>
+          <button className="btn primary md" data-component="button">创建账户</button>
+        </div>
+        <p className="openai-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
+          几分钟内即可在浏览器或移动设备上体验 ChatGPT，也可通过 API 构建自己的产品。
+        </p>
+        <div className="uikit-responsive-grid-2" style={{ marginBottom: 'var(--space-8)' }}>
+          <div className="cta-card" data-component="card">
+            <div>
+              <h3 className="cta-card__title">网页版</h3>
+              <p className="cta-card__desc">在 chat.openai.com 直接开始对话，无需安装。</p>
+            </div>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">打开 ChatGPT <ArrowRight /></a>
+          </div>
+          <div className="cta-card" data-component="card">
+            <div>
+              <h3 className="cta-card__title">移动应用</h3>
+              <p className="cta-card__desc">下载 iOS 或 Android 应用，随时随地使用语音对话。</p>
+            </div>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">下载应用 <ArrowRight /></a>
+          </div>
+        </div>
+        <div className="card" data-component="card">
+          <h3 className="card__title" style={{ marginBottom: 'var(--space-4)' }}>订阅研究动态</h3>
+          <div className="uikit-toolbar" style={{ gap: 'var(--space-4)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            <div className="field" data-component="input" style={{ flex: '1 1 260px', minWidth: 0 }}>
+              <label className="openai-caption" style={{ color: 'var(--color-muted-foreground)' }}>邮箱地址</label>
+              <div className="input"><input type="email" placeholder="name@company.com" /></div>
+            </div>
+            <button className="btn secondary md" data-component="button">订阅</button>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer className="footer" data-component="navigation">
+        <div className="footer-grid">
+          <div className="footer-col"><h4>研究</h4><a href="#">概述</a><a href="#">索引</a><a href="#">最新进展</a></div>
+          <div className="footer-col"><h4>产品</h4><a href="#">ChatGPT</a><a href="#">API 平台</a><a href="#">ChatGPT Business</a></div>
+          <div className="footer-col"><h4>开发者</h4><a href="#">文档</a><a href="#">API 参考</a><a href="#">状态</a></div>
+          <div className="footer-col"><h4>公司</h4><a href="#">关于</a><a href="#">博客</a><a href="#">职业机会</a></div>
+          <div className="footer-col"><h4>支持</h4><a href="#">帮助中心</a><a href="#">联系我们</a><a href="#">安全</a></div>
+          <div className="footer-col"><h4>条款与政策</h4><a href="#">使用条款</a><a href="#">隐私政策</a><a href="#">品牌政策</a></div>
+        </div>
+        <div className="footer-bottom">
+          <div className="social">
+            <a href="#">X</a><a href="#">LinkedIn</a><a href="#">YouTube</a><a href="#">GitHub</a>
+          </div>
+          <div className="copyright">OpenAI © 2015–2026</div>
+        </div>
+      </footer>
+    );
+
+    function App() {
+      const [activeView, setView] = useState('home');
+      useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [activeView]);
+      return (
+        <div>
+          <TopNav activeView={activeView} setView={setView} />
+          <div className="uikit-shell" data-layout-guard="uikit-v1" style={{ '--uikit-sidebar-w': '220px' }}>
+            <Sidebar activeView={activeView} setView={setView} />
+            <main className="uikit-main">
+              <div style={{ display: activeView === 'home' ? 'block' : 'none' }}><HomeView /></div>
+              <div style={{ display: activeView === 'products' ? 'block' : 'none' }}><ProductsView /></div>
+              <div style={{ display: activeView === 'start' ? 'block' : 'none' }}><StartView /></div>
+              <Footer />
+            </main>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

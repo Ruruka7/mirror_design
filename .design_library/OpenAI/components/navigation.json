@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "name": "Navigation",
+  "category": "shell",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "top-nav",
+      "evidence": "Horizontal header navigation"
+    },
+    {
+      "candidate": "mega-menu",
+      "evidence": "Grouped product links"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "variant",
+      "values": [
+        "transparent",
+        "solid"
+      ],
+      "description": "Header background"
+    },
+    {
+      "name": "state",
+      "values": [
+        "default",
+        "hover",
+        "active"
+      ],
+      "description": "Link state"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "transparent/default",
+      "whySelected": "Landing page hero header",
+      "traits": {
+        "background": "transparent",
+        "color": "var(--color-foreground)",
+        "height": "var(--size-nav)",
+        "padding": "0 var(--space-6)",
+        "fontSize": "var(--font-size-sm)"
+      },
+      "childrenDigest": [
+        "logo",
+        "links",
+        "primary CTA"
+      ]
+    },
+    {
+      "name": "solid/default",
+      "whySelected": "Scrolled or interior page header",
+      "traits": {
+        "background": "var(--color-background)",
+        "borderBottom": "1px solid var(--color-border)",
+        "backdropFilter": "blur(8px)"
+      },
+      "childrenDigest": [
+        "logo",
+        "links",
+        "primary CTA"
+      ]
+    },
+    {
+      "name": "link/hover",
+      "whySelected": "Subtle hover feedback",
+      "traits": {
+        "color": "var(--color-foreground)",
+        "underlineOffset": "4px"
+      },
+      "childrenDigest": []
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "header bar"
+    },
+    {
+      "part": "logo",
+      "role": "brand mark"
+    },
+    {
+      "part": "links",
+      "role": "nav items"
+    },
+    {
+      "part": "actions",
+      "role": "CTA or utility"
+    }
+  ],
+  "structurePatterns": [
+    "horizontal flex",
+    "logo left, links center/right, CTA far right"
+  ],
+  "usageHints": {
+    "priorityHint": "Keep nav sparse; use transparent style on hero and solid on scroll",
+    "placement": "page header"
+  },
+  "doNotInvent": [
+    "no sidebar",
+    "no hamburger menu states",
+    "no search input in nav"
+  ],
+  "unknowns": [
+    "mobile breakpoint behavior inferred"
+  ],
+  "keyInsightSeed": "Navigation is intentionally minimal: a logo, a few links, and one primary action.",
+  "slug": "navigation"
+}

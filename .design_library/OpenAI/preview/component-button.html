@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button - OpenAI</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: var(--space-3); background: var(--color-background); font-family: var(--font-family-base); color: var(--color-foreground); }
+  .row { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-2); flex-wrap: wrap; }
+  .label { flex-shrink: 0; min-width: 92px; font-size: var(--font-size-caption); font-weight: 500; color: var(--color-muted-foreground); text-transform: uppercase; letter-spacing: 0.02em; }
+  .divider { border: none; border-top: 1px solid var(--color-border); margin: var(--space-3) 0; }
+  /* @component-css-start */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1); border: 1px solid transparent; font-family: var(--font-family-base); font-weight: 500; line-height: 1; white-space: nowrap; cursor: pointer; flex-shrink: 0; transition: background .15s, border-color .15s, filter .15s; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.primary { height: 40px; padding: 0 20px; background: #000; color: #fff; border-radius: 40px; font-size: 14px; }
+  .btn.primary:hover { background: #333; }
+  .btn.primary:active { filter: brightness(0.95); }
+  .btn.secondary { height: 40px; padding: 0 20px; background: rgba(0,0,0,0.04); color: #000; border-radius: 40px; font-size: 14px; }
+  .btn.secondary:hover { background: rgba(0,0,0,0.08); }
+  .btn.secondary:active { filter: brightness(0.97); }
+  .btn.pill { height: 40px; padding: 0 20px; background: rgba(0,0,0,0.04); color: #000; border-radius: 9999px; font-size: 14px; }
+  .btn.pill:hover { background: rgba(0,0,0,0.08); }
+  .btn.pill.active { background: #000; color: #fff; }
+  .btn.pill.outline { background: #fff; border-color: var(--color-border); }
+  .btn.pill.outline:hover { background: rgba(0,0,0,0.04); }
+  /* @component-css-end */
+</style>
+</head>
+<body>
+  <div class="row"><span class="label">主要</span><button class="btn primary" type="button">试用 ChatGPT</button><button class="btn primary" type="button" disabled>试用 ChatGPT</button></div>
+  <div class="row"><span class="label">次要</span><button class="btn secondary" type="button">登录</button><button class="btn secondary" type="button" disabled>登录</button></div>
+  <div class="row"><span class="label">药丸</span><button class="btn pill" type="button">研究</button><button class="btn pill" type="button">API 平台</button><button class="btn pill active" type="button">产品</button><button class="btn pill outline" type="button">更多</button></div>
+  <hr class="divider">
+  <div class="row"><span class="label">真实文案</span><button class="btn primary" type="button">了解 ChatGPT Business</button><button class="btn secondary" type="button">与 ChatGPT 对话</button></div>
+</body>
+</html>

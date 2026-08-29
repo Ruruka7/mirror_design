@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "screensGenerated": 3,
+  "coreComponentsUsed": ["button", "navigation", "card", "badge", "cta-link", "input"],
+  "supportComponentsUsed": [],
+  "previewClassReuseRate": 0.82,
+  "hasProductContext": true,
+  "inventedComponents": [],
+  "renderedFromEvidence": [],
+  "primaryActionPerScreen": {
+    "home": "试用 ChatGPT",
+    "components": "与 ChatGPT 对话",
+    "typography": "下载"
+  },
+  "interactiveStatesRendered": ["hover", "focus", "active", "disabled"],
+  "warnings": []
+}

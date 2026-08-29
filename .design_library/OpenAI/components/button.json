@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 2,
+  "name": "Button",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "button",
+      "evidence": "CTA and form submit trigger"
+    },
+    {
+      "candidate": "link",
+      "evidence": "May appear as text-only action"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "variant",
+      "values": [
+        "primary",
+        "secondary",
+        "ghost"
+      ],
+      "description": "Visual weight and background emphasis"
+    },
+    {
+      "name": "size",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Padding and font scale"
+    },
+    {
+      "name": "state",
+      "values": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ],
+      "description": "Interaction feedback"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "primary/default",
+      "whySelected": "Primary conversion CTA",
+      "traits": {
+        "background": "var(--color-primary)",
+        "color": "var(--color-primary-foreground)",
+        "radius": "var(--radius-md)",
+        "padding": "var(--space-3) var(--space-5)",
+        "fontWeight": "var(--font-weight-medium)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    },
+    {
+      "name": "secondary/default",
+      "whySelected": "Alternative action on dark or light surface",
+      "traits": {
+        "background": "var(--color-secondary)",
+        "color": "var(--color-secondary-foreground)",
+        "border": "var(--color-border)",
+        "radius": "var(--radius-md)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    },
+    {
+      "name": "ghost/default",
+      "whySelected": "Low-emphasis navigation action",
+      "traits": {
+        "background": "transparent",
+        "color": "var(--color-foreground)",
+        "hoverBackground": "var(--color-muted)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    },
+    {
+      "name": "primary/large",
+      "whySelected": "Hero or pricing CTA",
+      "traits": {
+        "minHeight": "var(--size-button-lg)",
+        "padding": "var(--space-4) var(--space-6)",
+        "fontSize": "var(--font-size-lg)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "clickable container"
+    },
+    {
+      "part": "label",
+      "role": "action text"
+    }
+  ],
+  "structurePatterns": [
+    "single-line text",
+    "optional icon + label"
+  ],
+  "usageHints": {
+    "priorityHint": "Use one primary per section; secondary/ghost for repeated actions",
+    "placement": "hero, forms, cards"
+  },
+  "doNotInvent": [
+    "no split dropdown",
+    "no toggle behavior",
+    "no loading spinner variant"
+  ],
+  "unknowns": [
+    "exact shadow on hover inferred from token system"
+  ],
+  "keyInsightSeed": "OpenAI buttons are quiet but decisive: rounded rectangles, no uppercase, generous horizontal padding.",
+  "slug": "button"
+}

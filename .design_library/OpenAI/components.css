@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════════════════════
+   components.css — Design System Component Definitions
+   Auto-extracted from preview/component-*.html
+   DO NOT EDIT MANUALLY — regenerate via extract-components-css.mjs
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Badge ─────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">分类</span> <span class="badge filled" data-evidence-sample="category">产品</span> <span class="badge filled" data-evidence-sample="category">安全防护</span> <span class="badge filled" data-evidence-sample="category">工程</span> <span class="badge filled" data-evidence-sample="category">公司</span> <span class="badge filled" data-evidence-sample="category">研究</span>
+*/
+.badge { display: inline-flex; align-items: center; justify-content: center; height: 28px; padding: 0 12px; border-radius: 9999px; font-size: 13px; font-weight: 500; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+  .badge.filled { background: rgba(0,0,0,0.04); color: #000; border: 1px solid transparent; }
+  .badge.outline { background: #fff; color: #000; border: 1px solid var(--color-border); }
+  .badge.white { background: #fff; color: #000; border: 1px solid transparent; }
+  .badge.large { height: 32px; padding: 0 14px; font-size: 14px; }
+
+/* ── Button ────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">主要</span><button class="btn primary" type="button">试用 ChatGPT</button><button class="btn primary" type="button" disabled>试用 ChatGPT</button>
+*/
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1); border: 1px solid transparent; font-family: var(--font-family-base); font-weight: 500; line-height: 1; white-space: nowrap; cursor: pointer; flex-shrink: 0; transition: background .15s, border-color .15s, filter .15s; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.primary { height: 40px; padding: 0 20px; background: #000; color: #fff; border-radius: 40px; font-size: 14px; }
+  .btn.primary:hover { background: #333; }
+  .btn.primary:active { filter: brightness(0.95); }
+  .btn.secondary { height: 40px; padding: 0 20px; background: rgba(0,0,0,0.04); color: #000; border-radius: 40px; font-size: 14px; }
+  .btn.secondary:hover { background: rgba(0,0,0,0.08); }
+  .btn.secondary:active { filter: brightness(0.97); }
+  .btn.pill { height: 40px; padding: 0 20px; background: rgba(0,0,0,0.04); color: #000; border-radius: 9999px; font-size: 14px; }
+  .btn.pill:hover { background: rgba(0,0,0,0.08); }
+  .btn.pill.active { background: #000; color: #fff; }
+  .btn.pill.outline { background: #fff; border-color: var(--color-border); }
+  .btn.pill.outline:hover { background: rgba(0,0,0,0.04); }
+
+/* ── Card ──────────────────────────────────────────────────── */
+/* @anatomy
+   <div class="label">博客
+*/
+.card { display: flex; flex-direction: column; gap: var(--space-3); background: #fff; border: 1px solid transparent; border-radius: 14px; width: 100%; max-width: 360px; overflow: hidden; box-sizing: border-box; transition: box-shadow .15s; cursor: pointer; }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .card__media { width: 100%; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #f0f0f0 0%, #e5e5e5 100%); object-fit: cover; }
+  .card__body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+  .card__meta { display: flex; align-items: center; gap: var(--space-2); font-size: 13px; font-weight: 500; color: rgba(0,0,0,0.6); line-height: var(--line-height-caption); }
+  .card__category { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; background: rgba(0,0,0,0.04); color: #000; border-radius: 9999px; font-size: 13px; font-weight: 500; }
+  .card__title { font-family: var(--font-heading); font-size: 16.5px; font-weight: 500; line-height: 24px; color: #000; margin: 0; letter-spacing: -0.17px; }
+
+/* ── Cta Link ──────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">默认</span> <a href="#" class="cta-link cta-link--md" data-evidence-sample="default">查看更多<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt="" class="cta-link__icon"></a>
+*/
+.cta-link { display: inline-flex; align-items: center; gap: 4px; color: #000; text-decoration: none; cursor: pointer; transition: opacity .15s; flex-shrink: 0; white-space: nowrap; }
+  .cta-link:hover { opacity: 0.7; }
+  .cta-link:focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; }
+  .cta-link--md { font-size: 14px; font-weight: 500; }
+  .cta-link--lg { font-size: 17px; font-weight: 500; }
+  .cta-link__icon { flex-shrink: 0; width: 16px; height: 16px; }
+  .cta-link--lg .cta-link__icon { width: 18px; height: 18px; }
+  .cta-link--external .cta-link__icon { width: 14px; height: 14px; }
+
+/* ── Input ─────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">默认</span> <div class="chat-input" data-evidence-sample="default"> <textarea rows="1" placeholder="给 ChatGPT 发送消息"></textarea> <button class="chat-input__send" type="button" aria-label="发送"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" ...
+*/
+.chat-input { display: flex; align-items: center; gap: var(--space-2); width: 100%; max-width: 720px; min-height: 56px; padding: 16px 52px 16px 16px; background: #fff; border-radius: 24px; box-shadow: 0 3px 6px rgba(0,0,0,0.04), 0 4px 80px 8px rgba(0,0,0,0.04), 0 0 1px rgba(0,0,0,0.62); box-sizing: border-box; position: relative; transition: box-shadow .15s; }
+  .chat-input:focus-within { box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 4px 80px 8px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.72); }
+  .chat-input textarea { flex: 1; min-width: 0; min-height: 24px; max-height: 200px; border: none; background: transparent; color: inherit; font-family: inherit; font-size: 16px; line-height: 24px; outline: none; resize: none; }
+  .chat-input textarea::placeholder { color: rgba(0,0,0,0.4); }
+  .chat-input__send { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 9999px; background: #000; color: #fff; cursor: pointer; transition: background .15s; }
+  .chat-input__send:hover { background: #333; }
+  .chat-input__send svg { width: 16px; height: 16px; }
+
+/* ── Navigation ────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">Desktop</span>
+*/
+.nav { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 68px; padding: 0 var(--space-5); box-sizing: border-box; flex-shrink: 0; background: transparent; }
+  .nav-logo { font-size: 20px; font-weight: 600; color: #000; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.5px; }
+  .nav-links { display: flex; align-items: center; gap: var(--space-1); flex-shrink: 0; }
+  .nav-link { display: inline-flex; align-items: center; height: 40px; padding: 0 var(--space-2); font-size: 17px; font-weight: 400; color: #000; text-decoration: none; white-space: nowrap; border-radius: 8px; transition: background .15s; flex-shrink: 0; }
+  .nav-link:hover { background: rgba(0,0,0,0.04); }
+  .nav-actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+  .nav-search { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 9999px; background: transparent; color: #000; cursor: pointer; }
+  .nav-search:hover { background: rgba(0,0,0,0.04); }
+  .nav-search svg { width: 20px; height: 20px; }
+  .nav-btn { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 20px; font-size: 14px; font-weight: 500; border-radius: 40px; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background .15s; flex-shrink: 0; }
+  .nav-btn--secondary { background: rgba(0,0,0,0.04); color: #000; }
+  .nav-btn--secondary:hover { background: rgba(0,0,0,0.08); }
+  .nav-btn--primary { background: #000; color: #fff; }
+  .nav-btn--primary:hover { background: #333; }
+  .nav-menu { width: 40px; height: 40px; display: none; align-items: center; justify-content: center; border: none; border-radius: 8px; background: transparent; color: #000; cursor: pointer; }
+  .nav-menu svg { width: 20px; height: 20px; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-actions .nav-btn--secondary { display: none; }
+    .nav-menu { display: inline-flex; }
+  }

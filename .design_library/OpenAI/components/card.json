@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "name": "Card",
+  "category": "surface",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "article-card",
+      "evidence": "Blog post or announcement preview"
+    },
+    {
+      "candidate": "feature-card",
+      "evidence": "Product capability highlight"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "elevation",
+      "values": [
+        "flat",
+        "raised"
+      ],
+      "description": "Background vs lifted surface"
+    },
+    {
+      "name": "padding",
+      "values": [
+        "compact",
+        "comfortable"
+      ],
+      "description": "Internal spacing"
+    },
+    {
+      "name": "media",
+      "values": [
+        "none",
+        "top"
+      ],
+      "description": "Thumbnail placement"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "flat/comfortable",
+      "whySelected": "Editorial announcement card",
+      "traits": {
+        "background": "var(--color-card)",
+        "border": "var(--color-border)",
+        "radius": "var(--radius-lg)",
+        "padding": "var(--space-6)"
+      },
+      "childrenDigest": [
+        "eyebrow",
+        "title",
+        "description",
+        "meta"
+      ]
+    },
+    {
+      "name": "raised/comfortable",
+      "whySelected": "Feature highlight on landing page",
+      "traits": {
+        "background": "var(--color-card)",
+        "shadow": "var(--shadow-3)",
+        "radius": "var(--radius-lg)",
+        "padding": "var(--space-6)"
+      },
+      "childrenDigest": [
+        "icon",
+        "title",
+        "description"
+      ]
+    },
+    {
+      "name": "flat/compact",
+      "whySelected": "Dense news list item",
+      "traits": {
+        "padding": "var(--space-4)",
+        "radius": "var(--radius-md)",
+        "borderBottom": "1px solid var(--color-border)"
+      },
+      "childrenDigest": [
+        "title",
+        "meta"
+      ]
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "contained surface"
+    },
+    {
+      "part": "media",
+      "role": "optional thumbnail"
+    },
+    {
+      "part": "content",
+      "role": "text block"
+    },
+    {
+      "part": "meta",
+      "role": "category/date tag"
+    }
+  ],
+  "structurePatterns": [
+    "vertical flex container",
+    "optional media above content"
+  ],
+  "usageHints": {
+    "priorityHint": "Keep cards scannable: one headline, short description, clear category",
+    "placement": "grids, lists, carousels"
+  },
+  "doNotInvent": [
+    "no horizontal split layouts",
+    "no complex data tables inside cards"
+  ],
+  "unknowns": [
+    "hover lift amount inferred"
+  ],
+  "keyInsightSeed": "Cards behave like editorial panels: generous padding, soft borders, and restrained shadows.",
+  "slug": "card"
+}

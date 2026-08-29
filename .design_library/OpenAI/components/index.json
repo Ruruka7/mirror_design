@@ -1,0 +1,64 @@
+{
+  "components": [
+    {
+      "slug": "button",
+      "name": "Button",
+      "category": "action",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 36,
+      "priorityHint": "Use one primary per section; secondary/ghost for repeated actions",
+      "keyInsightSeed": "OpenAI buttons are quiet but decisive: rounded rectangles, no uppercase, generous horizontal padding."
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "category": "surface",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 8,
+      "priorityHint": "Keep cards scannable: one headline, short description, clear category",
+      "keyInsightSeed": "Cards behave like editorial panels: generous padding, soft borders, and restrained shadows."
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "category": "form",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 12,
+      "priorityHint": "Reserve visible borders; use focus ring for accessibility",
+      "keyInsightSeed": "Inputs are understated: thin neutral borders, no background tint, clear focus state."
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "category": "status",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 8,
+      "priorityHint": "Use pills for categories, statuses, and metadata; avoid long text",
+      "keyInsightSeed": "Badges are tiny editorial markers: pill-shaped, light weight, often outline."
+    },
+    {
+      "slug": "cta-link",
+      "name": "CTA Link",
+      "category": "navigation",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 6,
+      "priorityHint": "Use arrow links to lead users into deeper content; keep label concise",
+      "keyInsightSeed": "CTA links feel editorial: a short phrase and a single arrow, no button chrome."
+    },
+    {
+      "slug": "navigation",
+      "name": "Navigation",
+      "category": "shell",
+      "sourceKind": "from-scratch",
+      "confidence": "medium",
+      "variantCount": 6,
+      "priorityHint": "Keep nav sparse; use transparent style on hero and solid on scroll",
+      "keyInsightSeed": "Navigation is intentionally minimal: a logo, a few links, and one primary action."
+    }
+  ]
+}

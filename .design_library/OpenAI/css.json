@@ -1,0 +1,507 @@
+{
+  "color": {
+    "primary": {
+      "primary-600": {
+        "hex": "#000000",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "primary-700": {
+        "hex": "#0f0f0f",
+        "opacity": "1"
+      },
+      "primary-800": {
+        "hex": "#171717",
+        "opacity": "1"
+      },
+      "primary-900": {
+        "hex": "#262626",
+        "opacity": "1"
+      },
+      "primary-500": {
+        "hex": "#525252",
+        "opacity": "1"
+      },
+      "primary-400": {
+        "hex": "#737373",
+        "opacity": "1"
+      },
+      "primary-300": {
+        "hex": "#a3a3a3",
+        "opacity": "1"
+      },
+      "primary-200": {
+        "hex": "#d4d4d4",
+        "opacity": "1"
+      },
+      "primary-100": {
+        "hex": "#e5e5e5",
+        "opacity": "1"
+      },
+      "primary-50": {
+        "hex": "#f5f5f5",
+        "opacity": "1"
+      }
+    },
+    "success": {
+      "success-900": {
+        "hex": "#14532d",
+        "opacity": "1"
+      },
+      "success-800": {
+        "hex": "#166534",
+        "opacity": "1"
+      },
+      "success-700": {
+        "hex": "#15803d",
+        "opacity": "1"
+      },
+      "success-600": {
+        "hex": "#16a34a",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "success-500": {
+        "hex": "#22c55e",
+        "opacity": "1"
+      },
+      "success-400": {
+        "hex": "#4ade80",
+        "opacity": "1"
+      },
+      "success-300": {
+        "hex": "#86efac",
+        "opacity": "1"
+      },
+      "success-200": {
+        "hex": "#bbf7d0",
+        "opacity": "1"
+      },
+      "success-100": {
+        "hex": "#dcfce7",
+        "opacity": "1"
+      },
+      "success-50": {
+        "hex": "#f0fdf4",
+        "opacity": "1"
+      }
+    },
+    "warning": {
+      "warning-900": {
+        "hex": "#78350f",
+        "opacity": "1"
+      },
+      "warning-800": {
+        "hex": "#92400e",
+        "opacity": "1"
+      },
+      "warning-700": {
+        "hex": "#b45309",
+        "opacity": "1"
+      },
+      "warning-600": {
+        "hex": "#d97706",
+        "opacity": "1"
+      },
+      "warning-500": {
+        "hex": "#f59e0b",
+        "opacity": "1"
+      },
+      "warning-400": {
+        "hex": "#fbbf24",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "warning-300": {
+        "hex": "#fcd34d",
+        "opacity": "1"
+      },
+      "warning-200": {
+        "hex": "#fde68a",
+        "opacity": "1"
+      },
+      "warning-100": {
+        "hex": "#fef3c7",
+        "opacity": "1"
+      },
+      "warning-50": {
+        "hex": "#fffbeb",
+        "opacity": "1"
+      }
+    },
+    "info": {
+      "info-900": {
+        "hex": "#0f172a",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "info-800": {
+        "hex": "#1e293b",
+        "opacity": "1"
+      },
+      "info-700": {
+        "hex": "#334155",
+        "opacity": "1"
+      },
+      "info-600": {
+        "hex": "#475569",
+        "opacity": "1"
+      },
+      "info-500": {
+        "hex": "#64748b",
+        "opacity": "1"
+      },
+      "info-400": {
+        "hex": "#94a3b8",
+        "opacity": "1"
+      },
+      "info-300": {
+        "hex": "#cbd5e1",
+        "opacity": "1"
+      },
+      "info-200": {
+        "hex": "#e2e8f0",
+        "opacity": "1"
+      },
+      "info-100": {
+        "hex": "#f1f5f9",
+        "opacity": "1"
+      },
+      "info-50": {
+        "hex": "#f8fafc",
+        "opacity": "1"
+      }
+    },
+    "dark": {
+      "primary-foreground": {
+        "hex": "#000000",
+        "opacity": "1"
+      },
+      "accent-foreground": {
+        "hex": "#0f0f0f",
+        "opacity": "1"
+      },
+      "inverse-foreground": {
+        "hex": "#0f0f0f",
+        "opacity": "1"
+      },
+      "border": {
+        "hex": "#262626",
+        "opacity": "1"
+      },
+      "accent": {
+        "hex": "#19c59f",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "muted-foreground": {
+        "hex": "#ffffff",
+        "opacity": "0.6"
+      },
+      "muted": {
+        "hex": "#ffffff",
+        "opacity": "0.08"
+      },
+      "secondary": {
+        "hex": "#ffffff",
+        "opacity": "0.12"
+      },
+      "secondary-foreground": {
+        "hex": "#ffffff",
+        "opacity": "1"
+      },
+      "ring": {
+        "hex": "#ffffff",
+        "opacity": "1"
+      }
+    },
+    "neutral": {
+      "neutral-900": {
+        "hex": "#0f0f0f",
+        "opacity": "1"
+      },
+      "neutral-800": {
+        "hex": "#525252",
+        "opacity": "1"
+      },
+      "neutral-700": {
+        "hex": "#737373",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "neutral-600": {
+        "hex": "#a3a3a3",
+        "opacity": "1"
+      },
+      "neutral-500": {
+        "hex": "#d4d4d4",
+        "opacity": "1"
+      },
+      "neutral-400": {
+        "hex": "#e5e5e5",
+        "opacity": "1"
+      },
+      "neutral-300": {
+        "hex": "#f0f0f0",
+        "opacity": "1"
+      },
+      "neutral-200": {
+        "hex": "#f5f5f5",
+        "opacity": "1"
+      },
+      "neutral-100": {
+        "hex": "#fafafa",
+        "opacity": "1"
+      },
+      "neutral-50": {
+        "hex": "#ffffff",
+        "opacity": "1"
+      }
+    },
+    "brand-green": {
+      "brand-green-900": {
+        "hex": "#085541",
+        "opacity": "1"
+      },
+      "brand-green-800": {
+        "hex": "#0a6b52",
+        "opacity": "1"
+      },
+      "brand-green-700": {
+        "hex": "#0d8a6a",
+        "opacity": "1"
+      },
+      "brand-green-600": {
+        "hex": "#10a37f",
+        "opacity": "1"
+      },
+      "brand-green-500": {
+        "hex": "#10b981",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "brand-green-400": {
+        "hex": "#34d399",
+        "opacity": "1"
+      },
+      "brand-green-300": {
+        "hex": "#6ee7b7",
+        "opacity": "1"
+      },
+      "brand-green-200": {
+        "hex": "#a5f3cc",
+        "opacity": "1"
+      },
+      "brand-green-100": {
+        "hex": "#d1fae5",
+        "opacity": "1"
+      },
+      "brand-green-50": {
+        "hex": "#e8f5f0",
+        "opacity": "1"
+      }
+    },
+    "error": {
+      "error-900": {
+        "hex": "#7f1d1d",
+        "opacity": "1"
+      },
+      "error-800": {
+        "hex": "#991b1b",
+        "opacity": "1"
+      },
+      "error-700": {
+        "hex": "#b91c1c",
+        "opacity": "1"
+      },
+      "error-600": {
+        "hex": "#dc2626",
+        "opacity": "1"
+      },
+      "error-500": {
+        "hex": "#ef4444",
+        "opacity": "1"
+      },
+      "error-400": {
+        "hex": "#f87171",
+        "opacity": "1",
+        "isPrimary": true
+      },
+      "error-300": {
+        "hex": "#fca5a5",
+        "opacity": "1"
+      },
+      "error-200": {
+        "hex": "#fecaca",
+        "opacity": "1"
+      },
+      "error-100": {
+        "hex": "#fee2e2",
+        "opacity": "1"
+      },
+      "error-50": {
+        "hex": "#fef2f2",
+        "opacity": "1"
+      }
+    },
+    "surface": {
+      "surface": {
+        "hex": "#ffffff",
+        "opacity": "1",
+        "isPrimary": true
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "font-display": "\"OpenAI Sans SC\", \"OpenAI Sans\", \"OpenAI Sans Variable Scripts\", sans-serif",
+      "font-heading": "\"OpenAI Sans SC\", \"OpenAI Sans\", \"OpenAI Sans Variable Scripts\", sans-serif",
+      "font-body": "\"OpenAI Sans SC\", \"OpenAI Sans\", \"OpenAI Sans Variable Scripts\", sans-serif",
+      "font-mono": "\"Source Code Pro\", \"SF Mono\", \"Söhne Mono\", monospace",
+      "font-family-base": "\"OpenAI Sans SC\", \"OpenAI Sans\", \"OpenAI Sans Variable Scripts\", sans-serif"
+    },
+    "size": {
+      "font-size-display": "28px",
+      "font-size-h1": "28px",
+      "font-size-h2": "20.78px",
+      "font-size-h3": "16.78px",
+      "font-size-h4": "16px",
+      "font-size-body": "17px",
+      "font-size-lead": "17px",
+      "font-size-caption": "13px",
+      "font-size-mono": "14px",
+      "font-size-nav": "17px",
+      "font-size-button": "14px",
+      "font-size-input": "16px",
+      "font-size-pill": "13px"
+    },
+    "weight": {
+      "font-weight-display": "600",
+      "font-weight-h1": "600",
+      "font-weight-h2": "500",
+      "font-weight-h3": "500",
+      "font-weight-h4": "500",
+      "font-weight-body": "400",
+      "font-weight-lead": "400",
+      "font-weight-caption": "500",
+      "font-weight-mono": "400",
+      "font-weight-nav": "400",
+      "font-weight-button": "500"
+    },
+    "lineHeight": {
+      "line-height-display": "34px",
+      "line-height-h1": "34px",
+      "line-height-h2": "25.44px",
+      "line-height-h3": "24px",
+      "line-height-h4": "24px",
+      "line-height-body": "28px",
+      "line-height-lead": "28px",
+      "line-height-caption": "20px",
+      "line-height-mono": "20px"
+    }
+  },
+  "shadow": {
+    "shadow-1·Input container": {
+      "layers": [
+        {
+          "xOffset": "0px",
+          "yOffset": "3px",
+          "blur": "6px",
+          "spread": "0px",
+          "color": {
+            "hex": "#000000",
+            "opacity": "0.04"
+          }
+        },
+        {
+          "xOffset": "0px",
+          "yOffset": "4px",
+          "blur": "80px",
+          "spread": "8px",
+          "color": {
+            "hex": "#000000",
+            "opacity": "0.04"
+          }
+        },
+        {
+          "xOffset": "0px",
+          "yOffset": "0px",
+          "blur": "1px",
+          "spread": "0px",
+          "color": {
+            "hex": "#000000",
+            "opacity": "0.62"
+          }
+        }
+      ]
+    },
+    "shadow-2·Card Hover": {
+      "xOffset": "0px",
+      "yOffset": "4px",
+      "blur": "8px",
+      "spread": "-2px",
+      "color": {
+        "hex": "#0f0f0f",
+        "opacity": "0.10"
+      }
+    },
+    "shadow-3·Float": {
+      "xOffset": "0px",
+      "yOffset": "8px",
+      "blur": "24px",
+      "spread": "-8px",
+      "color": {
+        "hex": "#0f0f0f",
+        "opacity": "0.18"
+      }
+    },
+    "shadow-4·Modal": {
+      "xOffset": "0px",
+      "yOffset": "16px",
+      "blur": "40px",
+      "spread": "-12px",
+      "color": {
+        "hex": "#0f0f0f",
+        "opacity": "0.24"
+      }
+    },
+    "shadow-5·Overlay": {
+      "xOffset": "0px",
+      "yOffset": "24px",
+      "blur": "60px",
+      "spread": "-20px",
+      "color": {
+        "hex": "#0f0f0f",
+        "opacity": "0.30"
+      }
+    }
+  },
+  "radius": {
+    "radius-sm": "8px",
+    "radius-md": "12px",
+    "radius-lg": "16px",
+    "radius-xl": "24px",
+    "radius-full": "9999px"
+  },
+  "spacing": {
+    "space-1": "4px",
+    "space-2": "8px",
+    "space-3": "12px",
+    "space-4": "16px",
+    "space-5": "24px",
+    "space-6": "32px",
+    "space-7": "48px",
+    "space-8": "64px"
+  },
+  "size": {
+    "size-button-sm": "32px",
+    "size-button-md": "40px",
+    "size-button-lg": "48px",
+    "size-input": "40px",
+    "size-icon-sm": "16px",
+    "size-icon-md": "20px",
+    "size-icon-lg": "24px",
+    "size-nav": "68px",
+    "max-content": "1200px"
+  }
+}

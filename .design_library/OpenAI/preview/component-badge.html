@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badge - OpenAI</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: var(--space-3); background: var(--color-background); font-family: var(--font-family-base); color: var(--color-foreground); }
+  .row { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-2); flex-wrap: wrap; }
+  .label { min-width: 92px; font-size: var(--font-size-caption); color: var(--color-muted-foreground); text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0; }
+  .divider { border: none; border-top: 1px solid var(--color-border); margin: var(--space-3) 0; }
+  /* @component-css-start */
+  .badge { display: inline-flex; align-items: center; justify-content: center; height: 28px; padding: 0 12px; border-radius: 9999px; font-size: 13px; font-weight: 500; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+  .badge.filled { background: rgba(0,0,0,0.04); color: #000; border: 1px solid transparent; }
+  .badge.outline { background: #fff; color: #000; border: 1px solid var(--color-border); }
+  .badge.white { background: #fff; color: #000; border: 1px solid transparent; }
+  .badge.large { height: 32px; padding: 0 14px; font-size: 14px; }
+  /* @component-css-end */
+</style>
+</head>
+<body>
+  <div class="row">
+    <span class="label">分类</span>
+    <span class="badge filled" data-evidence-sample="category">产品</span>
+    <span class="badge filled" data-evidence-sample="category">安全防护</span>
+    <span class="badge filled" data-evidence-sample="category">工程</span>
+    <span class="badge filled" data-evidence-sample="category">公司</span>
+    <span class="badge filled" data-evidence-sample="category">研究</span>
+  </div>
+  <div class="row">
+    <span class="label">描边</span>
+    <span class="badge outline" data-evidence-sample="outline">产品</span>
+    <span class="badge outline" data-evidence-sample="outline">公司</span>
+  </div>
+  <hr class="divider">
+  <div class="row">
+    <span class="label">尺寸</span>
+    <span class="badge filled" data-evidence-sample="small">产品</span>
+    <span class="badge filled large" data-evidence-sample="large">研究</span>
+  </div>
+</body>
+</html>

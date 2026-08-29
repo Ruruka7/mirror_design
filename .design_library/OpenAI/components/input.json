@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 2,
+  "name": "Input",
+  "category": "form",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "text-field",
+      "evidence": "Single-line text entry"
+    },
+    {
+      "candidate": "search-field",
+      "evidence": "Site-wide search"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "state",
+      "values": [
+        "default",
+        "focus",
+        "error",
+        "disabled"
+      ],
+      "description": "Validation and interaction states"
+    },
+    {
+      "name": "size",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Height and font scale"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "default/medium",
+      "whySelected": "Standard newsletter or form input",
+      "traits": {
+        "height": "var(--size-input)",
+        "background": "var(--color-background)",
+        "border": "var(--color-border)",
+        "radius": "var(--radius-md)",
+        "padding": "0 var(--space-3)",
+        "color": "var(--color-foreground)",
+        "placeholderColor": "var(--color-muted-foreground)"
+      },
+      "childrenDigest": [
+        "placeholder text"
+      ]
+    },
+    {
+      "name": "focus/medium",
+      "whySelected": "Active field emphasis",
+      "traits": {
+        "border": "var(--color-ring)",
+        "ring": "2px solid var(--color-ring)"
+      },
+      "childrenDigest": []
+    },
+    {
+      "name": "error/medium",
+      "whySelected": "Validation feedback",
+      "traits": {
+        "border": "var(--color-destructive)",
+        "background": "rgba(239,68,68,0.05)"
+      },
+      "childrenDigest": [
+        "error message"
+      ]
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "field container"
+    },
+    {
+      "part": "input",
+      "role": "native text control"
+    },
+    {
+      "part": "hint",
+      "role": "helper or error text"
+    }
+  ],
+  "structurePatterns": [
+    "single-line text control",
+    "optional icon prefix/suffix"
+  ],
+  "usageHints": {
+    "priorityHint": "Reserve visible borders; use focus ring for accessibility",
+    "placement": "forms, search bars, subscription fields"
+  },
+  "doNotInvent": [
+    "no multi-line textarea",
+    "no select dropdown",
+    "no autocomplete list"
+  ],
+  "unknowns": [
+    "error message typography inferred from caption tokens"
+  ],
+  "keyInsightSeed": "Inputs are understated: thin neutral borders, no background tint, clear focus state.",
+  "slug": "input"
+}

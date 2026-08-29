@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 2,
+  "name": "CTA Link",
+  "category": "navigation",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "text-link",
+      "evidence": "Inline anchor with arrow"
+    },
+    {
+      "candidate": "call-to-action",
+      "evidence": "Standalone conversion link"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "size",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Font scale and arrow size"
+    },
+    {
+      "name": "weight",
+      "values": [
+        "regular",
+        "semibold"
+      ],
+      "description": "Text emphasis"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "medium/semibold",
+      "whySelected": "Primary inline CTA",
+      "traits": {
+        "color": "var(--color-primary)",
+        "fontWeight": "var(--font-weight-semibold)",
+        "fontSize": "var(--font-size-base)",
+        "arrow": "right"
+      },
+      "childrenDigest": [
+        "label",
+        "arrow icon"
+      ]
+    },
+    {
+      "name": "large/semibold",
+      "whySelected": "Hero section CTA",
+      "traits": {
+        "fontSize": "var(--font-size-lg)",
+        "arrowSize": "20px"
+      },
+      "childrenDigest": [
+        "label",
+        "arrow icon"
+      ]
+    },
+    {
+      "name": "small/regular",
+      "whySelected": "Footer or secondary link",
+      "traits": {
+        "fontSize": "var(--font-size-sm)",
+        "color": "var(--color-muted-foreground)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "anchor or button element"
+    },
+    {
+      "part": "label",
+      "role": "link text"
+    },
+    {
+      "part": "arrow",
+      "role": "directional indicator"
+    }
+  ],
+  "structurePatterns": [
+    "text + trailing arrow",
+    "hover underline or arrow shift"
+  ],
+  "usageHints": {
+    "priorityHint": "Use arrow links to lead users into deeper content; keep label concise",
+    "placement": "hero, card footers, announcement banners"
+  },
+  "doNotInvent": [
+    "no complex animation",
+    "no external-link icon variants"
+  ],
+  "unknowns": [
+    "arrow glyph inferred"
+  ],
+  "keyInsightSeed": "CTA links feel editorial: a short phrase and a single arrow, no button chrome.",
+  "slug": "cta-link"
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 2,
+  "name": "Badge",
+  "category": "status",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": [
+    {
+      "candidate": "tag",
+      "evidence": "Category label on card"
+    },
+    {
+      "candidate": "status-badge",
+      "evidence": "Announcement or update marker"
+    }
+  ],
+  "variantDimensions": [
+    {
+      "name": "tone",
+      "values": [
+        "neutral",
+        "primary",
+        "success",
+        "warning"
+      ],
+      "description": "Semantic color emphasis"
+    },
+    {
+      "name": "style",
+      "values": [
+        "filled",
+        "outline"
+      ],
+      "description": "Solid or bordered treatment"
+    }
+  ],
+  "representativeVariants": [
+    {
+      "name": "neutral/outline",
+      "whySelected": "Default category tag",
+      "traits": {
+        "background": "transparent",
+        "border": "var(--color-border)",
+        "color": "var(--color-muted-foreground)",
+        "radius": "var(--radius-full)",
+        "padding": "var(--space-1) var(--space-3)",
+        "fontSize": "var(--font-size-xs)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    },
+    {
+      "name": "primary/filled",
+      "whySelected": "Featured label or announcement",
+      "traits": {
+        "background": "var(--color-primary)",
+        "color": "var(--color-primary-foreground)",
+        "radius": "var(--radius-full)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    },
+    {
+      "name": "warning/outline",
+      "whySelected": "Beta or caution marker",
+      "traits": {
+        "border": "var(--color-warning)",
+        "color": "var(--color-warning)"
+      },
+      "childrenDigest": [
+        "label"
+      ]
+    }
+  ],
+  "anatomy": [
+    {
+      "part": "root",
+      "role": "inline label container"
+    },
+    {
+      "part": "label",
+      "role": "text"
+    }
+  ],
+  "structurePatterns": [
+    "inline pill",
+    "icon + label optional"
+  ],
+  "usageHints": {
+    "priorityHint": "Use pills for categories, statuses, and metadata; avoid long text",
+    "placement": "card headers, article lists, filters"
+  },
+  "doNotInvent": [
+    "no dismissible chip behavior",
+    "no avatar inside badge"
+  ],
+  "unknowns": [
+    "warning hex inferred from semantic token"
+  ],
+  "keyInsightSeed": "Badges are tiny editorial markers: pill-shaped, light weight, often outline.",
+  "slug": "badge"
+}
