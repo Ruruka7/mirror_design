@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* @group-priority: primary, info, success, warning, accent */
+:root {
+  /* primary */
+  --voith-blue-50: #e8f4f9; /* AI-generated */
+  --voith-blue-100: #c8e6f0; /* AI-generated */
+  --voith-blue-200: #a2d4e6; /* AI-generated */
+  --voith-blue-300: #76bdd9; /* AI-generated */
+  --voith-blue-400: #4a9cc7; /* AI-generated */
+  --voith-blue-500: #006497; /* @primary */ /* AI-generated */
+  --voith-blue-600: #00567e; /* AI-generated */
+  --voith-blue-700: #004b73; /* AI-generated */
+  --voith-blue-800: #003a5a; /* AI-generated */
+  --voith-blue-900: #03223c; /* AI-generated */
+  /* accent */
+  --voith-cyan-50: #e6fcfc; /* AI-generated */
+  --voith-cyan-100: #c2f7f8; /* AI-generated */
+  --voith-cyan-200: #96f0f3; /* AI-generated */
+  --voith-cyan-300: #66e7ec; /* AI-generated */
+  --voith-cyan-400: #33dde4; /* AI-generated */
+  --voith-cyan-500: #00e5e5; /* @primary */ /* AI-generated */
+  --voith-cyan-600: #05a2c2; /* AI-generated */
+  --voith-cyan-700: #0486a0; /* AI-generated */
+  --voith-cyan-800: #03687c; /* AI-generated */
+  --voith-cyan-900: #024b5a; /* AI-generated */
+  /* voith-neutral */
+  --voith-neutral-50: #f8f8f8; /* AI-generated */
+  --voith-neutral-100: #eff1f1; /* AI-generated */
+  --voith-neutral-200: #e8eaea; /* AI-generated */
+  --voith-neutral-300: #dcdddd; /* AI-generated */
+  --voith-neutral-400: #c4c7c7; /* AI-generated */
+  --voith-neutral-500: #a9acac; /* @primary */ /* AI-generated */
+  --voith-neutral-600: #8e9192; /* AI-generated */
+  --voith-neutral-700: #747778; /* AI-generated */
+  --voith-neutral-800: #444748; /* AI-generated */
+  --voith-neutral-900: #191c1d; /* AI-generated */
+  /* success */
+  --voith-success-50: #e6f7ee; /* AI-generated */
+  --voith-success-100: #c3ebd7; /* AI-generated */
+  --voith-success-200: #9bdfbe; /* AI-generated */
+  --voith-success-300: #6fd1a3; /* AI-generated */
+  --voith-success-400: #3ec389; /* AI-generated */
+  --voith-success-500: #0fa968; /* @primary */ /* AI-generated */
+  --voith-success-600: #0d8f59; /* AI-generated */
+  --voith-success-700: #0b7449; /* AI-generated */
+  --voith-success-800: #09593a; /* AI-generated */
+  --voith-success-900: #073e2b; /* AI-generated */
+  /* warning */
+  --voith-warning-50: #fff8e6; /* AI-generated */
+  --voith-warning-100: #ffefc2; /* AI-generated */
+  --voith-warning-200: #ffe49d; /* AI-generated */
+  --voith-warning-300: #ffd978; /* AI-generated */
+  --voith-warning-400: #ffcd52; /* AI-generated */
+  --voith-warning-500: #ffbf1a; /* @primary */ /* AI-generated */
+  --voith-warning-600: #d99e00; /* AI-generated */
+  --voith-warning-700: #b38100; /* AI-generated */
+  --voith-warning-800: #8c6500; /* AI-generated */
+  --voith-warning-900: #664900; /* AI-generated */
+  /* error */
+  --voith-error-50: #fff0f3; /* AI-generated */
+  --voith-error-100: #ffd9e0; /* AI-generated */
+  --voith-error-200: #ffb3bf; /* AI-generated */
+  --voith-error-300: #ff8da0; /* AI-generated */
+  --voith-error-400: #ff6680; /* AI-generated */
+  --voith-error-500: #ff0032; /* @primary */ /* AI-generated */
+  --voith-error-600: #d9002b; /* AI-generated */
+  --voith-error-700: #b30024; /* AI-generated */
+  --voith-error-800: #8c001c; /* AI-generated */
+  --voith-error-900: #660014; /* AI-generated */
+  /* info */
+  --voith-info-50: #e8f6fb; /* AI-generated */
+  --voith-info-100: #c8ebf6; /* AI-generated */
+  --voith-info-200: #a4deef; /* AI-generated */
+  --voith-info-300: #79cfe7; /* AI-generated */
+  --voith-info-400: #4cbddd; /* AI-generated */
+  --voith-info-500: #05a2c2; /* @primary */ /* AI-generated */
+  --voith-info-600: #0487a3; /* AI-generated */
+  --voith-info-700: #036c84; /* AI-generated */
+  --voith-info-800: #025265; /* AI-generated */
+  --voith-info-900: #013747; /* AI-generated */
+  /* semantic aliases */
+  --primary: var(--voith-blue-600); /* Derived */
+  --primary-foreground: #ffffff; /* AI-generated */
+  --accent: var(--voith-cyan-500); /* Derived */
+  --accent-foreground: #000000; /* AI-generated */
+  --background: #ffffff; /* AI-generated */
+  --foreground: var(--voith-neutral-900); /* Derived */
+  --muted: var(--voith-neutral-500); /* Derived */
+  --muted-foreground: var(--voith-neutral-700); /* Derived */
+  --border: var(--voith-neutral-200); /* Derived */
+  --ring: var(--voith-cyan-500); /* Derived */
+  --bg: var(--voith-blue-50); /* Derived */
+  --fg: var(--voith-neutral-900); /* Derived */
+  --accent-hover: var(--voith-cyan-600); /* Derived */
+  --rule: var(--voith-neutral-300); /* Derived */
+  --link: var(--voith-blue-600); /* Derived */
+  /* portable aliases */
+  --color-background: var(--background); /* Derived */
+  --color-foreground: var(--foreground); /* Derived */
+  --color-surface: var(--background); /* Derived */
+  --color-on-surface: var(--fg); /* Derived */
+  --color-muted-foreground: var(--muted-foreground); /* Derived */
+  --color-primary: var(--primary); /* Derived */
+  --color-primary-hover: var(--voith-blue-700); /* Derived */
+  --color-on-primary: var(--primary-foreground); /* Derived */
+  --color-secondary: var(--voith-neutral-200); /* Derived */
+  --color-error: var(--voith-error-600); /* Derived */
+  --color-success: var(--voith-success-600); /* Derived */
+  --color-warning: var(--voith-warning-600); /* Derived */
+  --color-border: var(--border); /* Derived */
+  --radius-sm: 4px; /* AI-generated */
+  --radius-md: 8px; /* AI-generated */
+  --radius-lg: 12px; /* AI-generated */
+  --radius-xl: 16px; /* AI-generated */
+  --radius-full: 9999px; /* AI-generated */
+  --type-display-sm: var(--font-size-h2); /* Derived */
+  --type-heading-sm: var(--font-size-h3); /* Derived */
+  --type-body-md: var(--font-size-body); /* Derived */
+  --type-body-sm: var(--font-size-caption); /* Derived */
+  --font-family-base: var(--font-body); /* Derived */
+  /* typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-size-display: 68px;
+  --font-size-h1: 40px;
+  --font-size-h2: 32px;
+  --font-size-h3: 24px;
+  --font-size-h4: 20px;
+  --font-size-body: 16px;
+  --font-size-lead: 18px;
+  --font-size-caption: 12px;
+  --font-size-eyebrow: 11px;
+  --font-size-mono: 14px;
+  --font-weight-display: 700;
+  --font-weight-h1: 700;
+  --font-weight-h2: 600;
+  --font-weight-h3: 600;
+  --font-weight-h4: 600;
+  --font-weight-body: 400;
+  --font-weight-lead: 400;
+  --font-weight-eyebrow: 600;
+  --font-weight-mono: 400;
+  --line-height-display: 1.1;
+  --line-height-h1: 1.15;
+  --line-height-h2: 1.2;
+  --line-height-h3: 1.3;
+  --line-height-h4: 1.35;
+  --line-height-body: 1.6;
+  --line-height-lead: 1.7;
+  --line-height-eyebrow: 1.4;
+  --line-height-mono: 1.6;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --size-button-sm: 32px;
+  --size-button-md: 40px;
+  --size-button-lg: 48px;
+  --size-input-height: 40px;
+  --size-icon-sm: 16px;
+  --size-icon-md: 24px;
+  --size-icon-lg: 32px;
+  --shadow-1: 0 1px 2px rgba(3,34,60,0.06), 0 1px 1px rgba(3,34,60,0.04); /* Card */
+  --shadow-2: 0 4px 8px -2px rgba(3,34,60,0.10); /* Card Hover */
+  --shadow-3: 0 8px 24px -8px rgba(3,34,60,0.18); /* Float */
+  --shadow-4: 0 16px 40px -12px rgba(3,34,60,0.24); /* Modal */
+  --shadow-5: 0 24px 60px -20px rgba(3,34,60,0.30); /* Overlay */
+}
+.dark {
+  --background: #0b1215; /* AI-generated */
+  --foreground: #f8f8f8; /* AI-generated */
+  --primary: var(--voith-blue-400); /* Derived */
+  --primary-foreground: #03223c; /* AI-generated */
+  --accent: var(--voith-cyan-400); /* Derived */
+  --muted: var(--voith-neutral-600); /* Derived */
+  --muted-foreground: var(--voith-neutral-400); /* Derived */
+  --border: var(--voith-neutral-800); /* Derived */
+  --ring: var(--voith-cyan-400); /* Derived */
+  --bg: #0b1215; /* AI-generated */
+  --fg: #f8f8f8; /* AI-generated */
+  --accent-hover: var(--voith-cyan-300); /* Derived */
+  --rule: var(--voith-neutral-700); /* Derived */
+  --link: var(--voith-blue-300); /* Derived */
+}
+.voith-display { font-family: var(--font-display); font-size: 4.25rem; font-weight: var(--font-weight-display); line-height: var(--line-height-display); letter-spacing: -0.02em; }
+.voith-h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: var(--font-weight-h1); line-height: var(--line-height-h1); }
+.voith-h2 { font-family: var(--font-heading); font-size: 2rem; font-weight: var(--font-weight-h2); line-height: var(--line-height-h2); }
+.voith-h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: var(--font-weight-h3); line-height: var(--line-height-h3); }
+.voith-h4 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: var(--font-weight-h4); line-height: var(--line-height-h4); }
+.voith-body { font-family: var(--font-body); font-size: 1rem; font-weight: var(--font-weight-body); line-height: var(--line-height-body); }
+.voith-lead { font-family: var(--font-body); font-size: 1.125rem; font-weight: var(--font-weight-lead); line-height: var(--line-height-lead); }
+.voith-caption { font-family: var(--font-body); font-size: 0.75rem; font-weight: var(--font-weight-body); line-height: var(--line-height-body); }
+.voith-eyebrow { font-family: var(--font-body); font-size: 0.6875rem; font-weight: var(--font-weight-eyebrow); line-height: var(--line-height-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; }
+.voith-mono { font-family: var(--font-mono); font-size: 0.875rem; font-weight: var(--font-weight-mono); line-height: var(--line-height-mono); }

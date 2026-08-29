@@ -1,0 +1,56 @@
+{
+  "slug": "cta-link",
+  "schemaVersion": 2,
+  "name": "CTA Link",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["link", "cta"],
+  "variantDimensions": {
+    "variant": ["default", "accent", "subtle"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Default CTA link",
+      "whySelected": "Primary section exit — marine blue text with an arrow indicator.",
+      "traits": {
+        "color": "var(--link)",
+        "fontWeight": "var(--font-weight-h4)",
+        "textDecoration": "none",
+        "borderBottom": "1px solid transparent",
+        "gap": "var(--space-2)",
+        "hoverUnderline": "var(--link)"
+      },
+      "childrenDigest": ["label text", "arrow indicator"]
+    },
+    {
+      "name": "Accent CTA link",
+      "whySelected": "High-energy conversion point using cyan to draw attention.",
+      "traits": {
+        "color": "var(--accent)",
+        "fontWeight": "var(--font-weight-h4)",
+        "hoverColor": "var(--accent-hover)",
+        "gap": "var(--space-2)"
+      },
+      "childrenDigest": ["label text", "arrow indicator"]
+    },
+    {
+      "name": "Subtle CTA link",
+      "whySelected": "Footer or secondary navigation links with neutral styling.",
+      "traits": {
+        "color": "var(--muted-foreground)",
+        "fontWeight": "var(--font-weight-body)",
+        "hoverColor": "var(--foreground)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "label", "indicator"],
+  "structurePatterns": ["inline flex", "arrow as trailing element"],
+  "usageHints": {
+    "priorityHint": "Use default CTA after section copy; accent CTA for conversion moments.",
+    "a11y": "Indicator arrow should be decorative; label alone must describe the destination."
+  },
+  "doNotInvent": ["external-link icon", "animated arrow", "visited purple state"],
+  "unknowns": ["arrow character/glyph", "visited link color"]
+}

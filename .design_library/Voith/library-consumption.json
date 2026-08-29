@@ -1,0 +1,24 @@
+{
+  "description": "Recommended read order for agents consuming the Voith Design Library.",
+  "readOrder": [
+    { "file": "README.md", "purpose": "Brand context, content fundamentals, and visual foundations" },
+    { "file": "SKILL.md", "purpose": "Skill entry point and on-brand design essentials" },
+    { "file": "css.json", "purpose": "Structured token understanding source" },
+    { "file": "colors_and_type.css", "purpose": "Runtime CSS variables; link in production, do not read for token semantics" },
+    { "file": "components.css", "purpose": "Aggregated component styles extracted from previews" },
+    { "file": "components/index.json", "purpose": "Component index and cross-component patterns" },
+    { "file": "components/button.json", "purpose": "Button contract — intent and variants" },
+    { "file": "components/card.json", "purpose": "Card contract — intent and variants" },
+    { "file": "components/input.json", "purpose": "Input contract — intent and variants" },
+    { "file": "components/badge.json", "purpose": "Badge contract — intent and variants" },
+    { "file": "components/cta-link.json", "purpose": "CTA link contract — intent and variants" },
+    { "file": "components/navigation.json", "purpose": "Navigation contract — intent and variants" },
+    { "file": "preview/component-button.html", "purpose": "Button render preview (first fidelity source)" },
+    { "file": "preview/component-card.html", "purpose": "Card render preview (first fidelity source)" },
+    { "file": "preview/component-input.html", "purpose": "Input render preview (first fidelity source)" },
+    { "file": "preview/component-badge.html", "purpose": "Badge render preview (first fidelity source)" },
+    { "file": "preview/component-cta-link.html", "purpose": "CTA link render preview (first fidelity source)" },
+    { "file": "preview/component-navigation.html", "purpose": "Navigation render preview (first fidelity source)" }
+  ],
+  "componentResolution": "preview HTML first, components/{slug}.json for intent/variants, components/_evidence/{slug}.json as fallback evidence"
+}

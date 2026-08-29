@@ -1,0 +1,89 @@
+/* ═══════════════════════════════════════════════════════════════
+   components.css — Design System Component Definitions
+   Auto-extracted from preview/component-*.html
+   DO NOT EDIT MANUALLY — regenerate via extract-components-css.mjs
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Badge ─────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="badge badge-neutral" data-evidence-sample="Neutral badge">中国</span> <span class="badge badge-success">已上线</span> <span class="badge badge-error">售罄</span>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .badge { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-full); padding: var(--space-1) var(--space-3); font-size: var(--font-size-caption); font-weight: var(--font-weight-h4); line-height: 1; white-space: nowrap; min-width: 28px; min-height: 28px; }
+  .badge-cyan { background: var(--voith-cyan-100); color: var(--voith-cyan-900); }
+  .badge-blue { background: var(--voith-blue-100); color: var(--voith-blue-900); }
+  .badge-success { background: var(--voith-success-100); color: var(--voith-success-900); }
+  .badge-error { background: var(--voith-error-100); color: var(--voith-error-900); }
+  .badge-neutral { background: var(--voith-neutral-100); color: var(--voith-neutral-800); }
+
+/* ── Button ────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">主按钮</span> <button class="btn btn-primary btn-md" data-evidence-sample="Primary medium" type="button">立即咨询</button>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); border: none; cursor: pointer; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-h4); line-height: 1; white-space: nowrap; border-radius: var(--radius-md); transition: background .15s, border-color .15s; flex-shrink: 0; min-height: var(--size-button-md); min-width: var(--size-button-md); padding-inline: var(--space-5); }
+    .btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .btn:disabled { opacity: .5; pointer-events: none; }
+    .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+    .btn-primary:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-secondary { background: transparent; color: var(--foreground); border: 1px solid var(--border); }
+    .btn-secondary:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-ghost { background: transparent; color: var(--primary); }
+    .btn-ghost:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-sm { min-height: var(--size-button-sm); min-width: var(--size-button-sm); padding-inline: var(--space-3); font-size: var(--font-size-caption); }
+    .btn-lg { min-height: var(--size-button-lg); min-width: var(--size-button-lg); padding-inline: var(--space-6); font-size: var(--font-size-lead); }
+
+/* ── Card ──────────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">默认</span> <article class="card" data-evidence-sample="Default card"> <h3>智能制造解决方案</h3> <p>为纸浆、造纸、能源与交通行业提供高效、可靠且可持续的工程技术，助力客户实现数字化升级。</p> <a class="cta" href="#">了解更多</a> </article>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .card { width: 100%; display: flex; flex-direction: column; gap: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-1); }
+  .card-tinted { background: var(--bg); border-color: var(--rule); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: none; }
+  .card h3 { margin: 0; font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: var(--font-weight-h4); line-height: var(--line-height-h4); color: var(--color-on-surface); word-break: keep-all; overflow-wrap: break-word; }
+  .card p { margin: 0; font-size: var(--font-size-body); line-height: var(--line-height-body); color: var(--color-muted-foreground); }
+  .card .eyebrow { font-size: var(--font-size-eyebrow); font-weight: var(--font-weight-eyebrow); line-height: var(--line-height-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary); white-space: nowrap; }
+  .card .cta { align-self: flex-start; font-size: var(--font-size-body); font-weight: var(--font-weight-body); line-height: var(--line-height-body); color: var(--link); text-decoration: none; transition: filter .15s; }
+  .card .cta:hover { filter: brightness(0.92); }
+
+/* ── Cta Link ──────────────────────────────────────────────── */
+/* @anatomy
+   <a class="cta-link cta-link--default" href="#">了解详情<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt=""></a><a class="cta-link cta-link--default disabled" href="#" aria-disabled="true">了解详情<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt=""></a>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .cta-link { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-family-base); font-size: var(--font-size-body); line-height: var(--line-height-body); text-decoration: none; white-space: nowrap; cursor: pointer; transition: color .15s, border-color .15s; }
+  .cta-link--default { color: var(--link); font-weight: var(--font-weight-h4); border-bottom: 1px solid transparent; }
+  .cta-link--default:hover { border-bottom-color: var(--link); }
+  .cta-link--accent { color: var(--accent); font-weight: var(--font-weight-h4); }
+  .cta-link--accent:hover { color: var(--accent-hover); }
+  .cta-link--subtle { color: var(--muted-foreground); font-weight: var(--font-weight-body); }
+  .cta-link--subtle:hover { color: var(--foreground); }
+  .cta-link.disabled { opacity: .5; pointer-events: none; cursor: not-allowed; }
+
+/* ── Input ─────────────────────────────────────────────────── */
+/* @anatomy
+   <input class="input" type="text" placeholder="请输入您的姓名" data-evidence-sample="Default input"> <input class="input" type="email" value="contact@voith.com" data-evidence-sample="Focus input">
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+    .input { box-sizing: border-box; width: 240px; flex-shrink: 0; height: var(--size-input-height); padding: 0 var(--space-4); background: var(--background); color: var(--foreground); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: var(--font-size-body); font-family: var(--font-family-base); line-height: var(--line-height-body); transition: border-color .15s, outline-color .15s, background-color .15s; }
+    .input::placeholder { color: var(--muted-foreground); }
+    .input:hover:not(:focus):not(:disabled) { border-color: var(--muted); }
+    .input:focus { outline: 2px solid var(--ring); outline-offset: 2px; border-color: var(--ring); }
+    .input.error { background: var(--voith-error-50); border-color: var(--color-error); }
+    .input.error:hover:not(:focus):not(:disabled) { border-color: var(--voith-error-600); }
+    .input:disabled { background: var(--voith-neutral-100); color: var(--muted-foreground); border-color: var(--border); cursor: not-allowed; }
+
+/* ── Navigation ────────────────────────────────────────────── */
+/* @anatomy
+   <span class="label">顶部导航</span>
+*/
+/* Component definitions — extracted to components.css by deterministic script */
+  .voith-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 72px; padding-inline: var(--space-6); background: var(--color-background); color: var(--color-foreground); border-bottom: 1px solid var(--rule); font-size: var(--font-size-body); box-sizing: border-box; }
+  .voith-nav__logo { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: var(--font-weight-h4); color: var(--color-primary); text-decoration: none; flex-shrink: 0; }
+  .voith-nav__list { display: flex; align-items: center; gap: var(--space-4); list-style: none; margin: 0; padding: 0; }
+  .voith-nav__link { display: inline-flex; align-items: center; height: 72px; padding-inline: var(--space-2); color: var(--color-on-surface); text-decoration: none; white-space: nowrap; flex-shrink: 0; box-sizing: border-box; transition: background .15s, border-color .15s; }
+  .voith-nav__link:hover { background: var(--accent-hover); }
+  .voith-nav__link.is-active { color: var(--color-primary); border-bottom: 2px solid var(--ring); font-weight: var(--font-weight-h4); }
+  .voith-nav__utility { display: flex; align-items: center; gap: var(--space-4); flex-shrink: 0; }
+  .voith-nav__utility a { color: var(--color-on-surface); text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background .15s, border-color .15s; }
+  .voith-nav__utility a:hover { background: var(--accent-hover); }

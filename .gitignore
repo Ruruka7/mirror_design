@@ -7,3 +7,7 @@ Thumbs.db
 
 # Temp
 *.tmp
+
+# Trae workspace metadata
+.trae-cn/
+.design_library/**/metadata.json

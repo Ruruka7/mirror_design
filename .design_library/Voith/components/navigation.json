@@ -1,0 +1,46 @@
+{
+  "slug": "navigation",
+  "schemaVersion": 2,
+  "name": "Navigation",
+  "category": "shell",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["navigation", "header", "nav"],
+  "variantDimensions": {
+    "position": ["top"],
+    "state": ["default", "scrolled"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Top navigation",
+      "whySelected": "Marketing site header with white ground, deep blue logo area, and horizontal links.",
+      "traits": {
+        "background": "var(--background)",
+        "color": "var(--foreground)",
+        "height": "72px",
+        "paddingInline": "var(--space-6)",
+        "borderBottom": "1px solid var(--rule)",
+        "fontSize": "var(--font-size-body)"
+      },
+      "childrenDigest": ["logo mark", "nav links", "utility links"]
+    },
+    {
+      "name": "Active nav link",
+      "whySelected": "Current page indicator using cyan underline to align with brand accent.",
+      "traits": {
+        "color": "var(--primary)",
+        "borderBottom": "2px solid var(--ring)",
+        "fontWeight": "var(--font-weight-h4)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "logo", "nav-items", "utility"],
+  "structurePatterns": ["horizontal flex", "space-between"],
+  "usageHints": {
+    "priorityHint": "Keep top nav to 5-7 items; use utility area for language/contact.",
+    "a11y": "Active state must not rely on color alone; combine with underline."
+  },
+  "doNotInvent": ["mega-menu", "search field", "hamburger icon"],
+  "unknowns": ["scrolled-state shadow", "mobile breakpoint behavior"]
+}

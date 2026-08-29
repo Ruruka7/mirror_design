@@ -1,0 +1,46 @@
+{
+  "slug": "card",
+  "schemaVersion": 2,
+  "name": "Card",
+  "category": "surface",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["card", "panel"],
+  "variantDimensions": {
+    "padding": ["default", "compact"],
+    "tone": ["default", "tinted"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Default card",
+      "whySelected": "Standard content container on marketing pages; white surface with subtle shadow.",
+      "traits": {
+        "background": "var(--background)",
+        "borderRadius": "var(--radius-lg)",
+        "padding": "var(--space-6)",
+        "boxShadow": "var(--shadow-1)",
+        "border": "1px solid var(--border)"
+      },
+      "childrenDigest": ["heading", "body", "cta-link"]
+    },
+    {
+      "name": "Compact tinted card",
+      "whySelected": "Used for location/contact items where grouping is needed without heavy elevation.",
+      "traits": {
+        "background": "var(--bg)",
+        "borderRadius": "var(--radius-md)",
+        "padding": "var(--space-4)",
+        "border": "1px solid var(--rule)"
+      },
+      "childrenDigest": ["eyebrow", "heading", "body"]
+    }
+  ],
+  "anatomy": ["root", "content", "optional footer"],
+  "structurePatterns": ["vertical stack", "consistent internal spacing"],
+  "usageHints": {
+    "priorityHint": "Use default cards for feature blocks; tinted cards for dense metadata.",
+    "a11y": "Maintain sufficient contrast between card surface and page background."
+  },
+  "doNotInvent": ["image thumbnails", "hover lift animation values", "expand/collapse behavior"],
+  "unknowns": ["card hover shadow level", "exact border color on dark theme"]
+}

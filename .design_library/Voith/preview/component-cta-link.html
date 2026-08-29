@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>CTA Link</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  /* Page scaffold — NOT extracted */
+  body { margin: 0; padding: var(--space-3); background: var(--color-surface); font-family: var(--font-family-base); color: var(--color-on-surface); }
+  .row { display: grid; grid-template-columns: 92px 1fr; gap: var(--space-3); align-items: center; margin-bottom: var(--space-2); }
+  .label { font-size: var(--font-size-caption); line-height: var(--line-height-body); color: var(--color-muted-foreground); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+  .rail { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; }
+
+  /* @component-css-start */
+  /* Component definitions — extracted to components.css by deterministic script */
+  .cta-link { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-family-base); font-size: var(--font-size-body); line-height: var(--line-height-body); text-decoration: none; white-space: nowrap; cursor: pointer; transition: color .15s, border-color .15s; }
+  .cta-link--default { color: var(--link); font-weight: var(--font-weight-h4); border-bottom: 1px solid transparent; }
+  .cta-link--default:hover { border-bottom-color: var(--link); }
+  .cta-link--accent { color: var(--accent); font-weight: var(--font-weight-h4); }
+  .cta-link--accent:hover { color: var(--accent-hover); }
+  .cta-link--subtle { color: var(--muted-foreground); font-weight: var(--font-weight-body); }
+  .cta-link--subtle:hover { color: var(--foreground); }
+  .cta-link.disabled { opacity: .5; pointer-events: none; cursor: not-allowed; }
+  /* @component-css-end */
+</style>
+</head>
+<body>
+<div class="row"><span class="label">默认</span><div class="rail"><a class="cta-link cta-link--default" href="#">了解详情<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt=""></a><a class="cta-link cta-link--default disabled" href="#" aria-disabled="true">了解详情<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt=""></a></div></div>
+<div class="row"><span class="label">强调</span><div class="rail"><a class="cta-link cta-link--accent" href="#">立即咨询<img src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt=""></a></div></div>
+<div class="row"><span class="label">低调</span><div class="rail"><a class="cta-link cta-link--subtle" href="#">查看服务</a></div></div>
+</body>
+</html>

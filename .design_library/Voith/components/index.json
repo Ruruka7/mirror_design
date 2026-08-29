@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "sourceKind": "from-scratch",
+  "libraryName": "Voith",
+  "components": [
+    {
+      "slug": "button",
+      "name": "Button",
+      "category": "action",
+      "confidence": "medium",
+      "variantCount": 6,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Marine-blue solid buttons with cyan focus rings; secondary variants use subtle neutral outlines."
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "category": "surface",
+      "confidence": "medium",
+      "variantCount": 3,
+      "priorityHint": "secondary",
+      "keyInsightSeed": "White cards on light gray ground with restrained shadow-1 elevation and thin rule separators."
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "category": "form",
+      "confidence": "medium",
+      "variantCount": 4,
+      "priorityHint": "secondary",
+      "keyInsightSeed": "40px height fields with neutral borders and cyan focus ring; compact, industrial form language."
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "category": "status",
+      "confidence": "medium",
+      "variantCount": 5,
+      "priorityHint": "tertiary",
+      "keyInsightSeed": "Small status pills in cyan, blue, neutral, success, and error tints for tags and labels."
+    },
+    {
+      "slug": "cta-link",
+      "name": "CTA Link",
+      "category": "action",
+      "confidence": "medium",
+      "variantCount": 3,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Arrow-accompanied text links in marine blue with cyan hover underline; used for section exits."
+    },
+    {
+      "slug": "navigation",
+      "name": "Navigation",
+      "category": "shell",
+      "confidence": "medium",
+      "variantCount": 2,
+      "priorityHint": "primary",
+      "keyInsightSeed": "Top navigation with white ground, deep blue logo mark, and cyan active indicator."
+    }
+  ]
+}

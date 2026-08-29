@@ -1,0 +1,62 @@
+{
+  "slug": "button",
+  "schemaVersion": 2,
+  "name": "Button",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["button", "action"],
+  "variantDimensions": {
+    "variant": ["primary", "secondary", "outline", "ghost"],
+    "size": ["sm", "md", "lg"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Primary medium",
+      "whySelected": "Default CTA for marketing pages — marine blue fill with white text, derived from Voith brand blue.",
+      "traits": {
+        "background": "var(--primary)",
+        "color": "var(--primary-foreground)",
+        "borderRadius": "var(--radius-md)",
+        "minHeight": "var(--size-button-md)",
+        "paddingInline": "var(--space-5)",
+        "fontWeight": "var(--font-weight-h4)",
+        "focusRing": "var(--ring)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Secondary medium",
+      "whySelected": "Lower-emphasis action on white backgrounds; uses neutral outline to keep page calm.",
+      "traits": {
+        "background": "transparent",
+        "color": "var(--foreground)",
+        "border": "1px solid var(--border)",
+        "borderRadius": "var(--radius-md)",
+        "minHeight": "var(--size-button-md)",
+        "paddingInline": "var(--space-5)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Ghost small",
+      "whySelected": "Inline actions inside cards or footer areas; no border until hover.",
+      "traits": {
+        "background": "transparent",
+        "color": "var(--primary)",
+        "borderRadius": "var(--radius-md)",
+        "minHeight": "var(--size-button-sm)",
+        "paddingInline": "var(--space-3)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "label", "focus-ring"],
+  "structurePatterns": ["single-line label", "horizontal padding scales with size"],
+  "usageHints": {
+    "priorityHint": "Use primary for the single main CTA per section; secondary for parallel choices.",
+    "a11y": "Focus ring uses cyan accent for high visibility against both white and light gray grounds."
+  },
+  "doNotInvent": ["icons", "dropdown behavior", "loading spinners"],
+  "unknowns": ["exact active-state press depth", "specific disabled opacity value"]
+}

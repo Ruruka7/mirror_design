@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voith Marketing UI Kit</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+  <style>
+    .uikit-shell{width:100%;max-width:1184px;margin:0 auto;overflow:hidden;display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--space-4)}
+    .uikit-sidebar,.uikit-main,.uikit-toolbar{min-width:0}
+    .uikit-sidebar{overflow:hidden;max-width:100%}
+    [data-component]{min-width:0;max-width:100%;overflow:hidden}
+    .uikit-toolbar{display:flex;align-items:center;gap:var(--space-2)}
+    .uikit-responsive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4)}
+    .uikit-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+    .uikit-truncate{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .uikit-nowrap{white-space:nowrap;flex-shrink:0}
+    .uikit-action-cell{display:flex;align-items:center;gap:8px;min-width:0;max-width:160px;overflow:hidden}
+    .uikit-action{min-width:0;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--link);text-decoration:none}
+    .uikit-action:hover{text-decoration:underline}
+    @media (max-width: 900px){.uikit-shell{grid-template-columns:minmax(0,1fr)}.uikit-responsive-grid{grid-template-columns:minmax(0,1fr)}}
+    @media (max-width: 640px){.uikit-toolbar{flex-direction:column;align-items:stretch}.uikit-responsive-grid{grid-template-columns:minmax(0,1fr)}}
+
+    body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body)}
+    .page-surface{display:flex;flex-direction:column;gap:var(--space-6);padding:var(--space-6) 0}
+    .hero-section{display:flex;flex-direction:column;gap:var(--space-5);padding:var(--space-8) var(--space-6);background:var(--bg);border-radius:var(--radius-xl)}
+    .hero-title{margin:0;font-family:var(--font-display);font-size:var(--font-size-display);font-weight:var(--font-weight-display);line-height:var(--line-height-display);letter-spacing:-0.02em;color:var(--color-primary);word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
+    .hero-lead{margin:0;font-size:var(--font-size-lead);line-height:var(--line-height-lead);color:var(--color-muted-foreground);max-width:680px}
+    .section-heading{margin:0;font-family:var(--font-heading);font-size:var(--font-size-h2);font-weight:var(--font-weight-h2);line-height:var(--line-height-h2);color:var(--color-on-surface);word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
+    .section-lead{margin:0;font-size:var(--font-size-body);line-height:var(--line-height-body);color:var(--color-muted-foreground);max-width:720px}
+    .kpi-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)}
+    .kpi-item{display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-4);border:1px solid var(--rule);border-radius:var(--radius-md)}
+    .kpi-value{font-family:var(--font-heading);font-size:var(--font-size-h3);font-weight:var(--font-weight-h3);color:var(--color-primary);font-variant-numeric:tabular-nums}
+    .kpi-label{font-size:var(--font-size-caption);color:var(--color-muted-foreground)}
+    .sidebar-nav{display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-4) 0}
+    .sidebar-link{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);color:var(--color-on-surface);text-decoration:none;font-size:var(--font-size-body);white-space:nowrap;transition:background .15s}
+    .sidebar-link:hover{background:var(--voith-blue-50)}
+    .sidebar-link.is-active{background:var(--voith-blue-100);color:var(--color-primary);font-weight:var(--font-weight-h4)}
+    .uikit-table{width:100%;border-collapse:collapse;min-width:720px}
+    .uikit-table th,.uikit-table td{padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--rule)}
+    .uikit-table th{font-size:var(--font-size-caption);font-weight:var(--font-weight-h4);color:var(--color-muted-foreground);white-space:nowrap}
+    .uikit-table td{font-size:var(--font-size-body);color:var(--color-on-surface)}
+    .form-stack{display:flex;flex-direction:column;gap:var(--space-4)}
+    .form-row{display:flex;flex-direction:column;gap:var(--space-2)}
+    .form-label{font-size:var(--font-size-caption);font-weight:var(--font-weight-h4);color:var(--color-muted-foreground)}
+    .footer{margin-top:auto;padding:var(--space-6) 0;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap}
+    .footer-links{display:flex;gap:var(--space-4)}
+    .footer-links a{color:var(--color-muted-foreground);text-decoration:none;font-size:var(--font-size-caption);white-space:nowrap}
+    .footer-links a:hover{color:var(--color-on-surface)}
+    .footer-copy{font-size:var(--font-size-caption);color:var(--color-muted-foreground)}
+    .icon-md{width:var(--size-icon-md);height:var(--size-icon-md);display:inline-block;flex-shrink:0}
+    .cta-img{width:16px;height:16px;display:inline-block;flex-shrink:0}
+    @media (max-width: 640px){.kpi-strip{grid-template-columns:minmax(0,1fr)}.footer{flex-direction:column;align-items:flex-start}}
+    @media (prefers-reduced-motion: reduce){*{transition-duration:0.01ms !important}}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const ArrowRight = () => <img className="cta-img" src="https://cdn.jsdelivr.net/npm/lucide-static@1.8.0/icons/arrow-right.svg" width="16" height="16" alt="" />;
+
+    const VoithNav = ({ current }) => (
+      <nav className="voith-nav" data-component="navigation">
+        <a className="voith-nav__logo" href="#" onClick={(e)=>{e.preventDefault(); window.__setView && window.__setView('home');}}>Voith</a>
+        <ul className="voith-nav__list">
+          <li><a className={'voith-nav__link' + (current === 'home' ? ' is-active' : '')} href="#" onClick={(e)=>{e.preventDefault(); window.__setView && window.__setView('home');}}>关于福伊特集团</a></li>
+          <li><a className={'voith-nav__link' + (current === 'solutions' ? ' is-active' : '')} href="#" onClick={(e)=>{e.preventDefault(); window.__setView && window.__setView('solutions');}}>解决方案</a></li>
+          <li><a className={'voith-nav__link' + (current === 'contact' ? ' is-active' : '')} href="#" onClick={(e)=>{e.preventDefault(); window.__setView && window.__setView('contact');}}>联系我们</a></li>
+        </ul>
+        <div className="voith-nav__utility">
+          <a href="#" onClick={(e)=>e.preventDefault()} aria-label="语言选择"><i data-lucide="globe" className="icon-md"></i></a>
+          <a className="uikit-nowrap" href="#" onClick={(e)=>e.preventDefault()}>Locations in China</a>
+        </div>
+      </nav>
+    );
+
+    const Sidebar = ({ items, active }) => (
+      <aside className="uikit-sidebar">
+        <div className="sidebar-nav">
+          {items.map((item, idx) => (
+            <a key={idx} href="#" className={'sidebar-link' + (active === item.key ? ' is-active' : '')} onClick={(e)=>e.preventDefault()}>
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </aside>
+    );
+
+    const Footer = () => (
+      <footer className="footer">
+        <span className="footer-copy">© 2026 Voith Group. 保留所有权利。</span>
+        <div className="footer-links">
+          <a href="#" onClick={(e)=>e.preventDefault()}>隐私政策</a>
+          <a href="#" onClick={(e)=>e.preventDefault()}>使用条款</a>
+          <a href="#" onClick={(e)=>e.preventDefault()}>合规服务台</a>
+        </div>
+      </footer>
+    );
+
+    const HomeView = () => (
+      <main className="uikit-main">
+        <div className="page-surface">
+          <section className="hero-section">
+            <h1 className="hero-title">世纪渊源，植根发展</h1>
+            <p className="hero-lead">福伊特集团以工程创新推动纸浆、能源与交通行业前行。我们在中国深耕多年，将全球技术经验与本地需求紧密结合。</p>
+            <div className="uikit-toolbar">
+              <button className="btn btn-primary btn-md" data-component="button" onClick={()=>window.__setView('solutions')}>了解更多</button>
+              <button className="btn btn-secondary btn-md" data-component="button" onClick={()=>window.__setView('contact')}>联系我们</button>
+            </div>
+          </section>
+          <section>
+            <div className="kpi-strip">
+              <div className="kpi-item"><div className="kpi-value">1867</div><div className="kpi-label">创立年份</div></div>
+              <div className="kpi-item"><div className="kpi-value">家族企业</div><div className="kpi-label">传承模式</div></div>
+              <div className="kpi-item"><div className="kpi-value">可持续工程</div><div className="kpi-label">发展理念</div></div>
+            </div>
+          </section>
+          <section>
+            <article className="card" data-component="card">
+              <div className="eyebrow">企业新闻</div>
+              <h3>福伊特中国论坛聚焦绿色转型</h3>
+              <p>来自造纸、能源与交通领域的专家共同探讨脱碳路径与数字化升级的最佳实践。</p>
+              <a className="cta" href="#" onClick={(e)=>e.preventDefault()}>阅读详情</a>
+            </article>
+          </section>
+          <Footer />
+        </div>
+      </main>
+    );
+
+    const SolutionsView = () => (
+      <main className="uikit-main">
+        <div className="page-surface">
+          <section>
+            <h2 className="section-heading">工程解决方案</h2>
+            <p className="section-lead">从纸机整线到水轮机，从轨道交通到数字化服务，福伊特为关键基础设施提供可靠技术与全生命周期服务。</p>
+          </section>
+          <section className="uikit-responsive-grid">
+            <article className="card" data-component="card">
+              <div className="eyebrow">造纸与纸浆</div>
+              <h3>高效纸机整线</h3>
+              <p>覆盖浆料制备、造纸、完成整饰的完整解决方案，助力客户提升产能与资源效率。</p>
+              <a className="cta-link cta-link--default" href="#" onClick={(e)=>e.preventDefault()} data-component="cta-link">了解详情<ArrowRight/></a>
+            </article>
+            <article className="card" data-component="card">
+              <div className="eyebrow">能源技术</div>
+              <h3>水电与流体设备</h3>
+              <p>为水力发电、泵送及工业流体应用提供高性能产品与智能化运维服务。</p>
+              <a className="cta-link cta-link--default" href="#" onClick={(e)=>e.preventDefault()} data-component="cta-link">了解详情<ArrowRight/></a>
+            </article>
+            <article className="card" data-component="card">
+              <div className="eyebrow">交通装备</div>
+              <h3>轨道与公路传动系统</h3>
+              <p>从牵引系统到车桥技术，福伊特驱动解决方案确保公共交通安全、高效运行。</p>
+              <a className="cta-link cta-link--default" href="#" onClick={(e)=>e.preventDefault()} data-component="cta-link">了解详情<ArrowRight/></a>
+            </article>
+          </section>
+          <section>
+            <div className="uikit-toolbar" style={{justifyContent:'space-between'}}>
+              <h3 className="section-heading" style={{fontSize:'var(--font-size-h4)'}}>近期项目</h3>
+              <button className="btn btn-primary btn-md" data-component="button">获取方案咨询</button>
+            </div>
+            <div className="uikit-table-wrap">
+              <table className="uikit-table">
+                <thead>
+                  <tr><th>项目名称</th><th>行业</th><th>地区</th><th>状态</th><th>操作</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td className="uikit-truncate">山东晨鸣纸机升级</td><td>造纸</td><td>中国</td><td><span className="badge badge-success" data-component="badge">已完成</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                  <tr><td className="uikit-truncate">三峡水轮机维护</td><td>能源</td><td>中国</td><td><span className="badge badge-cyan" data-component="badge">进行中</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                  <tr><td className="uikit-truncate">上海地铁牵引系统改造</td><td>交通</td><td>中国</td><td><span className="badge badge-blue" data-component="badge">新签</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                  <tr><td className="uikit-truncate">亚太数字化服务平台</td><td>数字化</td><td>亚太</td><td><span className="badge badge-neutral" data-component="badge">规划中</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                  <tr><td className="uikit-truncate">印尼浆线扩建</td><td>造纸</td><td>亚太</td><td><span className="badge badge-cyan" data-component="badge">进行中</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                  <tr><td className="uikit-truncate">欧洲风电齿轮箱测试</td><td>能源</td><td>欧洲</td><td><span className="badge badge-success" data-component="badge">已完成</span></td><td><div className="uikit-action-cell"><a className="uikit-action" href="#" onClick={(e)=>e.preventDefault()}>查看</a></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <Footer />
+        </div>
+      </main>
+    );
+
+    const ContactView = () => (
+      <main className="uikit-main">
+        <div className="page-surface">
+          <section>
+            <h2 className="section-heading">联系福伊特</h2>
+            <p className="section-lead">无论您是寻求技术咨询、职业机会还是合规支持，都可以通过以下方式与我们取得联系。</p>
+          </section>
+          <section className="uikit-responsive-grid">
+            <article className="card card-tinted" data-component="card">
+              <div className="eyebrow">中国总部</div>
+              <h3>福伊特企业管理（上海）有限公司</h3>
+              <p>地址：上海市浦东新区陆家嘴环路某号</p>
+              <p>电话：+86 21 1234 5678</p>
+              <a className="cta-link cta-link--default" href="#" onClick={(e)=>e.preventDefault()} data-component="cta-link">查看地图<ArrowRight/></a>
+            </article>
+            <div className="card" data-component="card">
+              <div className="eyebrow">订阅通讯</div>
+              <h3>获取最新企业动态</h3>
+              <div className="form-stack">
+                <div className="form-row">
+                  <label className="form-label" htmlFor="name">姓名</label>
+                  <input id="name" className="input" data-component="input" type="text" placeholder="请输入您的姓名" autoFocus />
+                </div>
+                <div className="form-row">
+                  <label className="form-label" htmlFor="email">邮箱</label>
+                  <input id="email" className="input error" data-component="input" type="email" defaultValue="contact@voith" />
+                </div>
+                <div className="form-row">
+                  <label className="form-label" htmlFor="company">公司</label>
+                  <input id="company" className="input" data-component="input" type="text" placeholder="请输入公司名称" disabled />
+                </div>
+                <button className="btn btn-primary btn-md" data-component="button">订阅通讯</button>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div className="uikit-toolbar">
+              <span className="badge badge-cyan" data-component="badge">中国</span>
+              <a className="cta-link cta-link--subtle" href="#" onClick={(e)=>e.preventDefault()} data-component="cta-link">提交合规问询</a>
+            </div>
+          </section>
+          <Footer />
+        </div>
+      </main>
+    );
+
+    const App = () => {
+      const [view, setView] = useState('home');
+      useEffect(() => { window.__setView = setView; lucide.createIcons(); }, []);
+
+      const sidebarItems = {
+        home: [
+          { key: 'about', label: '关于福伊特' },
+          { key: 'heritage', label: '百年传承' },
+          { key: 'news', label: '企业新闻' }
+        ],
+        solutions: [
+          { key: 'paper', label: '造纸与纸浆' },
+          { key: 'energy', label: '能源技术' },
+          { key: 'transport', label: '交通装备' },
+          { key: 'digital', label: '数字化服务' }
+        ],
+        contact: [
+          { key: 'office', label: '中国总部' },
+          { key: 'subscribe', label: '订阅通讯' },
+          { key: 'compliance', label: '合规服务台' }
+        ]
+      };
+
+      return (
+        <div style={{minHeight:'100vh', display:'flex', flexDirection:'column'}}>
+          <VoithNav current={view} />
+          <div className="uikit-shell" data-layout-guard="uikit-v1" style={{'--uikit-sidebar-w':'220px'}}>
+            <Sidebar items={sidebarItems[view]} active={sidebarItems[view][0].key} />
+            {view === 'home' && <HomeView />}
+            {view === 'solutions' && <SolutionsView />}
+            {view === 'contact' && <ContactView />}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

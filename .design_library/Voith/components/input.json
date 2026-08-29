@@ -1,0 +1,56 @@
+{
+  "slug": "input",
+  "schemaVersion": 2,
+  "name": "Input",
+  "category": "form",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["input", "text-field"],
+  "variantDimensions": {
+    "state": ["default", "focus", "error", "disabled"],
+    "size": ["md"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Default input",
+      "whySelected": "Standard newsletter or contact form field; 40px height matches Voith's dense engineering UI.",
+      "traits": {
+        "background": "var(--background)",
+        "color": "var(--foreground)",
+        "border": "1px solid var(--border)",
+        "borderRadius": "var(--radius-md)",
+        "minHeight": "var(--size-input-height)",
+        "paddingInline": "var(--space-4)",
+        "fontSize": "var(--font-size-body)"
+      },
+      "childrenDigest": ["placeholder text"]
+    },
+    {
+      "name": "Focus input",
+      "whySelected": "Active state uses cyan ring to align with brand accent and accessibility goals.",
+      "traits": {
+        "borderColor": "var(--ring)",
+        "outline": "2px solid var(--ring)",
+        "outlineOffset": "2px"
+      },
+      "childrenDigest": ["placeholder text"]
+    },
+    {
+      "name": "Error input",
+      "whySelected": "Validation failure state using the Voith error red observed in CSS.",
+      "traits": {
+        "borderColor": "var(--color-error)",
+        "background": "var(--voith-error-50)"
+      },
+      "childrenDigest": ["placeholder text", "error hint"]
+    }
+  ],
+  "anatomy": ["root", "input", "placeholder", "focus-ring"],
+  "structurePatterns": ["single-line text", "full width within container"],
+  "usageHints": {
+    "priorityHint": "Use in contact, newsletter, and search forms; keep label outside the input.",
+    "a11y": "Focus ring must be visible against both white and tinted backgrounds."
+  },
+  "doNotInvent": ["search icon", "clear button", "character counter"],
+  "unknowns": ["placeholder color opacity", "disabled background opacity"]
+}

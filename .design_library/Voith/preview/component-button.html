@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* Page scaffold — NOT extracted */
+    body { margin: 0; padding: var(--space-3); background: var(--color-surface); font-family: var(--font-body); color: var(--color-on-surface); }
+    .row { display: flex; gap: var(--space-3); align-items: center; margin-bottom: var(--space-2); flex-wrap: wrap; }
+    .label { width: 92px; flex-shrink: 0; font-family: var(--font-body); font-size: var(--font-size-eyebrow); font-weight: var(--font-weight-eyebrow); line-height: var(--line-height-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted-foreground); white-space: nowrap; }
+    .divider { border: none; border-top: 1px solid var(--rule); margin: var(--space-3) 0; }
+    /* @component-css-start */
+    /* Component definitions — extracted to components.css by deterministic script */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); border: none; cursor: pointer; font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-h4); line-height: 1; white-space: nowrap; border-radius: var(--radius-md); transition: background .15s, border-color .15s; flex-shrink: 0; min-height: var(--size-button-md); min-width: var(--size-button-md); padding-inline: var(--space-5); }
+    .btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .btn:disabled { opacity: .5; pointer-events: none; }
+    .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+    .btn-primary:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-secondary { background: transparent; color: var(--foreground); border: 1px solid var(--border); }
+    .btn-secondary:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-ghost { background: transparent; color: var(--primary); }
+    .btn-ghost:not(:disabled):hover { background: var(--accent-hover); }
+    .btn-sm { min-height: var(--size-button-sm); min-width: var(--size-button-sm); padding-inline: var(--space-3); font-size: var(--font-size-caption); }
+    .btn-lg { min-height: var(--size-button-lg); min-width: var(--size-button-lg); padding-inline: var(--space-6); font-size: var(--font-size-lead); }
+    /* @component-css-end */
+  </style>
+</head>
+<body>
+  <div class="row">
+    <span class="label">主按钮</span>
+    <button class="btn btn-primary btn-md" data-evidence-sample="Primary medium" type="button">立即咨询</button>
+  </div>
+  <div class="row">
+    <span class="label">次按钮</span>
+    <button class="btn btn-secondary btn-md" data-evidence-sample="Secondary medium" type="button">了解更多</button>
+  </div>
+  <div class="row">
+    <span class="label">幽灵按钮</span>
+    <button class="btn btn-ghost btn-sm" data-evidence-sample="Ghost small" type="button">查看方案</button>
+  </div>
+  <hr class="divider">
+  <div class="row">
+    <span class="label">尺寸</span>
+    <button class="btn btn-primary btn-sm" type="button">小按钮</button>
+    <button class="btn btn-primary btn-md" type="button">中按钮</button>
+    <button class="btn btn-primary btn-lg" type="button">大按钮</button>
+  </div>
+  <div class="row">
+    <span class="label">禁用</span>
+    <button class="btn btn-primary btn-md" type="button" disabled>不可用</button>
+    <button class="btn btn-secondary btn-md" type="button" disabled>不可用</button>
+  </div>
+</body>
+</html>
