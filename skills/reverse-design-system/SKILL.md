@@ -1,11 +1,11 @@
 ---
 name: "reverse-design-system"
-description: "Reverse-engineer a website's live CSS to extract real design tokens, then generate a complete Design Library through the design library generator pipeline. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system, or says '从官网逆向'/'从网站提取设计'/'reverse engineer design from URL'. Do NOT invoke for Figma exports, from-scratch systems without a reference URL, or page/UI design."
+description: "Evidence-first workflow for AI agents: given an authorized official website URL, automatically extract its visual language and generate a reusable design-system asset package. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system, or says '从官网逆向'/'从网站提取设计'/'reverse engineer design from URL'. Do NOT invoke for Figma exports, from-scratch systems without a reference URL, or page/UI design."
 ---
 
 # Reverse Design System
 
-Reverse-engineer any website's visual design language from its live CSS, then generate a complete Design Library using the design library generator pipeline.
+An evidence-first, reusable workflow for AI agents. Given an authorized official website URL, extract the site's rendered visual language and turn it into a complete design-system asset package: tokens, component contracts, HTML previews, a marketing UI kit, documentation, and quality metadata.
 
 ## When to Invoke
 
@@ -23,7 +23,7 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 
 ## Prerequisites
 
-- Target URL must be publicly accessible (no auth-required pages)
+- Target URL must be publicly accessible (no auth-required pages), and the user must be authorized to research and use the source material
 - Design library generator scripts available at `scripts/` (Node.js .mjs files)
 - Node.js runtime (v18+ recommended)
 - Browser automation capability (browser_use subagent or browser_navigate/evaluate/screenshot tools)
