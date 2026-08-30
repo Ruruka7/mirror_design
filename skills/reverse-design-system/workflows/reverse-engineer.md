@@ -7,9 +7,13 @@ This is the complete execution playbook for reverse-engineering a website's desi
 Before starting, confirm all of the following:
 
 * **Target URL** — the full homepage URL to reverse-engineer (e.g., `https://endfield.hypergryph.com/`).
+
 * **Output directory** — `{workspace}/.design_library/{BrandName}/`. Where the final Design Library lives.
+
 * **Temp directory** — `{tmp_dir}/{BrandName}/`. All intermediate artifacts go here. Cleaned up at the end.
+
 * **Scripts directory** — `scripts/` directory within this repository. Contains Node.js `.mjs` scripts for token generation, validation, and UIKit planning. All `scripts/*.mjs` references use this path.
+
 * **Browser automation available** — confirm the `browser_use` subagent (or `browser_navigate` / `browser_evaluate` / `browser_take_screenshot` tools) is available. This is the **PRIMARY** extraction method. If unavailable, the workflow falls back to `curl` + CSS regex only (lower quality — see Troubleshooting).
 
 > **Decision point:** If any prerequisite is missing, stop and ask the user. Do not guess the URL or brand name.
@@ -24,7 +28,7 @@ Phase 0 is split into: **0A** (browser, primary), **0B** (CSS files, supplement)
 
 ### Phase 0A — Browser Extraction (PRIMARY)
 
-**Read `file-specs/browser-extraction.md`** for exact JavaScript snippets. Execute via `browser_use` subagent or direct `browser_navigate` + `browser_evaluate` + `browser_take_screenshot` calls.
+**Read** **`file-specs/browser-extraction.md`** for exact JavaScript snippets. Execute via `browser_use` subagent or direct `browser_navigate` + `browser_evaluate` + `browser_take_screenshot` calls.
 
 #### Step 0A.1 — Navigate & Render
 
@@ -50,43 +54,43 @@ Screenshots serve as visual reference for Phase 1 design decisions, Phase 3 comp
 
 #### Step 0A.3 — Extract Computed Styles (Core)
 
-Run the computed-style extraction JavaScript from **`browser-extraction.md` Step 0A.3** via `browser_evaluate`. Walks every element, calls `getComputedStyle()`, tallies frequencies for 20+ property categories (colors, fonts, font sizes, font weights, border radius, box shadows, clip-paths, backdrop filters, transitions, paddings, gaps, z-indices, etc.).
+Run the computed-style extraction JavaScript from **`browser-extraction.md`** **Step 0A.3** via `browser_evaluate`. Walks every element, calls `getComputedStyle()`, tallies frequencies for 20+ property categories (colors, fonts, font sizes, font weights, border radius, box shadows, clip-paths, backdrop filters, transitions, paddings, gaps, z-indices, etc.).
 
 Save to `{tmp_dir}/{BrandName}/phase0a-computed-styles.json`.
 
 #### Step 0A.4 — Extract DOM Components
 
-Run the DOM component identification JavaScript from **`browser-extraction.md` Step 0A.4**. Matches elements against the 6 standard component selector patterns (Navigation, Button, Card, Input, Badge, CTA Link), extracts computed traits, dimensions, and children.
+Run the DOM component identification JavaScript from **`browser-extraction.md`** **Step 0A.4**. Matches elements against the 6 standard component selector patterns (Navigation, Button, Card, Input, Badge, CTA Link), extracts computed traits, dimensions, and children.
 
-**Read `file-specs/dom-component-mapping.md`** for exact selector lists, visibility filters, per-component computed properties, and variant classification rules (button → primary/outline/ghost/text-link; card → elevated/outlined/flat).
+**Read** **`file-specs/dom-component-mapping.md`** for exact selector lists, visibility filters, per-component computed properties, and variant classification rules (button → primary/outline/ghost/text-link; card → elevated/outlined/flat).
 
 Save to `{tmp_dir}/{BrandName}/phase0a-dom-components.json`.
 
 #### Step 0A.5 — Extract Layout Systems
 
-Run the layout extraction JavaScript from **`browser-extraction.md` Step 0A.5**. Captures grid templates (`repeat()`, `minmax()`, `auto-fit`, `auto-fill`), flex direction/wrap/align/gap, and container `max-width` patterns.
+Run the layout extraction JavaScript from **`browser-extraction.md`** **Step 0A.5**. Captures grid templates (`repeat()`, `minmax()`, `auto-fit`, `auto-fill`), flex direction/wrap/align/gap, and container `max-width` patterns.
 
 Save to `{tmp_dir}/{BrandName}/phase0a-layouts.json`.
 
 #### Step 0A.6 — Extract CSS Custom Properties (Runtime)
 
-Run the `:root` variable extraction JavaScript from **`browser-extraction.md` Step 0A.6**. Reads all `--*` custom properties from `document.documentElement` computed styles at runtime.
+Run the `:root` variable extraction JavaScript from **`browser-extraction.md`** **Step 0A.6**. Reads all `--*` custom properties from `document.documentElement` computed styles at runtime.
 
 #### Step 0A.7 — Extract Assets
 
-Run the asset extraction JavaScript from **`browser-extraction.md` Step 0A.7**.
+Run the asset extraction JavaScript from **`browser-extraction.md`** **Step 0A.7**.
 
-**Read `file-specs/asset-extraction.md`** for full asset categorization (raster images, SVG icons, fonts, background patterns, favicons, video/media), URL normalization rules, and download rules (do NOT download during extraction — record URLs and metadata only).
+**Read** **`file-specs/asset-extraction.md`** for full asset categorization (raster images, SVG icons, fonts, background patterns, favicons, video/media), URL normalization rules, and download rules (do NOT download during extraction — record URLs and metadata only).
 
 Save to `{tmp_dir}/{BrandName}/phase0a-assets.json`.
 
 #### Step 0A.8 — Responsive Breakpoint Testing
 
-Run the responsive analysis JavaScript from **`browser-extraction.md` Step 0A.8** at viewport widths `[1920, 1440, 1024, 768, 375]`. Records layout changes, nav height, and mobile menu appearance per breakpoint.
+Run the responsive analysis JavaScript from **`browser-extraction.md`** **Step 0A.8** at viewport widths `[1920, 1440, 1024, 768, 375]`. Records layout changes, nav height, and mobile menu appearance per breakpoint.
 
 #### Step 0A.9 — Extract Section Structure
 
-Run the page section extraction JavaScript from **`browser-extraction.md` Step 0A.9**. Maps the vertical sequence of major sections (hero → features → testimonials → CTA → footer) with heights, backgrounds, and max-widths.
+Run the page section extraction JavaScript from **`browser-extraction.md`** **Step 0A.9**. Maps the vertical sequence of major sections (hero → features → testimonials → CTA → footer) with heights, backgrounds, and max-widths.
 
 ### Phase 0B — CSS File Extraction (SUPPLEMENT)
 
@@ -123,7 +127,7 @@ Verify each file is non-empty.
 
 #### Step 0B.3 — Run Regex Extraction
 
-**Read `file-specs/css-extraction.md`** for exact regex patterns and PowerShell templates for all 18 token categories. Concatenate all `css_*.css` files and extract: colors, fonts, font sizes, borders, border-radius, box-shadow, transitions, backdrop-filter, clip-path, letter-spacing, custom properties, gradients, z-index, padding, gap, `@font-face`, transforms, background patterns.
+**Read** **`file-specs/css-extraction.md`** for exact regex patterns and PowerShell templates for all 18 token categories. Concatenate all `css_*.css` files and extract: colors, fonts, font sizes, borders, border-radius, box-shadow, transitions, backdrop-filter, clip-path, letter-spacing, custom properties, gradients, z-index, padding, gap, `@font-face`, transforms, background patterns.
 
 Save to `{tmp_dir}/{BrandName}/phase0b-css-extraction.json`.
 
@@ -135,7 +139,7 @@ Merge Phase 0A (browser) and Phase 0B (CSS) into a unified key findings report.
 
 #### Merge Priority Rules
 
-**Read `file-specs/css-extraction.md` → "Merge Priority" section.** Summary:
+**Read** **`file-specs/css-extraction.md`** **→ "Merge Priority" section.** Summary:
 
 1. **Browser computed styles = AUTHORITATIVE.** Actual rendering after cascade + JS.
 2. **CSS file declarations = SUPPLEMENTARY.** What was declared in source.
@@ -166,15 +170,22 @@ Write `=== KEY FINDINGS ===` citing real hex values, font names, layout metrics.
 
 ### Gate 0
 
-**Read `operation-policies/quality-gates.md` Gate 0 criteria.** Check:
+**Read** **`operation-policies/quality-gates.md`** **Gate 0 criteria.** Check:
 
 * [ ] Browser extraction completed — `phase0a-computed-styles.json` has content for colors, fonts, font-sizes, shadows, transitions.
+
 * [ ] At least 3 component types identified in DOM (from `phase0a-dom-components.json`).
+
 * [ ] Screenshots captured (full-page + viewport).
+
 * [ ] CSS file extraction completed if CSS was fetchable (may be skipped for SPAs).
+
 * [ ] A dominant background color is identifiable.
+
 * [ ] At least 1 brand accent color is identifiable (distinct from bg/text).
+
 * [ ] At least 1 custom web font identified (via `document.fonts` or `@font-face`), OR system fonts clearly dominant.
+
 * [ ] Key findings JSON saved with all 14 items.
 
 > **If FAIL:** Check Troubleshooting for fallback to curl-only. If curl also fails, ask for an alternative URL or screenshot-based approach.
@@ -189,14 +200,19 @@ Write `=== KEY FINDINGS ===` citing real hex values, font names, layout metrics.
 
 ### Step 1.1 — Build Brand Profile
 
-**Read `file-specs/brand-profile.md`** for the complete schema and personality keyword bank. Populate a JSON object with: `productType`, `confidence`, `personality`, `language`, `visualTone`, `kitType`, `colorNamingPrefix`, `uiCopySamples`.
+**Read** **`file-specs/brand-profile.md`** for the complete schema and personality keyword bank. Populate a JSON object with: `productType`, `confidence`, `personality`, `language`, `visualTone`, `kitType`, `colorNamingPrefix`, `uiCopySamples`.
 
 Key field rules:
-- `confidence`: `high` if browser extraction yielded clear patterns; `medium` if heavily JS-rendered and CSS was sparse.
-- `personality`: 3–5 keywords from the keyword bank. Derive from visual evidence.
-- `visualTone`: MUST cite real extracted hex values and font names. Also reference layout system, component patterns, and asset observations. This is the creative north star for all token generation.
-- `colorNamingPrefix`: lowercase brand name (CSS variable prefix).
-- `uiCopySamples`: 5–10 actual text strings from the DOM — read from `phase0a-dom-components.json` component text fields. NEVER fabricate.
+
+* `confidence`: `high` if browser extraction yielded clear patterns; `medium` if heavily JS-rendered and CSS was sparse.
+
+* `personality`: 3–5 keywords from the keyword bank. Derive from visual evidence.
+
+* `visualTone`: MUST cite real extracted hex values and font names. Also reference layout system, component patterns, and asset observations. This is the creative north star for all token generation.
+
+* `colorNamingPrefix`: lowercase brand name (CSS variable prefix).
+
+* `uiCopySamples`: 5–10 actual text strings from the DOM — read from `phase0a-dom-components.json` component text fields. NEVER fabricate.
 
 See `examples/brand-profile-example.json` for a real reference.
 
@@ -218,14 +234,30 @@ Check: all required fields present; `visualTone` cites ≥2 real hex values; `pe
 
 **Goal:** Generate `colors_and_type.css` with all design tokens, then derive `css.json`.
 
+### Step 2.0 — Create metadata.json
+
+**Read** **`file-specs/metadata-and-quality.md`** for schema. Generate a minimal identity file:
+
+```json
+{
+  "id": "{generate random 12-char ID like ABC123DEF456}",
+  "name": "{BrandName}",
+  "version": 1
+}
+```
+
+Save to `{output_dir}/metadata.json`. If the library already exists (update scenario), read the existing metadata.json, increment `version` by 1, and overwrite.
+
 ### Step 2.1 — Dispatch Token Sub-Agent
 
-**Read `operation-policies/agent-dispatch.md`** for the Phase 2 dispatch template.
+**Read** **`operation-policies/agent-dispatch.md`** for the Phase 2 dispatch template.
 
 Dispatch 1 sub-agent (`general_purpose_task`) with these inputs:
 
 * **Read:** `file-specs/token-css.md`, `{tmp_dir}/{BrandName}/phase2-brand-analyst.json`, `{tmp_dir}/{BrandName}/phase0a-computed-styles.json` (browser-extracted computed styles — AUTHORITATIVE), `{tmp_dir}/{BrandName}/phase0b-css-extraction.json` (CSS file extraction — supplementary `@font-face` src URLs, if available).
+
 * **Write:** `{output_dir}/colors_and_type.css`.
+
 * **CSS budget:** ≤250 lines.
 
 The sub-agent must generate: full 10-step color scales (50–900) per group (primary, accent, tertiary, neutral, surface), anchored at the real browser-computed brand color; typography tokens using real font family names from `document.fonts` / `@font-face`; spacing/sizing/radius/shadow/transition tokens from computed style frequency data; dark/light theme blocks; `/* AI-generated */` markers on AI-generated values; `@group-priority` comment; `@primary`/`@accent` markers; `@import` for Google Fonts only (no `@import` for `@font-face` fonts).
@@ -256,21 +288,21 @@ Write `{output_dir}/components/index.json` with the 6 standard components. Popul
 
 ### Step 3.2 — Write Component Contracts
 
-For each component, write `{output_dir}/components/{slug}.json`. **Read `file-specs/component-contract.md`** for the schema.
+For each component, write `{output_dir}/components/{slug}.json`. **Read** **`file-specs/component-contract.md`** for the schema.
 
 **Key change:** Contracts now reference **real DOM component data** — actual selectors that matched, actual computed traits, actual dimensions (width/height in px). Variant classifications come from `dom-component-mapping.md` rules (button → primary/outline/ghost/text-link; card → elevated/outlined/flat). Include: `slug`, `schemaVersion: 2`, `name`, `category`, `sourceKind`, `confidence`, `semanticTypeCandidates`, `variantDimensions`, `representativeVariants` (3–4 with `traits` using `var()` refs), `anatomy`, `structurePatterns`, `usageHints`, `doNotInvent`, `unknowns`.
 
-**All trait values MUST use `var()` references** to tokens in `colors_and_type.css`. Never hardcode hex. See `examples/component-contract-example.json`.
+**All trait values MUST use** **`var()`** **references** to tokens in `colors_and_type.css`. Never hardcode hex. See `examples/component-contract-example.json`.
 
 ### Step 3.3 — Generate Component Previews (Parallel)
 
-**Read `agent-dispatch.md`** Phase 3 template. Dispatch 3 sub-agents in parallel:
+**Read** **`agent-dispatch.md`** Phase 3 template. Dispatch 3 sub-agents in parallel:
 
-| Batch | Components | Output files |
-|---|---|---|
-| 1 | `button` + `card` | `preview/component-button.html`, `preview/component-card.html` |
-| 2 | `input` + `badge` | `preview/component-input.html`, `preview/component-badge.html` |
-| 3 | `cta-link` + `navigation` | `preview/component-cta-link.html`, `preview/component-navigation.html` |
+| Batch | Components                | Output files                                                           |
+| ----- | ------------------------- | ---------------------------------------------------------------------- |
+| 1     | `button` + `card`         | `preview/component-button.html`, `preview/component-card.html`         |
+| 2     | `input` + `badge`         | `preview/component-input.html`, `preview/component-badge.html`         |
+| 3     | `cta-link` + `navigation` | `preview/component-cta-link.html`, `preview/component-navigation.html` |
 
 Each reads the component JSON contract(s), `colors_and_type.css`, and **the original screenshots** (`screenshot-full.png`) as visual reference. Writes self-contained HTML previews. **CSS link (REQUIRED):** `<link rel="stylesheet" href="../colors_and_type.css">`
 
@@ -312,7 +344,7 @@ node "scripts/validate-uikit-plan.mjs" `
 
 ### Step 4.2 — Generate Documentation (Parallel)
 
-**Read `agent-dispatch.md`** Phase 4a template. Dispatch 2 sub-agents:
+**Read** **`agent-dispatch.md`** Phase 4a template. Dispatch 2 sub-agents:
 
 **Sub-agent A:** `{output_dir}/SKILL.md` (YAML frontmatter + essentials), `{output_dir}/library-consumption.json` (consumption order).
 **Sub-agent B:** `{output_dir}/README.md` (Overview, Content Fundamentals, Visual Foundations, Component Patterns, Index, Caveats).
@@ -321,9 +353,29 @@ Both read `file-specs/documentation.md` and `colors_and_type.css`. Neither reads
 
 ### Step 4.3 — Generate UIKit
 
-**Read `agent-dispatch.md`** Phase 4b template. Dispatch 1 sub-agent that reads `file-specs/uikit.md`, all 6 component contracts, brand profile, `colors_and_type.css`, `uikit-plan.json`, and **the original website screenshots** (`screenshot-full.png`, `screenshot-viewport.png`) as visual reference for matching layout and component placement. Writes `{output_dir}/ui_kits/marketing/index.html`.
+**Read** **`agent-dispatch.md`** Phase 4b template. Dispatch 1 sub-agent that reads `file-specs/uikit.md`, all 6 component contracts, brand profile, `colors_and_type.css`, `uikit-plan.json`, and **the original website screenshots** (`screenshot-full.png`, `screenshot-viewport.png`) as visual reference for matching layout and component placement. Writes `{output_dir}/ui_kits/marketing/index.html`.
 
 **CSS link (REQUIRED):** `<link rel="stylesheet" href="../../colors_and_type.css">`
+
+### Step 4.4 — Generate Quality Report
+
+**Read** **`file-specs/metadata-and-quality.md`** for schema. The UIKit sub-agent (or main agent) fills in quality metrics based on what was actually used:
+
+```json
+{
+  "schemaVersion": 1,
+  "screensGenerated": 3,
+  "coreComponentsUsed": ["button", "navigation", "card", "badge", "cta-link", "input"],
+  "supportComponentsUsed": [],
+  "previewClassReuseRate": 0.9,
+  "hasProductContext": true,
+  "inventedComponents": [],
+  "renderedFromEvidence": [],
+  "warnings": []
+}
+```
+
+Save to `{output_dir}/ui_kits/marketing/quality-report.json`. Adjust `screensGenerated` and `previewClassReuseRate` to match actual UIKit content.
 
 ### Gate 4
 
@@ -339,7 +391,7 @@ Check: `README.md` has 6 prose sections; `SKILL.md` has YAML frontmatter; `libra
 
 ### Step 5.1 — Strip BOMs (ALL files)
 
-**Read `quality-gates.md`** for the BOM-stripping script. Walk all subdirectories in both `{output_dir}` and `{tmp_dir}/{BrandName}`:
+**Read** **`quality-gates.md`** for the BOM-stripping script. Walk all subdirectories in both `{output_dir}` and `{tmp_dir}/{BrandName}`:
 
 ```powershell
 node -e "const fs=require('fs');const dir='{output_dir}';function walk(d){fs.readdirSync(d,{withFileTypes:true}).forEach(e=>{const p=require('path').join(d,e.name);if(e.isDirectory()){walk(p)}else{let buf=fs.readFileSync(p);if(buf.length>=3&&buf[0]===0xEF&&buf[1]===0xBB&&buf[2]===0xBF){fs.writeFileSync(p,buf.slice(3));console.log('BOM stripped:',p)}}})}walk(dir)"
@@ -377,7 +429,7 @@ Remove-Item -Force "{workspace}/ef_*.css","{workspace}/css_*.css","{workspace}/t
 
 ### Step 5.6 — Git Commit & Push
 
-**Read `operation-policies/git-deploy.md`** for conventions.
+**Read** **`operation-policies/git-deploy.md`** for conventions.
 
 ```powershell
 cd {workspace}
@@ -398,7 +450,7 @@ Check: validator exit code 0; no temp files remain; `git push` succeeded (or use
 
 ## Troubleshooting
 
-### browser_use fails → fall back to curl + css-extraction.md only
+### browser\_use fails → fall back to curl + css-extraction.md only
 
 If the `browser_use` subagent is unavailable, crashes, or the site blocks automated browsers:
 

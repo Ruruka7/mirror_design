@@ -46,6 +46,7 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 
 - [PASS] colors_and_type.css exists and is non-empty
 - [PASS] css.json generated successfully
+- [PASS] `metadata.json` exists with `id`, `name`, `version` fields
 - [PASS] All 10-step scales present (50-900) for each color group
 - [PASS] Each color group has exactly one /* @primary */ marker
 - [PASS] @group-priority comment present
@@ -72,6 +73,9 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 - [PASS] library-consumption.json exists
 - [PASS] ui_kits/marketing/index.html exists
 - [PASS] UIKit uses correct CSS link path (../../colors_and_type.css)
+- [PASS] `ui_kits/marketing/quality-report.json` exists with all 9 required fields
+- [PASS] `coreComponentsUsed` includes all 6 standard slugs
+- [PASS] `hasProductContext` is `true`
 
 ---
 
@@ -82,6 +86,7 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 - [PASS] css.json regenerated after BOM strip
 - [PASS] No agent-reports or temp files left in output dir
 - [PASS] Git commit and push successful
+- [PASS] `metadata.json` version is correct (incremented if update, 1 if new)
 
 ---
 

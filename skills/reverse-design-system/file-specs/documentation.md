@@ -10,6 +10,8 @@ This specification defines the format and content rules for three documentation 
 
 These documents are generated strictly from `colors_and_type.css`, `css.json`, `_evidence/`, and `uiCopySamples`. They must never duplicate component variant details or serve as a token reference table.
 
+> **Note:** Two additional non-documentation files are also generated alongside the docs: `metadata.json` (library identity / provenance) and `quality-report.json` (validation results). These are NOT documentation files but identity/quality files that must exist alongside the docs. Their schemas are defined in `file-specs/metadata-and-quality.md`.
+
 ## README.md Structure
 
 The README MUST contain exactly the following sections, in this order, with no additional sections.
@@ -59,65 +61,79 @@ Every value cited MUST come from `colors_and_type.css`.
 
 ## SKILL.md Structure
 
-SKILL.md is the agent-facing quick-reference. It MUST be 25–50 lines.
+SKILL.md is the agent-facing quick-reference skill card. It MUST follow the exact structure below.
 
 ### YAML Frontmatter
 ```yaml
 ---
-name: reverse-design-system-{brand}
-description: Reverse-engineered design system for {BrandName} covering color, type, spacing, and 6 components.
+name: {brandname-lowercase}-design
+description: Use this skill to generate well-branded interfaces and assets for {BrandName} — {brand design language summary}. Contains essential design guidelines, colors, type, fonts, assets, and UI kit components for prototyping {kit type} UIs.
 user-invocable: true
 ---
 ```
 
-### Quick Map (file navigation table)
-A small table (≤6 rows) listing key files and their purpose:
-- `colors_and_type.css` — tokens
-- `css.json` — structured token data
-- `components/index.json` — component index
-- `preview/` — component previews
-- `ui_kits/marketing/index.html` — UI Kit
+- `name` — `{brandname-lowercase}-design` (e.g. `endfield-design`, `openai-design`).
+- `description` — a real description of the brand's design language, not a generic template. Summarize the visual character (e.g. "industrial post-apocalyptic marketing landing experience") and the kit's intended use.
 
-### Essentials (8–10 design decision bullets)
-- Each bullet is one design decision with the real value, e.g.:
-  - `Primary accent: --color-primary (#5B8CFF).`
-  - `Body type: --font-body at --font-size-body, weight --font-weight-regular.`
-- ALL values from `colors_and_type.css`.
+### Body Structure
+
+The body MUST contain, in this order:
+
+1. **Title line** — `# {BrandName} Design Skill`.
+2. **Description paragraph** — one short paragraph explaining how to use the skill: read `README.md` first for design intent, copy assets from the library, link `colors_and_type.css` into HTML, etc.
+3. **`## Quick map`** — a bulleted file navigation list (not a table) with these entries:
+   - `README.md` — brand context, content fundamentals, visual foundations
+   - `css.json` — structured token understanding source
+   - `colors_and_type.css` — drop-in runtime CSS variables
+   - `components.css` — aggregated component CSS
+   - `components/index.json` — component index and cross-component patterns
+   - resolved component sources — consume in priority order: preview first, then JSON, then `_evidence/` fallback
+   - `preview/` — small HTML cards for each component
+   - `library-consumption.json` — recommended downstream read order
+4. **`## Essentials at a glance`** — 8–10 bullets of key design decisions, each with the real value:
+   - Each bullet is one design decision with the real value, e.g.:
+     - `Primary accent: --color-primary (#5B8CFF).`
+     - `Body type: --font-body at --font-size-body, weight --font-weight-regular.`
+   - ALL values from `colors_and_type.css`.
 
 ## library-consumption.json Structure
 
 ```json
 {
+  "brand": "Endfield",
+  "language": "zh",
+  "kitType": "marketing",
   "readOrder": [
-    "colors_and_type.css",
-    "css.json",
-    "components/index.json",
-    "components/button.json",
-    "components/card.json",
-    "components/input.json",
-    "components/badge.json",
-    "components/cta-link.json",
-    "components/navigation.json",
-    "preview/",
-    "ui_kits/marketing/index.html"
+    { "file": "README.md", "purpose": "Brand context, content fundamentals, visual foundations — read first for design intent" },
+    { "file": "SKILL.md", "purpose": "Skill entry point and quick essentials" },
+    { "file": "css.json", "purpose": "Structured token understanding source — read to understand color / type / spacing / radius values" },
+    { "file": "colors_and_type.css", "purpose": "Runtime CSS variables — link into HTML; do not read for token understanding when css.json exists" },
+    { "file": "components/index.json", "purpose": "Component index and cross-component patterns" },
+    { "file": "components.css", "purpose": "Aggregated component CSS extracted from preview pages" }
   ],
-  "componentSourcePriority": [
-    "preview HTML",
-    "components/{slug}.json",
-    "_evidence/"
-  ],
+  "components": ["button", "card", "input", "badge", "cta-link", "navigation"],
+  "componentSourcePriority": {
+    "first": "preview/component-{slug}.html",
+    "second": "components/{slug}.json",
+    "fallback": "components/_evidence/{slug}.json"
+  },
   "notes": [
-    "Read colors_and_type.css first; every trait value is a var() reference into it.",
-    "Prefer preview HTML for visual truth; fall back to component JSON for trait values.",
-    "Consult _evidence/ only when a trait's origin is disputed."
+    "css.json is the token understanding source; colors_and_type.css is the runtime link source.",
+    "Preview DOM/CSS is the first source for component fidelity; component JSON provides intent/variants only.",
+    "Dark theme is default; .light class overrides tokens for light mode.",
+    "All color, radius, and spacing values originate from colors_and_type.css — do not introduce values not present there."
   ]
 }
 ```
 
 ### Field rules
-- `readOrder` — ordered list of files/paths an agent should read to fully understand the system.
-- `componentSourcePriority` — ranked sources for component truth, highest priority first.
-- `notes` — key consumption notes (3–5 entries).
+- `brand` — the brand name (string).
+- `language` — the primary content language of the library (e.g. `zh`, `en`).
+- `kitType` — the kit type (e.g. `marketing`).
+- `readOrder` — ordered array of objects, each with `file` + `purpose`, defining the recommended downstream read order for an agent.
+- `components` — array of component slugs included in the library.
+- `componentSourcePriority` — object with `first`/`second`/`fallback` keys defining the ranked source paths for component truth (highest priority first).
+- `notes` — array of key consumption notes (strings, 3–5 entries).
 
 ## Generation Constraints
 

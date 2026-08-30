@@ -45,6 +45,7 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 | `file-specs/preview-page.md` | Phase 3 | Preview HTML structure, CSS link rules, layout constraints |
 | `file-specs/uikit.md` | Phase 4 | UIKit HTML structure, section layout, component display rules |
 | `file-specs/documentation.md` | Phase 4 | README structure, SKILL.md format, library-consumption schema |
+| `file-specs/metadata-and-quality.md` | Phase 2 start + Phase 4 end | metadata.json and quality-report.json schemas |
 | `operation-policies/quality-gates.md` | Between phases | Phase gate criteria, validator usage, acceptance checklist |
 | `operation-policies/decision-rules.md` | Edge cases | SPA handling, auth-required sites, minimal CSS, language detection |
 | `operation-policies/agent-dispatch.md` | Phase 2-4 | Sub-agent dispatch templates, parallel batch rules, query contracts |
@@ -61,6 +62,7 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 | Phase 0C entry | 0 | no reads (merge logic is in workflow) |
 | Phase 1 entry | 1 | `file-specs/brand-profile.md` |
 | Phase 2 entry | 1 | `file-specs/token-css.md` |
+| Phase 2 start | 1 | `file-specs/metadata-and-quality.md` |
 | Phase 3 entry | 1 each | `file-specs/component-contract.md`, `file-specs/preview-page.md` |
 | Phase 4 entry | 1 each | `file-specs/uikit.md`, `file-specs/documentation.md` |
 | Phase 5 entry | 1 each | `operation-policies/quality-gates.md`, `operation-policies/git-deploy.md` |
@@ -158,6 +160,7 @@ Phase 5: Validate & Deploy         [Main Agent]
 {workspace}/.design_library/{BrandName}/
   colors_and_type.css           # Token system (all values from real CSS)
   css.json                      # Derived token JSON (auto-generated)
+  metadata.json                 # Library identity (id, name, version)
   components.css                # Extracted component styles (auto-generated)
   components/
     index.json                  # Component index (6 standard components)
@@ -176,6 +179,7 @@ Phase 5: Validate & Deploy         [Main Agent]
     component-navigation.html
   ui_kits/marketing/
     index.html                  # Marketing UI Kit
+    quality-report.json         # UIKit quality metrics
   uikit-plan.json               # UIKit plan (auto-generated)
   README.md                     # Brand narrative documentation
   SKILL.md                      # Skill entry point
