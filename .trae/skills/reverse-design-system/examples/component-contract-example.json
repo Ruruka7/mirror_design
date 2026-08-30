@@ -1,0 +1,53 @@
+{
+  "slug": "button",
+  "schemaVersion": 2,
+  "name": "Button",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["button", "action"],
+  "variantDimensions": {
+    "variant": ["primary", "accent", "outline", "ghost", "tertiary"],
+    "size": ["sm", "md", "lg"]
+  },
+  "representativeVariants": [
+    {
+      "name": "Primary medium",
+      "whySelected": "Default CTA — hazard yellow fill with dark text, angular clip-path cut corner on bottom-right.",
+      "traits": {
+        "background": "var(--primary)",
+        "color": "var(--color-on-primary)",
+        "clipPath": "polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%)",
+        "minHeight": "var(--size-button-md)",
+        "paddingInline": "var(--space-5)",
+        "fontWeight": "var(--font-weight-h4)",
+        "textTransform": "uppercase",
+        "letterSpacing": "var(--tracking-tight)",
+        "transition": "var(--transition-fast)",
+        "boxShadow": "var(--shadow-5)"
+      },
+      "childrenDigest": ["label text"]
+    },
+    {
+      "name": "Accent medium",
+      "whySelected": "Neon green secondary action — used for confirm or proceed states.",
+      "traits": {
+        "background": "var(--accent)",
+        "color": "var(--color-on-accent)",
+        "clipPath": "polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%)",
+        "minHeight": "var(--size-button-md)",
+        "paddingInline": "var(--space-5)",
+        "boxShadow": "0 0 .625rem rgba(0,255,162,.3)"
+      },
+      "childrenDigest": ["label text"]
+    }
+  ],
+  "anatomy": ["root", "label", "clip-path-corner", "focus-glow"],
+  "structurePatterns": ["single-line label", "uppercase transform", "angular corner cut"],
+  "usageHints": {
+    "priorityHint": "Use primary for the single main CTA; accent for proceed/confirm; outline for parallel choices.",
+    "a11y": "Focus glow uses yellow brand glow for high visibility against dark ground."
+  },
+  "doNotInvent": ["icons inside button", "loading spinners", "dropdown arrows"],
+  "unknowns": ["exact clip-path angle degree", "active-state press depth"]
+}

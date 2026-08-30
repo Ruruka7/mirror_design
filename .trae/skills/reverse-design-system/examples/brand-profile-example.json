@@ -1,0 +1,10 @@
+{
+  "productType": "Marketing/Landing",
+  "confidence": "high",
+  "personality": ["industrial", "post-apocalyptic", "high-energy", "geometric", "aggressive"],
+  "language": "zh",
+  "visualTone": "Industrial post-apocalyptic dark UI with hazard-yellow #fffa00 primary, neon green #00ffa2 secondary, magenta #ff1aac tertiary, built on near-black #191919 ground with #fff text. Geometric clip-path cutouts, diagonal hazard stripe patterns, colored glow shadows.",
+  "kitType": "marketing",
+  "colorNamingPrefix": "endfield",
+  "uiCopySamples": ["ENDFIELD", "终末地", "探索", "领取", "预约", "世界观", "角色", "开发组", "关注我们", "ARK牌号"]
+}

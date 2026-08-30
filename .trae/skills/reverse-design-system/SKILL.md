@@ -1,6 +1,6 @@
 ---
 name: "reverse-design-system"
-description: "Reverse-engineer a website's CSS to extract real design tokens, then generate a complete Design Library through the design-library-creator pipeline. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system from a live website."
+description: "Reverse-engineer a website's live CSS to extract real design tokens, then generate a complete Design Library through the design-library-creator pipeline. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system, or says '从官网逆向'/'从网站提取设计'/'reverse engineer design from URL'. Do NOT invoke for Figma exports, from-scratch systems without a reference URL, or page/UI design."
 ---
 
 # Reverse Design System
@@ -12,6 +12,7 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 - User provides a URL and asks to reverse-engineer / extract / reconstruct a design system from it
 - User says "从官网逆向" / "从网站提取设计" / "reverse engineer design from URL"
 - User wants a design system based on a real website's actual CSS values (not AI-guessed)
+- User wants to replicate a website's design language as a reusable token system
 
 ## When NOT to Invoke
 
@@ -24,69 +25,147 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 
 - Target URL must be publicly accessible (no auth-required pages)
 - `design-library-creator` skill must be available in the environment
-- Node.js runtime with the design-library-creator scripts available at:
+- Node.js runtime with design-library-creator scripts at:
   `c:\Users\25230\.trae-cn\builtin\design\default\skills\design-library-creator\scripts\`
 
 ## Read Order
 
 | File | When | Purpose |
 |------|------|---------|
-| `SKILL.md` (this file) | Always | Route, trigger conditions, pipeline overview |
-| `workflows/reverse-engineer.md` | After confirming this skill | Full phase-by-phase execution instructions |
+| `SKILL.md` (this file) | Always | Route, trigger conditions, pipeline overview, protocol actions |
+| `workflows/reverse-engineer.md` | After confirming skill | Full phase-by-phase execution with exact commands and gates |
+| `file-specs/css-extraction.md` | Phase 0 | Extraction regex patterns, required token categories, output format |
+| `file-specs/brand-profile.md` | Phase 1 | Brand profile JSON schema, field definitions, validation rules |
+| `file-specs/token-css.md` | Phase 2 | Token CSS structure, naming conventions, color scale rules |
+| `file-specs/component-contract.md` | Phase 3 | Component JSON schema, variant spec, anatomy rules |
+| `file-specs/preview-page.md` | Phase 3 | Preview HTML structure, CSS link rules, layout constraints |
+| `file-specs/uikit.md` | Phase 4 | UIKit HTML structure, section layout, component display rules |
+| `file-specs/documentation.md` | Phase 4 | README structure, SKILL.md format, library-consumption schema |
+| `operation-policies/quality-gates.md` | Between phases | Phase gate criteria, validator usage, acceptance checklist |
+| `operation-policies/decision-rules.md` | Edge cases | SPA handling, auth-required sites, minimal CSS, language detection |
+| `operation-policies/agent-dispatch.md` | Phase 2-4 | Sub-agent dispatch templates, parallel batch rules, query contracts |
+| `operation-policies/git-deploy.md` | Phase 5 | Commit conventions, branch strategy, .gitignore rules |
+
+> [FORBIDDEN] Main Agent MUST NOT pre-read sub-agent-only constraint files. Sub-agents receive those paths inside Task queries.
+
+## Main Agent Read Budget
+
+| Scope | Budget | Allowed Reads |
+|-------|--------|---------------|
+| Phase 0 entry | 1 | `file-specs/css-extraction.md` |
+| Phase 1 entry | 1 | `file-specs/brand-profile.md` |
+| Phase 2 entry | 1 | `file-specs/token-css.md` |
+| Phase 3 entry | 1 each | `file-specs/component-contract.md`, `file-specs/preview-page.md` |
+| Phase 4 entry | 1 each | `file-specs/uikit.md`, `file-specs/documentation.md` |
+| Phase 5 entry | 1 each | `operation-policies/quality-gates.md`, `operation-policies/git-deploy.md` |
+| Edge cases | 1 | `operation-policies/decision-rules.md` |
+| Sub-agent dispatch | 1 | `operation-policies/agent-dispatch.md` |
+
+Hard stops:
+- If Phase 0 extraction yields <3 distinct colors: stop, report sparse CSS, ask user for alternative URL
+- If Phase 1 brand profile cannot determine a primary accent color: stop, ask user to specify
+- Do NOT re-read file-specs once a phase is dispatched to sub-agents
+
+## Sub-Agent Scope
+
+| Files | Assigned To |
+|------|-------------|
+| `file-specs/token-css.md` | Phase 2 token generation sub-agent |
+| `file-specs/component-contract.md` | Phase 3 component data sub-agent |
+| `file-specs/preview-page.md` | Phase 3 preview generation sub-agents (parallel) |
+| `file-specs/uikit.md` | Phase 4 UIKit sub-agent |
+| `file-specs/documentation.md` | Phase 4 documentation sub-agents |
+| `operation-policies/agent-dispatch.md` | Main Agent only (dispatch orchestration) |
+| `operation-policies/quality-gates.md` | Main Agent only (gate verification) |
+| `operation-policies/decision-rules.md` | Main Agent only (edge case handling) |
+
+## Protocol Actions
+
+During reverse-engineering, Main Agent submits artifacts to the runtime via the following protocol actions ONLY when the runtime tool list explicitly exposes an action/tool of the same name:
+
+| Action | When | Params |
+|--------|------|--------|
+| `generate_skill_files` | After each Phase completes | `{ files: [{ path: string, role: string }] }` |
+| `update_tokens` | Token system assembled (end of Phase 2) | `{ tokensExtracted: number }` |
+| `update_components` | Component data exported (end of Phase 3) | `{ componentsAnalyzed: number }` |
+| `complete` | Finalize after all Gates pass (Phase 5) | `{ stats: { tokensExtracted, componentsAnalyzed, filesGenerated } }` |
 
 ## Pipeline Overview
 
 ```
-Phase 0: Fetch & Extract     ← UNIQUE to this skill
-    curl target website → parse CSS → extract real tokens
-    (colors, fonts, sizes, borders, shadows, gradients, clip-paths, transitions)
+Phase 0: Fetch & Extract          [Main Agent]
+    curl target website → download CSS → regex extract all tokens
+    Deliverable: phase0-css-extraction.json (raw evidence)
          │
          ▼
-Phase 1: Brand Analysis      ← Bridge to design-library-creator
-    Build brand profile from extracted data
-    (productType, personality, visualTone, language, kitType, uiCopySamples)
+Phase 1: Brand Analysis            [Main Agent]
+    Build brand profile from Phase 0 evidence
+    Deliverable: phase1-brand-analyst.json (structured profile)
          │
          ▼
-Phase 2-4: Design Library Generation  ← Delegated to design-library-creator
-    Token CSS → css.json → Components → Previews → Docs → UIKit
+Phase 2: Token Generation          [Sub-Agent ×1]
+    Generate colors_and_type.css → derive css.json
+    Deliverable: colors_and_type.css, css.json
          │
          ▼
-Phase 5: Validate & Deploy   ← Post-processing
-    Strip BOMs → validate → git commit → git push
+Phase 3: Components & Previews    [Main Agent + Sub-Agents ×3 parallel]
+    Write component index + contracts → generate previews → extract components.css
+    Deliverable: components/index.json, components/{slug}.json ×6, preview/*.html ×6, components.css
+         │
+         ▼
+Phase 4: Documentation & UIKit    [Sub-Agents ×3 parallel → Sub-Agent ×1]
+    README + SKILL + consumption → UIKit plan → UIKit HTML
+    Deliverable: README.md, SKILL.md, library-consumption.json, ui_kits/marketing/index.html
+         │
+         ▼
+Phase 5: Validate & Deploy         [Main Agent]
+    Strip BOMs → validate → fix → git commit → git push
+    Deliverable: validated, committed Design Library
 ```
 
 ## Key Principles
 
-1. **No hallucination**: Every color, font, size, shadow value MUST come from the target website's real CSS. Never invent values.
-2. **Evidence-first**: Extract raw CSS data before making any design decisions. The data drives the system.
+1. **No hallucination**: Every color, font, size, shadow value MUST come from the target website's real CSS. Never invent values. If extraction is sparse, report it rather than fabricating.
+2. **Evidence-first**: Extract raw CSS data before making any design decisions. The data drives the system, not the other way around.
 3. **Full delegation for generation**: Phases 2-4 use the `design-library-creator` pipeline exactly as-is. Do not reinvent token generation, component contracts, or preview authoring.
-4. **BOM safety**: All generated files must be UTF-8 without BOM. Run a BOM-stripping pass before validation.
-5. **Git-ready**: Final output should be committable to a design-systems repository without modification.
-
-## Quick Start
-
-1. Read `workflows/reverse-engineer.md` for full phase instructions
-2. Confirm the target URL with the user
-3. Execute Phase 0 (fetch + extract)
-4. Execute Phase 1 (brand analysis)
-5. Hand off to `design-library-creator` pipeline for Phases 2-4
-6. Execute Phase 5 (validate + deploy)
+4. **BOM safety**: All generated files must be UTF-8 without BOM. Run a BOM-stripping pass before any validation or JSON parsing step.
+5. **Git-ready**: Final output should be committable to a design-systems repository without modification. Commit messages follow conventional-commits format.
+6. **Parallel where possible**: Component previews (Phase 3) and documentation (Phase 4) should be dispatched as parallel sub-agent batches to minimize wall-clock time.
 
 ## Output Location
 
 ```
 {workspace}/.design_library/{BrandName}/
-  colors_and_type.css      # Token system (from real CSS values)
-  css.json                 # Derived token JSON
-  components.css            # Extracted component styles
+  colors_and_type.css           # Token system (all values from real CSS)
+  css.json                      # Derived token JSON (auto-generated)
+  components.css                # Extracted component styles (auto-generated)
   components/
-    index.json             # Component index
-    {slug}.json            # Individual component contracts
+    index.json                  # Component index (6 standard components)
+    button.json                 # Component contracts
+    card.json
+    input.json
+    badge.json
+    cta-link.json
+    navigation.json
   preview/
-    component-{slug}.html   # Component previews
+    component-button.html        # Component previews
+    component-card.html
+    component-input.html
+    component-badge.html
+    component-cta-link.html
+    component-navigation.html
   ui_kits/marketing/
-    index.html             # Marketing UI Kit
-  README.md                # Brand narrative
-  SKILL.md                 # Skill entry point
-  library-consumption.json # Consumption guide
+    index.html                  # Marketing UI Kit
+  uikit-plan.json               # UIKit plan (auto-generated)
+  README.md                     # Brand narrative documentation
+  SKILL.md                      # Skill entry point
+  library-consumption.json      # Downstream consumption guide
 ```
+
+## Quick Start
+
+1. Read `workflows/reverse-engineer.md` for full phase instructions
+2. Read `file-specs/css-extraction.md` before Phase 0
+3. Confirm the target URL with the user
+4. Execute Phase 0 → Gate 0 → Phase 1 → Gate 1 → Phase 2 → Gate 2 → Phase 3 → Gate 3 → Phase 4 → Gate 4 → Phase 5
+5. Each gate is defined in `operation-policies/quality-gates.md`

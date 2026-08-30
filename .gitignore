@@ -1,13 +1,13 @@
-# Trae / OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Temp
+# Agent reports and temp files
+**/agent-reports/
 *.tmp
 
-# Trae workspace metadata
-.trae-cn/
-.design_library/**/metadata.json
+# Phase 0 extraction artifacts
+ef_*.css
+css_*.css
+target_page.html
+endfield_page.html
+
+# OS files
+.DS_Store
+Thumbs.db

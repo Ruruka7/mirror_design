@@ -1,0 +1,109 @@
+=== PHASE 0: CSS EXTRACTION SUMMARY ===
+Source: https://endfield.hypergryph.com/
+Date: 2026-08-30
+CSS Files: 9 bundles from web.hycdn.cn/endfield/official-v4/_next/static/css/
+
+=== TOP COLORS (Top 20) ===
+#191919       84  (dominant background — near-black industrial base)
+#fff          77  (primary text on dark)
+#ffffff        8  (primary text, expanded form)
+#fffa00       56  (signature hazard yellow — PRIMARY ACCENT)
+#00ffa2        9  (neon mint — SECONDARY ACCENT)
+#ff1aac        6  (hot pink/magenta — TERTIARY ACCENT)
+#fff000        2  (yellow variant)
+#fdfd1f        1  (yellow variant)
+#1f1f22        1  (dark surface)
+#141414        1  (darker background)
+#2e2e2e        1  (dark surface variant)
+#d9d9d9       21  (neutral gray — borders/secondary text)
+#999          17  (muted text)
+#35373c       15  (border color)
+#e5e5e5       13  (light border)
+#f2f2f2       11  (light surface)
+#666          10  (dark muted)
+#ccc          10  (light gray)
+#424242        9  (dark surface)
+#b3b3b3        8  (muted)
+
+=== FONTS (Top 5) ===
+'Gilroy-Light','Gilroy-Medium','Gilroy-ExtraBold','Segoe UI','Roboto','PingFang SC','Microsoft YaHei',sans-serif    15
+'Novecentosanswide-Bold','Novecentosanswide-DemiBold','Novecentosanswide-Medium',sans-serif     8
+'SpaceGrotesk','Roboto-Regular',monospace     5
+'ProtestStrike-Regular','Gilroy-ExtraBold',sans-serif     2
+
+=== FONT SIZES (Top 15, rem → px at 16px root) ===
+1.5rem (24px)     18
+1.875rem (30px)   14
+2rem (32px)       12
+1rem (16px)       11
+0.75rem (12px)     9
+1.25rem (20px)     8
+3rem (48px)        7
+2.5rem (40px)      6
+1.125rem (18px)    5
+1.75rem (28px)     4
+1.625rem (26px)    3
+2.25rem (36px)     3
+3.5rem (56px)      2
+4rem (64px)        2
+8.125rem (130px)   1  (massive display)
+
+=== BORDER-RADIUS (Top 8) ===
+50%        26  (circular elements)
+.25rem (4px)   18  (small radius)
+2.625rem (42px)   4  (pill shape)
+.5rem (8px)   3  (medium radius)
+6px         3  (small radius)
+
+=== BOX-SHADOW (Top 5) ===
+0 0 .625rem rgba(2,2,2,.3)     4  (dark glow)
+0 0 10px #fff000              2  (YELLOW BRAND GLOW — critical)
+0 0 1rem hsla(0,0%,100%,.8)   2  (white glow)
+
+=== LETTER-SPACING (Top 6) ===
+-.03em     10
+-.02em     10
+-.04em      2
+-.05em      2
+-.08em      2
+
+=== CLIP-PATH ===
+polygon(...)     3  (geometric angular cutouts)
+
+=== TRANSITIONS (Top 5) ===
+background-color .2s ease     11
+transform .3s                 11
+color .3s                      6
+opacity .2s                    5
+opacity .3s ease-in-out        5
+
+=== GRADIENTS ===
+linear-gradient(90deg,#ff00f0,#fffa00,#00ffa2)  — brand rainbow (magenta→yellow→green)
+repeating-linear-gradient(-45deg,...)  — hazard stripe pattern
+
+=== @FONT-FACE ===
+Novecentosanswide-Bold    (src: web.hycdn.cn/...)
+Novecentosanswide-DemiBold
+Novecentosanswide-Medium
+Gilroy-Light
+Gilroy-Medium
+Gilroy-ExtraBold
+SpaceGrotesk
+ProtestStrike-Regular
+
+=== KEY FINDINGS ===
+1. Dominant background: #191919 (near-black, 84 occurrences)
+2. Primary text: #fff/#ffffff (85 total)
+3. PRIMARY ACCENT: #fffa00 (hazard yellow, 56 occurrences)
+4. SECONDARY ACCENT: #00ffa2 (neon green, 9 occurrences)
+5. TERTIARY ACCENT: #ff1aac (magenta, 6 occurrences)
+6. Display font: Novecentosanswide (custom web font)
+7. Body font: Gilroy (custom web font)
+8. Mono font: SpaceGrotesk
+9. Impact font: ProtestStrike-Regular
+10. Geometric clip-path cutouts present
+11. Brand glow shadow: 0 0 10px #fff000
+12. Hazard stripe pattern: repeating-linear-gradient(-45deg)
+13. Brand rainbow gradient: magenta→yellow→green
+14. Negative letter-spacing dominant (tight tracking)
+15. Dark theme is DEFAULT
