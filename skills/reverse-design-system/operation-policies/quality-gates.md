@@ -85,8 +85,10 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 - [PASS] Validator script exits with code 0
 - [PASS] css.json regenerated after BOM strip
 - [PASS] No agent-reports or temp files left in output dir
-- [PASS] Git commit and push successful
+- [PASS] Local Git commit created (remote push is not required)
 - [PASS] `metadata.json` version is correct (incremented if update, 1 if new)
+
+Remote push is explicitly out of scope by default. It becomes an optional step only after the user requests it and the target repository, remote, and branch have been verified.
 
 ---
 

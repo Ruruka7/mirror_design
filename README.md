@@ -75,7 +75,9 @@ Mirror Design 的主体不是某一个品牌的设计库，而是一条可复用
 2. 完成 Extract → Analyze → Generate → Validate 全流程；
 3. 输出 token、组件契约、HTML 预览、Marketing UI Kit、文档和质量报告；
 4. 无法确认的值标记为推断，不要伪造官网事实；
-5. 只使用我有权研究和使用的页面、文案与资产。
+5. 默认只在当前项目本地整理、验证和提交，不自动推送到任何远程仓库；
+6. 只有在我明确指定目标仓库、远程和分支并要求推送时，才执行远程同步；不要假设 `origin`、`main` 或当前仓库属于我；
+7. 只使用我有权研究和使用的页面、文案与资产。
 ```
 
 完整的阶段说明、输入输出和门禁规则见 [reverse-design-system 工作流](./skills/reverse-design-system/SKILL.md)。
@@ -154,6 +156,8 @@ The reusable core is:
 4. **Validate** BOM, JSON, CSS variables, component coverage, paths, and rendered output.
 
 The workflow is evidence-first: confirmed values come from the target page, while inferred values are labeled instead of being presented as observed facts.
+
+Git is local-first: the default result is a validated local commit in the current project. Do not push to any remote, assume `origin/main`, or stage unrelated workspace changes. Remote sync is allowed only after the user explicitly requests this exact change and confirms the target repository, remote, and branch.
 
 ### Reuse
 

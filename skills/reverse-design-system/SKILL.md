@@ -137,9 +137,9 @@ Phase 4: Documentation & UIKit    [Sub-Agents ×3 parallel → Sub-Agent ×1]
     Deliverable: README.md, SKILL.md, library-consumption.json, ui_kits/marketing/index.html
          │
          ▼
-Phase 5: Validate & Deploy         [Main Agent]
-    Strip BOMs → validate → fix → git commit → git push
-    Deliverable: validated, committed Design Library
+Phase 5: Validate & Local Commit   [Main Agent]
+    Strip BOMs → validate → fix → git commit
+    Deliverable: validated, locally committed Design Library
 ```
 
 ## Key Principles
@@ -148,7 +148,7 @@ Phase 5: Validate & Deploy         [Main Agent]
 2. **Evidence-first**: Extract raw CSS data before making any design decisions. The data drives the system, not the other way around.
 3. **Full delegation for generation**: Phases 2-4 use the design library generator pipeline exactly as-is. Do not reinvent token generation, component contracts, or preview authoring.
 4. **BOM safety**: All generated files must be UTF-8 without BOM. Run a BOM-stripping pass before any validation or JSON parsing step.
-5. **Git-ready**: Final output should be committable to a design-systems repository without modification. Commit messages follow conventional-commits format.
+5. **Local-first Git**: Final output should be committable to the current design-systems repository without modification. Commit messages follow conventional-commits format. Remote push is opt-in and requires an explicit user request plus remote and branch verification.
 6. **Parallel where possible**: Component previews (Phase 3) and documentation (Phase 4) should be dispatched as parallel sub-agent batches to minimize wall-clock time.
 7. **Browser-first**: Computed styles from a rendered page are the source of truth. CSS file declarations are supplementary. Never rely on CSS declarations alone when browser rendering is available.
 

@@ -385,9 +385,9 @@ Check: `README.md` has 6 prose sections; `SKILL.md` has YAML frontmatter; `libra
 
 ***
 
-## Phase 5: Validate & Deploy
+## Phase 5: Validate & Local Commit
 
-**Goal:** Strip BOMs, regenerate css.json, validate, optional screenshot comparison, clean up, push to git.
+**Goal:** Strip BOMs, regenerate css.json, validate, optionally compare screenshots, clean up, and create a local Git commit.
 
 ### Step 5.1 — Strip BOMs (ALL files)
 
@@ -427,24 +427,39 @@ Remove-Item -Recurse -Force "{tmp_dir}/{BrandName}" -ErrorAction SilentlyContinu
 Remove-Item -Force "{workspace}/ef_*.css","{workspace}/css_*.css","{workspace}/target_page.html" -ErrorAction SilentlyContinue
 ```
 
-### Step 5.6 — Git Commit & Push
+### Step 5.6 — Local Git Commit
 
 **Read** **`operation-policies/git-deploy.md`** for conventions.
 
+Git is local-first. Before staging, verify that `{workspace}` is the intended project. Stage only the generated library and explicitly related documentation; do not sweep unrelated workspace changes into the commit.
+
 ```powershell
 cd {workspace}
-git add --all
+git status --short --branch
+git add "{output_dir}"
+# If an explicitly related document also changed, add that exact path separately.
+# git add README.md
 git commit -m "feat: add {BrandName} design system reverse-engineered from {source-domain}"
-git push origin main
 ```
 
-> If `git push` fails (auth or branch protection), inform the user. Files are saved locally and complete.
+The normal completion state is a validated local commit. Do not push to a remote as part of the default workflow.
+
+### Optional Step 5.7 — Explicit Remote Sync
+
+Only run this step when the user explicitly asks to push this exact change. Confirm all of the following before any remote operation:
+
+- the current workspace is the intended project;
+- the target repository, remote name, and branch are explicitly specified or confirmed by the user;
+- the remote URL matches the requested repository;
+- only the intended commits and files are included.
+
+Never assume that `origin`, `main`, or the current repository belongs to the user. If the target repository, remote, or branch is unclear, stop and ask. Never push all repositories or unrelated workspace changes by default. If the user asks only to save or commit locally, stop after Step 5.6.
 
 ### Gate 5 (Final)
 
-Check: validator exit code 0; no temp files remain; `git push` succeeded (or user informed); all deliverables exist in `{output_dir}` (`colors_and_type.css`, `css.json`, `components/index.json`, `components/{slug}.json` ×6, `components.css`, `preview/component-{slug}.html` ×6, `README.md`, `SKILL.md`, `library-consumption.json`, `uikit-plan.json`, `ui_kits/marketing/index.html`).
+Check: validator exit code 0; no temp files remain; a local Git commit was created or the user was informed that changes remain uncommitted; all deliverables exist in `{output_dir}` (`colors_and_type.css`, `css.json`, `components/index.json`, `components/{slug}.json` ×6, `components.css`, `preview/component-{slug}.html` ×6, `README.md`, `SKILL.md`, `library-consumption.json`, `uikit-plan.json`, `ui_kits/marketing/index.html`). Remote sync is not required for this gate.
 
-**Report to user:** Files generated, tokens extracted, components analyzed, UIKit page generated, git commit hash.
+**Report to user:** Files generated, tokens extracted, components analyzed, UIKit page generated, local Git commit hash, and—only if explicitly requested and completed—the verified remote and branch.
 
 ***
 
