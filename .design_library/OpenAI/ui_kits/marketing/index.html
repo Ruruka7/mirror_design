@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenAI 营销 UI Kit</title>
+  <title>Studio 营销 UI Kit</title>
   <link rel="stylesheet" href="../../colors_and_type.css">
   <link rel="stylesheet" href="../../components.css">
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -107,7 +107,7 @@
     const TopNav = ({ activeView, setView }) => (
       <header data-component="navigation" style={{ position: 'sticky', top: 0, zIndex: 20 }}>
         <nav className="nav nav-solid" style={{ height: '68px' }}>
-          <div className="nav-logo">OpenAI</div>
+          <div className="nav-logo">Studio</div>
           <div className="nav-links">
             <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setView('products'); }}>产品</a>
             <a href="#" className="nav-link">研究</a>
@@ -119,7 +119,7 @@
           <div className="uikit-toolbar" style={{ gap: 'var(--space-3)' }}>
             <i data-lucide="search" style={{ width: '20px', height: '20px', display: 'inline-block', color: 'var(--color-foreground)' }}></i>
             <button className="btn secondary md" data-component="button">登录</button>
-            <button className="btn primary md" data-component="button">试用 ChatGPT</button>
+            <button className="btn primary md" data-component="button">开始体验</button>
           </div>
         </nav>
       </header>
@@ -155,12 +155,12 @@
         <div className="hero page-section">
           <h1 className="hero-title">有什么可以帮忙的？</h1>
           <div className="hero-input-shell" data-component="input">
-            <input type="text" placeholder="给 ChatGPT 发送消息" />
+            <input type="text" placeholder="输入消息" />
             <span className="send"><i data-lucide="arrow-up" style={{ width: '20px', height: '20px', display: 'inline-block' }}></i></span>
           </div>
           <div className="pills">
-            <Pill>了解 ChatGPT Business</Pill>
-            <Pill>与 ChatGPT 对话</Pill>
+            <Pill>了解团队版</Pill>
+            <Pill>开始对话</Pill>
             <Pill>研究</Pill>
             <Pill>API 平台</Pill>
             <Pill>更多</Pill>
@@ -171,7 +171,7 @@
           <div className="featured-media"></div>
           <div className="featured-content">
             <div className="featured-eyebrow">产品 · 18 分钟阅读</div>
-            <h2 className="featured-title">GPT-5.6：随宏大目标灵活扩展的前沿智能</h2>
+            <h2 className="featured-title">前沿模型：随宏大目标灵活扩展的智能</h2>
             <div className="featured-meta">2026 年 8 月 28 日</div>
           </div>
         </a>
@@ -182,8 +182,8 @@
             <a href="#" className="section-link">查看更多</a>
           </div>
           <div className="uikit-responsive-grid">
-            <MediaCard title="Sora 迎来新的视频生成能力" category="产品" date="2026 年 8 月 26 日" />
-            <MediaCard title="OpenAI 安全系统的最新进展" category="安全" date="2026 年 8 月 24 日" />
+            <MediaCard title="视频工具迎来新的生成能力" category="产品" date="2026 年 8 月 26 日" />
+            <MediaCard title="安全系统的最新进展" category="安全" date="2026 年 8 月 24 日" />
             <MediaCard title="与新闻机构合作拓展版权许可" category="公司" date="2026 年 8 月 21 日" />
           </div>
         </div>
@@ -194,9 +194,9 @@
             <a href="#" className="section-link">查看全部</a>
           </div>
           <div className="uikit-responsive-grid">
-            <MediaCard title="摩根士丹利利用 GPT 重塑财富管理体验" category="金融" date="案例研究" />
-            <MediaCard title="Moderna 加速 mRNA 研究与开发" category="生命科学" date="案例研究" />
-            <MediaCard title="Canva 借助 DALL·E 3 释放创意" category="设计" date="案例研究" />
+            <MediaCard title="金融机构利用模型重塑财富管理体验" category="金融" date="案例研究" />
+            <MediaCard title="生命科学团队加速研究与开发" category="生命科学" date="案例研究" />
+            <MediaCard title="设计团队借助图像模型释放创意" category="设计" date="案例研究" />
           </div>
         </div>
 
@@ -206,7 +206,7 @@
             <a href="#" className="section-link">查看全部</a>
           </div>
           <div className="uikit-responsive-grid">
-            <MediaCard title=" o1 推理模型的扩展规律" category="研究" date="2026 年 8 月" />
+            <MediaCard title=" 推理模型的扩展规律" category="研究" date="2026 年 8 月" />
             <MediaCard title="提升多语言对齐的新方法" category="研究" date="2026 年 8 月" />
             <MediaCard title="用人类反馈强化学习改善语音模型" category="研究" date="2026 年 7 月" />
           </div>
@@ -214,13 +214,13 @@
 
         <div className="page-section">
           <div className="section-header">
-            <h2 className="section-title">OpenAI 企业解决方案</h2>
+            <h2 className="section-title">企业解决方案</h2>
             <a href="#" className="section-link">了解更多</a>
           </div>
           <div className="uikit-responsive-grid-2">
             <div className="cta-card" data-component="card">
               <div>
-                <h3 className="cta-card__title">ChatGPT Business</h3>
+                <h3 className="cta-card__title">团队版</h3>
                 <p className="cta-card__desc">安全、可扩展的 AI 助手，帮助团队更快完成写作、编码、分析与学习。</p>
               </div>
               <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">了解方案 <ArrowRight /></a>
@@ -237,14 +237,14 @@
 
         <div className="page-section">
           <div className="section-header">
-            <h2 className="section-title">开始使用 ChatGPT</h2>
+            <h2 className="section-title">开始使用智能助手</h2>
             <a href="#" className="section-link">下载</a>
           </div>
           <div className="card" data-component="card">
             <div className="uikit-toolbar" style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
               <div style={{ minWidth: 0 }}>
-                <h3 className="card__title">免费试用 ChatGPT</h3>
-                <p className="card__description" style={{ marginTop: 'var(--space-2)' }}>注册账号即可在网页、iOS 与 Android 上体验。</p>
+                <h3 className="card__title">免费体验</h3>
+                <p className="card__description" style={{ marginTop: 'var(--space-2)' }}>注册账号即可在网页、移动设备上体验。</p>
               </div>
               <button className="btn primary md" data-component="button">立即开始</button>
             </div>
@@ -254,11 +254,11 @@
     );
 
     const products = [
-      ['ChatGPT', '对话式 AI', '探索'],
-      ['GPT-5.6', '前沿推理', '了解'],
-      ['Sora', '视频生成', '预览'],
-      ['DALL·E 3', '图像生成', '体验'],
-      ['Whisper', '语音转录', 'API'],
+      ['智能助手', '对话式 AI', '探索'],
+      ['前沿模型', '前沿推理', '了解'],
+      ['视频工具', '视频生成', '预览'],
+      ['图像模型', '图像生成', '体验'],
+      ['语音工具', '语音转录', 'API'],
       ['API 平台', '开发者工具', '文档'],
     ];
 
@@ -268,8 +268,8 @@
           <h1 className="section-title" style={{ fontSize: 'var(--font-size-h1)' }}>产品</h1>
           <button className="btn primary md" data-component="button">查看全部产品</button>
         </div>
-        <p className="openai-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
-          从日常助手到企业级 API，OpenAI 产品帮助个人与团队安全地使用前沿 AI。
+        <p className="studio-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
+          从日常助手到企业级 API，智能工具帮助个人与团队安全高效地完成工作。
         </p>
         <div className="uikit-table-wrap" style={{ marginBottom: 'var(--space-8)' }}>
           <table className="table">
@@ -296,16 +296,16 @@
             </tbody>
           </table>
         </div>
-        <h2 className="openai-h4 uikit-headline" style={{ marginBottom: 'var(--space-5)' }}>热门能力</h2>
+        <h2 className="studio-h4 uikit-headline" style={{ marginBottom: 'var(--space-5)' }}>热门能力</h2>
         <div className="uikit-responsive-grid">
           <div className="card card-raised" data-component="card">
-            <div className="card__eyebrow">GPT-5.6</div>
+            <div className="card__eyebrow">前沿模型</div>
             <h3 className="card__title">复杂推理与编码</h3>
             <p className="card__description">在数学、科学和软件工程任务中展现更强的理解与规划能力。</p>
             <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">了解更多 <ArrowRight /></a>
           </div>
           <div className="card" data-component="card">
-            <div className="card__eyebrow">Sora</div>
+            <div className="card__eyebrow">视频工具</div>
             <h3 className="card__title">视频创作</h3>
             <p className="card__description">通过自然语言生成高质量、风格多样的视频内容。</p>
             <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">申请访问 <ArrowRight /></a>
@@ -323,24 +323,24 @@
     const StartView = () => (
       <section style={{ display: 'block' }}>
         <div className="section-header">
-          <h1 className="section-title" style={{ fontSize: 'var(--font-size-h1)' }}>开始使用 ChatGPT</h1>
+          <h1 className="section-title" style={{ fontSize: 'var(--font-size-h1)' }}>开始使用智能助手</h1>
           <button className="btn primary md" data-component="button">创建账户</button>
         </div>
-        <p className="openai-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
-          几分钟内即可在浏览器或移动设备上体验 ChatGPT，也可通过 API 构建自己的产品。
+        <p className="studio-lead" style={{ color: 'var(--color-muted-foreground)', marginBottom: 'var(--space-6)', maxWidth: '640px' }}>
+          几分钟内即可在浏览器或移动设备上体验智能助手，也可通过 API 构建自己的产品。
         </p>
         <div className="uikit-responsive-grid-2" style={{ marginBottom: 'var(--space-8)' }}>
           <div className="cta-card" data-component="card">
             <div>
               <h3 className="cta-card__title">网页版</h3>
-              <p className="cta-card__desc">在 chat.openai.com 直接开始对话，无需安装。</p>
+              <p className="cta-card__desc">在 browser.example 直接开始对话，无需安装。</p>
             </div>
-            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">打开 ChatGPT <ArrowRight /></a>
+            <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">打开智能助手 <ArrowRight /></a>
           </div>
           <div className="cta-card" data-component="card">
             <div>
               <h3 className="cta-card__title">移动应用</h3>
-              <p className="cta-card__desc">下载 iOS 或 Android 应用，随时随地使用语音对话。</p>
+              <p className="cta-card__desc">下载移动应用，随时随地使用语音对话。</p>
             </div>
             <a href="#" className="cta-link cta-link--primary cta-link--semibold cta-link--md" data-component="cta-link">下载应用 <ArrowRight /></a>
           </div>
@@ -349,7 +349,7 @@
           <h3 className="card__title" style={{ marginBottom: 'var(--space-4)' }}>订阅研究动态</h3>
           <div className="uikit-toolbar" style={{ gap: 'var(--space-4)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
             <div className="field" data-component="input" style={{ flex: '1 1 260px', minWidth: 0 }}>
-              <label className="openai-caption" style={{ color: 'var(--color-muted-foreground)' }}>邮箱地址</label>
+              <label className="studio-caption" style={{ color: 'var(--color-muted-foreground)' }}>邮箱地址</label>
               <div className="input"><input type="email" placeholder="name@company.com" /></div>
             </div>
             <button className="btn secondary md" data-component="button">订阅</button>
@@ -362,7 +362,7 @@
       <footer className="footer" data-component="navigation">
         <div className="footer-grid">
           <div className="footer-col"><h4>研究</h4><a href="#">概述</a><a href="#">索引</a><a href="#">最新进展</a></div>
-          <div className="footer-col"><h4>产品</h4><a href="#">ChatGPT</a><a href="#">API 平台</a><a href="#">ChatGPT Business</a></div>
+          <div className="footer-col"><h4>产品</h4><a href="#">智能助手</a><a href="#">API 平台</a><a href="#">团队版</a></div>
           <div className="footer-col"><h4>开发者</h4><a href="#">文档</a><a href="#">API 参考</a><a href="#">状态</a></div>
           <div className="footer-col"><h4>公司</h4><a href="#">关于</a><a href="#">博客</a><a href="#">职业机会</a></div>
           <div className="footer-col"><h4>支持</h4><a href="#">帮助中心</a><a href="#">联系我们</a><a href="#">安全</a></div>
@@ -370,9 +370,9 @@
         </div>
         <div className="footer-bottom">
           <div className="social">
-            <a href="#">X</a><a href="#">LinkedIn</a><a href="#">YouTube</a><a href="#">GitHub</a>
+            <a href="#">平台 A</a><a href="#">平台 B</a><a href="#">平台 C</a><a href="#">平台 D</a>
           </div>
-          <div className="copyright">OpenAI © 2015–2026</div>
+          <div className="copyright">Studio © 2015–2026</div>
         </div>
       </footer>
     );

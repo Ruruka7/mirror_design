@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENDFIELD 终末地 — Design System Showcase</title>
+<title>STUDIO 前线档案 — Design System Showcase</title>
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../components.css">
 <style>
@@ -119,17 +119,17 @@ const VIEWS = [
 ];
 
 const REGIONS = [
-  {name:'塔拉二期', type:'侵蚀区', status:'已开放', badge:'success', desc:'高温侵蚀地带，源石浓度临界，远征队需配备甲级防护。'},
-  {name:'北地冰原', type:'荒野区', status:'限制进入', badge:'neutral', desc:'永冻层下的废弃工业设施，残留大量前时代工程机械。'},
-  {name:'巨栖城', type:'据点', status:'核心区', badge:'primary', desc:'终末地的最后移动城邦，干员编队的集结与补给枢纽。'},
-  {name:'ARK牌号', type:'技术档案', status:'机密', badge:'tertiary', desc:'干员与装备的统一编号体系，记录所有已知作战单元。'},
+  {name:'北部前哨', type:'侵蚀区', status:'已开放', badge:'success', desc:'高温侵蚀地带，能源浓度临界，远征队需配备甲级防护。'},
+  {name:'冻原区', type:'荒野区', status:'限制进入', badge:'neutral', desc:'永冻层下的废弃工业设施，残留大量前时代工程机械。'},
+  {name:'北境站', type:'据点', status:'核心区', badge:'primary', desc:'项目的核心移动据点，作战单元编队的集结与补给枢纽。'},
+  {name:'档案编号', type:'技术档案', status:'机密', badge:'tertiary', desc:'作战单元与装备的统一编号体系，记录所有已知作战单元。'},
 ];
 
 const OPERATORS = [
-  {name:'焰影', role:'突击', arkid:'ARK-0741', desc:'高机动突击干员，擅长侵蚀区近距突破与火力压制。', featured:true, locked:false},
-  {name:'铁骸', role:'守护', arkid:'ARK-0329', desc:'重装守护干员，携带可展开式源石护盾发生器。', featured:false, locked:false},
-  {name:'霜林', role:'工程', arkid:'ARK-0512', desc:'工程专家，负责据点防御工事搭建与能源管线维护。', featured:false, locked:false},
-  {name:'烬牙', role:'狙击', arkid:'ARK-0908', desc:'远程狙击干员，侵蚀区制高点压制与情报标记。', featured:false, locked:true},
+  {name:'单元 A', role:'突击', unitId:'UNIT-0741', desc:'高机动突击作战单元，擅长侵蚀区近距突破与火力压制。', featured:true, locked:false},
+  {name:'单元 B', role:'守护', unitId:'UNIT-0329', desc:'重装守护作战单元，携带可展开式能源护盾发生器。', featured:false, locked:false},
+  {name:'单元 C', role:'工程', unitId:'UNIT-0512', desc:'工程专家，负责据点防御工事搭建与能源管线维护。', featured:false, locked:false},
+  {name:'单元 D', role:'狙击', unitId:'UNIT-0908', desc:'远程狙击作战单元，侵蚀区制高点压制与情报标记。', featured:false, locked:true},
 ];
 
 function Navigation({view, setView}) {
@@ -137,7 +137,7 @@ function Navigation({view, setView}) {
     <nav className="nav" data-component="navigation">
       <a className="nav-logo" href="#" onClick={e=>{e.preventDefault();setView('home')}}>
         <span className="nav-logo-mark"></span>
-        <span className="uikit-nowrap">ENDFIELD</span>
+        <span className="uikit-nowrap">STUDIO</span>
       </a>
       <div className="nav-items">
         {VIEWS.map(v => (
@@ -150,7 +150,7 @@ function Navigation({view, setView}) {
         ))}
       </div>
       <div className="nav-utility">
-        <a className="nav-utility-link" href="#" onClick={e=>e.preventDefault()}>开发组</a>
+        <a className="nav-utility-link" href="#" onClick={e=>e.preventDefault()}>项目组</a>
         <a className="nav-utility-link" href="#" onClick={e=>e.preventDefault()}>关注我们</a>
       </div>
     </nav>
@@ -162,13 +162,13 @@ function HomeView({setView}) {
     <div className="view">
       <section className="hero">
         <div className="hero-inner">
-          <span className="hero-eyebrow">ARK PROTOCOL // 终末地</span>
-          <h1 className="hero-title">终末地</h1>
-          <p className="hero-sub">在工业末日废土之上，探索未知侵蚀区，集结你的干员编队，重建秩序。</p>
+          <span className="hero-eyebrow">FIELD PROTOCOL // STUDIO</span>
+          <h1 className="hero-title">前线档案</h1>
+          <p className="hero-sub">在工业末日废土之上，探索未知侵蚀区，集结你的作战单元编队，重建秩序。</p>
           <div className="hero-badges">
             <span className="badge badge-accent" data-component="badge">NEW</span>
             <span className="badge badge-tertiary" data-component="badge">限时</span>
-            <span className="badge badge-neutral" data-component="badge">ARK牌号</span>
+            <span className="badge badge-neutral" data-component="badge">档案编号</span>
           </div>
           <div className="hero-ctas">
             <button className="btn btn-lg btn-primary" data-component="button" onClick={()=>setView('characters')}>预约</button>
@@ -180,12 +180,12 @@ function HomeView({setView}) {
       <section className="section">
         <div className="section-head">
           <span className="section-eyebrow">核心系统</span>
-          <h2 className="section-title">终末地 核心特性</h2>
+          <h2 className="section-title">前线档案 核心特性</h2>
         </div>
         <div className="uikit-responsive-grid">
           <div className="card card-glow" data-component="card">
             <span className="card-eyebrow">核心特性</span>
-            <h3 className="card-heading">源石能源核心</h3>
+            <h3 className="card-heading">模块化能源核心</h3>
             <p className="card-body">模块化反应单元提供稳定能量输出，适配极端环境下的长期作业需求。</p>
             <a className="card-cta" href="#" onClick={e=>e.preventDefault()}>查看详情 ›</a>
           </div>
@@ -201,7 +201,7 @@ function HomeView({setView}) {
 
       <section className="section">
         <div className="section-head">
-          <span className="section-eyebrow">深入终末地</span>
+          <span className="section-eyebrow">深入前线档案</span>
           <h2 className="section-title">进入作战区</h2>
         </div>
         <div className="hero-ctas">
@@ -209,7 +209,7 @@ function HomeView({setView}) {
             进入作战区<span className="indicator" aria-hidden="true">→</span>
           </a>
           <a className="cta-link cta-link--accent" href="#" onClick={e=>e.preventDefault()} data-component="cta-link">
-            查看开发组<span className="indicator" aria-hidden="true">→</span>
+            查看项目组<span className="indicator" aria-hidden="true">→</span>
           </a>
           <button className="btn btn-sm btn-outline" data-component="button" disabled>敬请期待</button>
         </div>
@@ -232,10 +232,10 @@ function WorldviewView() {
         <aside className="uikit-sidebar">
           <div className="wv-index-head">区域索引</div>
           <nav className="wv-index">
-            <a className="wv-index-link active" href="#" onClick={e=>e.preventDefault()}>塔拉二期</a>
-            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>北地冰原</a>
-            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>巨栖城</a>
-            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>ARK牌号</a>
+            <a className="wv-index-link active" href="#" onClick={e=>e.preventDefault()}>北部前哨</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>冻原区</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>北境站</a>
+            <a className="wv-index-link" href="#" onClick={e=>e.preventDefault()}>档案编号</a>
           </nav>
         </aside>
         <main className="uikit-main">
@@ -256,8 +256,8 @@ function WorldviewView() {
 
       <div className="newsletter">
         <div className="newsletter-intro">
-          <h3 className="newsletter-title">开发组 通讯</h3>
-          <p className="newsletter-sub">订阅以接收侵蚀区情报更新与干员部署动态。</p>
+          <h3 className="newsletter-title">项目组 通讯</h3>
+          <p className="newsletter-sub">订阅以接收侵蚀区情报更新与作战单元部署动态。</p>
         </div>
         <form className="newsletter-form" onSubmit={e=>e.preventDefault()}>
           <div className="ef-field" data-component="input">
@@ -279,27 +279,27 @@ function CharactersView() {
       <section className="section">
         <div className="section-head">
           <span className="section-eyebrow">角色</span>
-          <h2 className="section-title">干员 编队</h2>
+          <h2 className="section-title">作战单元 编队</h2>
         </div>
       </section>
 
       <div className="search-row">
         <div className="ef-field" data-component="input">
-          <label className="uikit-nowrap" style={{fontFamily:'var(--font-mono)',fontSize:'var(--font-size-eyebrow)',color:'var(--muted-foreground)',letterSpacing:'.08em',textTransform:'uppercase'}}>检索干员</label>
-          <input className="ef-input is-error" type="text" placeholder="搜索干员 / ARK牌号" aria-label="搜索干员" />
-          <span className="ef-hint">无匹配干员档案</span>
+          <label className="uikit-nowrap" style={{fontFamily:'var(--font-mono)',fontSize:'var(--font-size-eyebrow)',color:'var(--muted-foreground)',letterSpacing:'.08em',textTransform:'uppercase'}}>检索作战单元</label>
+          <input className="ef-input is-error" type="text" placeholder="搜索作战单元 / 档案编号" aria-label="搜索作战单元" />
+          <span className="ef-hint">无匹配作战单元档案</span>
         </div>
       </div>
 
       <div className="roster-featured">
         <div className="card card-glow" data-component="card">
           <div className="card-media"></div>
-          <span className="card-eyebrow">{featured.role}干员</span>
+          <span className="card-eyebrow">{featured.role}作战单元</span>
           <h3 className="card-heading">{featured.name}</h3>
           <p className="card-body">{featured.desc}</p>
           <div className="char-actions">
             <span className="badge badge-tertiary" data-component="badge">{featured.role}</span>
-            <span className="badge badge-neutral" data-component="badge">{featured.arkid}</span>
+            <span className="badge badge-neutral" data-component="badge">{featured.unitId}</span>
           </div>
           <div className="char-actions">
             <button className="btn btn-md btn-primary" data-component="button">领取</button>
@@ -313,11 +313,11 @@ function CharactersView() {
       <div className="roster-grid">
         {roster.map(op => (
           <div key={op.name} className="card card-dark" data-component="card">
-            <span className="card-eyebrow">{op.role}干员</span>
+            <span className="card-eyebrow">{op.role}作战单元</span>
             <h3 className="card-heading">{op.name}</h3>
             <p className="card-body">{op.desc}</p>
             <div className="char-actions">
-              <span className="badge badge-neutral" data-component="badge">{op.arkid}</span>
+              <span className="badge badge-neutral" data-component="badge">{op.unitId}</span>
               {op.locked ? (
                 <button className="btn btn-sm btn-outline" data-component="button" disabled>已锁定</button>
               ) : (
@@ -342,13 +342,13 @@ function CharactersView() {
 function Footer({setView}) {
   return (
     <footer className="footer">
-      <span className="footer-brand">©2026 ENDFIELD 终末地</span>
+      <span className="footer-brand">©2026 STUDIO 前线档案</span>
       <div className="footer-links">
         <a href="#" onClick={e=>{e.preventDefault();setView('worldview')}}>世界观</a>
         <a href="#" onClick={e=>{e.preventDefault();setView('characters')}}>角色</a>
-        <a href="#" onClick={e=>e.preventDefault()}>开发组</a>
+        <a href="#" onClick={e=>e.preventDefault()}>项目组</a>
         <a href="#" onClick={e=>e.preventDefault()}>关注我们</a>
-        <a href="#" onClick={e=>e.preventDefault()}>ARK牌号</a>
+        <a href="#" onClick={e=>e.preventDefault()}>档案编号</a>
       </div>
     </footer>
   );
