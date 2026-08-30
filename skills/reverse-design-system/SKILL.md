@@ -24,10 +24,8 @@ An evidence-first, reusable workflow for AI agents. Given an authorized official
 ## Prerequisites
 
 - Target URL must be publicly accessible (no auth-required pages), and the user must be authorized to research and use the source material
-- Design library generator scripts available at `scripts/` (Node.js .mjs files)
-- Node.js runtime (v18+ recommended)
-- Browser automation capability (browser_use subagent or browser_navigate/evaluate/screenshot tools)
-- If browser automation unavailable: falls back to curl + CSS regex (reduced accuracy)
+- The host AI Agent must be able to read this workflow, inspect a rendered site, create files, and produce structured output.
+- Browser automation is preferred; if it is unavailable, use user-provided screenshots or another permitted inspection method, record the limitation, and lower confidence.
 
 ## Read Order
 

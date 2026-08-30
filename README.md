@@ -50,7 +50,7 @@ Mirror Design 的主体不是某一个品牌的设计库，而是一条可复用
 
 ### 当前模板样例
 
-这些目录是已经整理好的输出模板。预览页面中的品牌名、产品名和示例数据已替换为中性内容；目录名与研究文档中的来源标签仅用于资料索引。
+这些目录是已经整理好的输出模板。
 
 | 模板 | 风格方向 | 入口 |
 | --- | --- | --- |
@@ -118,7 +118,7 @@ mirror_design/
 ### 运行前提与边界
 
 - 目标官网需要可访问；登录、验证码、地区限制或强反爬页面可能需要用户提供替代页面或截图。
-- 完整自动化执行需要宿主 AI Agent 提供浏览器自动化、文件读写和相应生成运行时；本仓库本身没有 `package.json` 或必须执行的构建脚本。
+- 这是供 AI Agent 阅读、理解并执行的工作流资产，不是需要安装的 CLI、SDK 或命令行工具；具体执行能力取决于宿主 Agent。
 - 页面预览可以直接打开，或用任意静态文件服务器托管仓库根目录。
 - 这是设计语言的研究性重建，不保证像素级一致；每套库的置信度、测量日期、推断值和已知警告以对应文档为准。
 - 生产使用前，请自行确认目标网站的访问权限、字体/图标/图片许可、文案使用权和品牌规范。
@@ -155,9 +155,9 @@ The workflow is evidence-first: confirmed values come from the target page, whil
 
 ### Reuse
 
-Give a permitted official-site URL to an AI Agent that can browse, read/write files, and run the required generation runtime. The result is a reusable package containing tokens, machine-readable contracts, previews, a complete UI kit, documentation, and quality metadata—not just a one-off page.
+Give a permitted official-site URL to an AI Agent that can read and follow this workflow, inspect the site, and write the resulting assets. The result is a reusable package containing tokens, machine-readable contracts, previews, a complete UI kit, documentation, and quality metadata—not just a one-off page.
 
-The repository has no `package.json` or required build step. See [the workflow entry point](./skills/reverse-design-system/SKILL.md) for the full protocol and [the template libraries](./.design_library/) for examples.
+This is a workflow asset for AI Agents, not an installable CLI, SDK, or command-line tool. Execution depends on the host agent's capabilities. See [the workflow entry point](./skills/reverse-design-system/SKILL.md) for the full protocol and [the template libraries](./.design_library/) for examples.
 
 ### Legal boundary
 
