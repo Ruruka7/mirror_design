@@ -6,14 +6,29 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 
 ---
 
-## Gate 0 (after Phase 0 extraction)
+## Gate 0 (after Phase 0A browser extraction)
 
-- [PASS] At least 3 distinct colors found
-- [PASS] At least 1 font-family identified
-- [PASS] At least 5 font-size values found
-- [PASS] At least 1 border or box-shadow pattern found
-- [FAIL] If <3 colors → stop, report "sparse CSS", ask user for alternative URL or manual color input
-- [FAIL] If no fonts found → proceed with system fallback but warn
+- [PASS] Full-page screenshot captured successfully
+- [PASS] Computed styles extracted from at least 50 elements
+- [PASS] At least 3 distinct background colors found in computed styles
+- [PASS] At least 2 distinct font-family values identified
+- [PASS] At least 1 component type identified in DOM (navigation, button, card, etc.)
+- [PASS] At least 1 layout system (grid or flex) pattern captured
+- [PASS] Page section structure mapped (at least 3 sections identified)
+- [WARN] If CSS custom properties not found at runtime → proceed, use CSS file extraction
+- [WARN] If responsive breakpoint test skipped → proceed, note in README
+- [FAIL] If screenshot capture fails → try curl fallback, if curl also fails → stop, inform user
+- [FAIL] If <3 colors in computed styles AND <3 colors in CSS files → stop, report sparse
+- [FAIL] If no fonts identified in computed styles AND no @font-face in CSS → proceed with system fallback, warn
+
+---
+
+## Gate 0B (after Phase 0B CSS supplement)
+
+- [PASS] CSS files downloaded and parsed (if accessible)
+- [WARN] If CSS files not accessible → proceed with browser-only data
+- [PASS] @font-face declarations extracted (if CSS accessible)
+- [PASS] :root custom properties extracted from CSS (cross-reference with browser runtime)
 
 ---
 

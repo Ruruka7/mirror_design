@@ -1,10 +1,44 @@
 # CSS Extraction Specification
 
+> **This is a SUPPLEMENT to `browser-extraction.md`.** Browser computed styles are authoritative; CSS file values are supplementary. When the two conflict, the browser's computed value always wins.
+
 ## Purpose
 
 Define exactly what to extract from a website's CSS, how to extract it (exact regex patterns), and in what format to save results. This specification is consumed by the Phase 0 extraction sub-agent of the `reverse-design-system` skill. Every category below MUST be attempted; if a category yields zero matches, record an empty array for that key and continue to the next category — do not abort on an empty category.
 
 All extraction operates on the concatenated raw CSS text (inline `<style>` blocks, linked `.css` files, and computed/inline `style=""` attributes). Before extraction, strip HTML comments `<!-- -->` and CSS comments `/* */` only when they would break a regex match; otherwise preserve them for the `Source:` annotations where relevant.
+
+---
+
+## Merge Priority
+
+When both browser extraction (Phase 0A) and CSS file extraction (Phase 0B) produce values for the same token category, follow this merge priority:
+
+1. **Browser computed styles** (from `browser-extraction.md`) = **AUTHORITATIVE**. These reflect actual rendered values after the full CSS cascade, media queries, and JavaScript overrides have been applied.
+2. **CSS file declarations** (this file) = **SUPPLEMENTARY**. These show what was declared in the source CSS, which may differ from what actually rendered (e.g., overridden by a later rule, a media query, or runtime JS).
+3. **When conflict: browser wins.** Computed > declared. If the browser shows `#fffa00` as the button background but the CSS file declares `#cccccc`, the real rendered color is `#fffa00`.
+4. **CSS file extraction uniquely adds:**
+   - `@font-face` `src` URLs — not visible in the DOM's computed styles (the browser knows the font loaded, but not where the file came from)
+   - `:root` CSS custom property definitions — the raw variable definitions as authored
+   - Media query breakpoints — `@media (min-width: 768px)` etc., not visible in computed styles
+   - Raw gradient strings — the full `linear-gradient(...)` declaration before the browser normalizes it
+5. **Browser extraction uniquely adds:**
+   - Actual rendered/computed values (post-cascade, post-JS)
+   - DOM structure and component boundaries
+   - Element dimensions and layout systems (grid/flex templates)
+   - Asset URLs (images, SVGs, fonts loaded via `document.fonts` API)
+   - Responsive breakpoint behavior (by testing at multiple viewport widths)
+
+---
+
+## When to Use This Method
+
+Use CSS file regex extraction (`css-extraction.md`) in these scenarios:
+
+- **As Phase 0B** — supplement to Phase 0A browser extraction. After the browser has extracted computed styles, run CSS file extraction to capture `@font-face` src URLs, raw `:root` variable definitions, and media query breakpoints that the browser cannot see.
+- **When browser automation fails** — if the `browser_use` subagent is unavailable, crashes, or the site blocks automated browsers, fall back to `curl` + regex on downloaded CSS files as the sole extraction method. Quality is lower but still usable.
+- **To cross-validate browser-extracted values** — compare CSS file declarations against browser computed values. Large discrepancies indicate runtime overrides (JS-injected styles, CSS-in-JS libraries) that should be noted in the key findings.
+- **To get `@font-face` src URLs not visible in DOM** — the browser's `document.fonts` API reports loaded font families but not the file URLs. Only CSS file parsing reveals the actual `.woff2`/`.woff`/`.ttf` src URLs needed for the token CSS.
 
 ---
 

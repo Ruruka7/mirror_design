@@ -27,6 +27,8 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 - `design-library-creator` skill must be available in the environment
 - Node.js runtime with design-library-creator scripts at:
   `c:\Users\25230\.trae-cn\builtin\design\default\skills\design-library-creator\scripts\`
+- Browser automation capability (browser_use subagent or browser_navigate/evaluate/screenshot tools)
+- If browser automation unavailable: falls back to curl + CSS regex (reduced accuracy)
 
 ## Read Order
 
@@ -35,6 +37,9 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 | `SKILL.md` (this file) | Always | Route, trigger conditions, pipeline overview, protocol actions |
 | `workflows/reverse-engineer.md` | After confirming skill | Full phase-by-phase execution with exact commands and gates |
 | `file-specs/css-extraction.md` | Phase 0 | Extraction regex patterns, required token categories, output format |
+| `file-specs/browser-extraction.md` | Phase 0A | Browser extraction JavaScript snippets, output format |
+| `file-specs/dom-component-mapping.md` | Phase 0A | DOM→component type mapping rules |
+| `file-specs/asset-extraction.md` | Phase 0A | Asset URL capture, SVG/font/image extraction |
 | `file-specs/brand-profile.md` | Phase 1 | Brand profile JSON schema, field definitions, validation rules |
 | `file-specs/token-css.md` | Phase 2 | Token CSS structure, naming conventions, color scale rules |
 | `file-specs/component-contract.md` | Phase 3 | Component JSON schema, variant spec, anatomy rules |
@@ -52,7 +57,9 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 
 | Scope | Budget | Allowed Reads |
 |-------|--------|---------------|
-| Phase 0 entry | 1 | `file-specs/css-extraction.md` |
+| Phase 0A entry | 1 | `file-specs/browser-extraction.md` |
+| Phase 0B entry | 1 | `file-specs/css-extraction.md` |
+| Phase 0C entry | 0 | no reads (merge logic is in workflow) |
 | Phase 1 entry | 1 | `file-specs/brand-profile.md` |
 | Phase 2 entry | 1 | `file-specs/token-css.md` |
 | Phase 3 entry | 1 each | `file-specs/component-contract.md`, `file-specs/preview-page.md` |
@@ -70,6 +77,9 @@ Hard stops:
 
 | Files | Assigned To |
 |------|-------------|
+| `file-specs/browser-extraction.md` | Browser extraction sub-agent (browser_use) |
+| `file-specs/dom-component-mapping.md` | Browser extraction sub-agent (component identification JS) |
+| `file-specs/asset-extraction.md` | Browser extraction sub-agent (asset capture JS) |
 | `file-specs/token-css.md` | Phase 2 token generation sub-agent |
 | `file-specs/component-contract.md` | Phase 3 component data sub-agent |
 | `file-specs/preview-page.md` | Phase 3 preview generation sub-agents (parallel) |
@@ -93,9 +103,19 @@ During reverse-engineering, Main Agent submits artifacts to the runtime via the 
 ## Pipeline Overview
 
 ```
-Phase 0: Fetch & Extract          [Main Agent]
-    curl target website → download CSS → regex extract all tokens
-    Deliverable: phase0-css-extraction.json (raw evidence)
+Phase 0A: Browser Extraction        [Browser Subagent] ← PRIMARY
+    Navigate → render → screenshots → computed styles → DOM walk → assets → responsive
+    Deliverable: phase0a-browser-extraction.json
+         │
+         ▼
+Phase 0B: CSS File Extraction      [Main Agent] ← SUPPLEMENT
+    curl CSS files → regex extract → @font-face, :root vars, media queries
+    Deliverable: phase0b-css-extraction.txt
+         │
+         ▼
+Phase 0C: Merge & Summarize        [Main Agent]
+    Merge browser + CSS data → produce key findings
+    Deliverable: phase0-css-extraction.json (consolidated)
          │
          ▼
 Phase 1: Brand Analysis            [Main Agent]
@@ -131,6 +151,7 @@ Phase 5: Validate & Deploy         [Main Agent]
 4. **BOM safety**: All generated files must be UTF-8 without BOM. Run a BOM-stripping pass before any validation or JSON parsing step.
 5. **Git-ready**: Final output should be committable to a design-systems repository without modification. Commit messages follow conventional-commits format.
 6. **Parallel where possible**: Component previews (Phase 3) and documentation (Phase 4) should be dispatched as parallel sub-agent batches to minimize wall-clock time.
+7. **Browser-first**: Computed styles from a rendered page are the source of truth. CSS file declarations are supplementary. Never rely on CSS declarations alone when browser rendering is available.
 
 ## Output Location
 
@@ -160,6 +181,17 @@ Phase 5: Validate & Deploy         [Main Agent]
   README.md                     # Brand narrative documentation
   SKILL.md                      # Skill entry point
   library-consumption.json      # Downstream consumption guide
+```
+
+Phase 0A browser-extraction artifacts are written to a temp working directory (not the final library output):
+
+```
+{tmp_dir}/{BrandName}/
+  screenshots/                 # Full-page and viewport screenshots captured during browser extraction
+    full-page.png
+    viewport-mobile.png
+    viewport-tablet.png
+    viewport-desktop.png
 ```
 
 ## Quick Start

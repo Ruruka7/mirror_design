@@ -75,3 +75,61 @@ Handle edge cases during reverse-engineering. These rules standardize how the wo
 - If clip-path polygon shapes found: record exact coordinates
 - These become component trait values (e.g., button corner cut)
 - If no clip-path found: omit from component traits, use border-radius instead
+
+---
+
+## Rule: Browser automation fails (browser_use subagent errors)
+
+- First fallback: try browser_navigate + browser_evaluate directly (without subagent)
+- Second fallback: try WebFetch to get rendered HTML
+- Third fallback: curl + css-extraction.md only (CSS file regex)
+- If all fail: inform user, ask them to manually save the page's CSS
+
+---
+
+## Rule: JS-heavy SPA with no server-side rendering
+
+- curl will return empty shell HTML
+- Browser is the ONLY viable extraction method
+- Must wait for networkidle + additional 2s for lazy content
+- Check for common SPA frameworks: Next.js (_next/), Nuxt (_nuxt/), React (react-root), Vue (#app)
+
+---
+
+## Rule: Page requires interaction before content loads
+
+- Some sites show a loading screen or cookie banner first
+- Use browser_click to dismiss cookie/consent banners
+- Use browser_scroll to trigger scroll animations
+- Wait for content after each interaction
+
+---
+
+## Rule: Page has infinite scroll or lazy-loaded sections
+
+- Scroll to bottom 3 times with 1s pauses
+- Capture computed styles after each scroll (styles may change)
+- Record which sections appeared after scroll
+
+---
+
+## Rule: Computed style conflict (browser vs CSS file)
+
+- Browser computed style ALWAYS wins
+- CSS file value is recorded as "declared" in README caveats
+- If significant discrepancy (e.g., different font family): note in README, investigate why (media query, JS override, CSS-in-JS)
+
+---
+
+## Rule: Multiple page templates on same domain
+
+- If user gives homepage URL, also check /about, /pricing, /contact
+- Extract from each page, merge results
+- Different pages may reveal different component variants
+
+---
+
+## Rule: Page behind paywall or geo-restriction
+
+- Try with different user-agent
+- If still blocked: inform user, ask for alternative URL or saved HTML
