@@ -57,6 +57,7 @@ Mirror Design 的主体不是某一个品牌的设计库，而是一条可复用
 | OpenAI | 极简白底、黑色主行动、克制的产品型排版 | [设计库文档](./.design_library/OpenAI/README.md) · [Marketing UI Kit](./.design_library/OpenAI/ui_kits/marketing/index.html) |
 | Voith | 工业工程、海洋蓝与青色强调、机构化信息层级 | [设计库文档](./.design_library/Voith/README.md) · [Marketing UI Kit](./.design_library/Voith/ui_kits/marketing/index.html) |
 | Endfield | 近黑底、危险黄、霓虹强调、几何切角与工业警示纹理 | [设计库文档](./.design_library/Endfield/README.md) · [Marketing UI Kit](./.design_library/Endfield/ui_kits/marketing/index.html) |
+| Mirror | 黑白极简、方角边界、编辑型内容网格、紧凑技术元数据 | [设计库文档](./.design_library/Mirror/README.md) · [Marketing UI Kit](./.design_library/Mirror/ui_kits/marketing/index.html) |
 
 每套模板当前包含 6 个核心组件：`button`、`card`、`input`、`badge`、`cta-link`、`navigation`。
 
@@ -92,7 +93,8 @@ mirror_design/
 ├── .design_library/
 │   ├── OpenAI/              # 模板样例
 │   ├── Voith/               # 模板样例
-│   └── Endfield/            # 模板样例
+│   ├── Endfield/            # 模板样例
+│   └── Mirror/              # 公开博客页面研究样例
 ├── LICENSE
 └── README.md
 ```

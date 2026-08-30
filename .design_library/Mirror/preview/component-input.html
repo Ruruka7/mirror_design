@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Input</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); }
+    .preview { max-width: 760px; margin: 0 auto; padding: var(--space-7) var(--space-5); }
+    .preview h1 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+    .preview-section { display: grid; gap: var(--space-2); padding: var(--space-5) 0; border-bottom: var(--line-thin); }
+    .preview-label { font-family: var(--font-mono); font-size: var(--font-size-mono); text-transform: uppercase; }
+    .preview-note { margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-caption); }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <p class="mirror-eyebrow">Mirror · Component Preview</p>
+    <h1>Input</h1>
+    <p class="preview-note">主页未展示输入框；以下样式沿用页面已观察到的方角、分隔线与黑白层级。</p>
+    <section class="preview-section"><label class="preview-label" for="default-input">Default / outlined</label><input class="mirror-input" id="default-input" placeholder="搜索文章"></section>
+    <section class="preview-section"><label class="preview-label" for="focus-input">Focus / active</label><input class="mirror-input" id="focus-input" value="AI 叙事" autofocus></section>
+    <section class="preview-section"><label class="preview-label" for="muted-input">Muted / filter</label><input class="mirror-input mirror-input--muted" id="muted-input" placeholder="筛选标签"></section>
+  </main>
+</body>
+</html>

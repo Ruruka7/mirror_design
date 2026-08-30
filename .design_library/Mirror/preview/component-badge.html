@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Badge</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); }
+    .preview { max-width: 960px; margin: 0 auto; padding: var(--space-7) var(--space-5); }
+    .preview h1 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+    .preview-section { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; padding: var(--space-5) 0; border-bottom: var(--line-thin); }
+    .preview-label { width: 160px; font-family: var(--font-mono); font-size: var(--font-size-mono); text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <p class="mirror-eyebrow">Mirror · Component Preview</p>
+    <h1>Badge</h1>
+    <section class="preview-section"><span class="preview-label">Category / neutral</span><span class="mirror-badge">#AI</span><span class="mirror-badge">#日常</span><span class="mirror-badge">技术笔记</span></section>
+    <section class="preview-section"><span class="preview-label">Metadata / quiet</span><span class="mirror-badge mirror-badge--quiet">2026.08.13</span><span class="mirror-badge mirror-badge--quiet">4 分钟</span></section>
+    <section class="preview-section"><span class="preview-label">Inverse / footer</span><span class="mirror-badge mirror-badge--inverse">CONSTRUCT/博客</span></section>
+  </main>
+</body>
+</html>

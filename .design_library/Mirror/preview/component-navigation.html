@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Navigation</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); }
+    .preview { max-width: 1180px; margin: 0 auto; padding: var(--space-7) var(--space-5); }
+    .preview h1 { margin: 0 0 var(--space-6); font-family: var(--font-display); font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+    .preview-section { margin-bottom: var(--space-6); border: var(--line-thin); }
+    .preview-label { margin: 0; padding: var(--space-3); border-bottom: var(--line-thin); font-family: var(--font-mono); font-size: var(--font-size-mono); text-transform: uppercase; }
+    .preview .mirror-nav { border: 0; }
+    .preview .mirror-nav__links { list-style: none; margin: 0; padding: 0; }
+    .preview .mirror-nav__links a { display: block; }
+    @media (max-width: 760px) { .preview .mirror-nav__links { display: none; } }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <p class="mirror-eyebrow">Mirror · Component Preview</p>
+    <h1>Navigation</h1>
+    <section class="preview-section"><p class="preview-label">Desktop / light</p><nav class="mirror-nav" aria-label="主导航"><a class="mirror-nav__wordmark" href="#">CONSTRUCT/博客</a><div class="mirror-nav__links"><a href="#" aria-current="page">首页</a><a href="#">原创</a><a href="#">笔记</a><a href="#">项目</a></div><button class="mirror-button mirror-button--icon" aria-label="切换主题" type="button">◐</button></nav></section>
+    <section class="preview-section"><p class="preview-label">Footer / inverse</p><nav class="mirror-nav mirror-nav--inverse" aria-label="页脚导航"><a class="mirror-nav__wordmark" href="#">CONSTRUCT/博客</a><div class="mirror-nav__links"><a href="#">关于</a><a href="#">友链</a><a href="#">相册</a></div><span class="mirror-badge mirror-badge--inverse">© 2026</span></nav></section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "sourceKind": "from-scratch",
+  "libraryName": "Mirror",
+  "components": [
+    {"slug": "button", "name": "Button", "category": "action", "confidence": "high", "variantCount": 4, "priorityHint": "primary", "keyInsightSeed": "Square, high-contrast actions use black or white fills, 2px rules, and no radius."},
+    {"slug": "card", "name": "Card", "category": "surface", "confidence": "high", "variantCount": 3, "priorityHint": "secondary", "keyInsightSeed": "Content cards rely on hairline or heavy grid rules rather than shadows or rounded elevation."},
+    {"slug": "input", "name": "Input", "category": "form", "confidence": "medium", "variantCount": 3, "priorityHint": "secondary", "keyInsightSeed": "No visible form field appeared on the homepage; the reusable field follows the same square rule and restrained monochrome palette."},
+    {"slug": "badge", "name": "Badge", "category": "status", "confidence": "high", "variantCount": 3, "priorityHint": "tertiary", "keyInsightSeed": "Tags are compact monochrome labels with small type, square edges, and quiet surface contrast."},
+    {"slug": "cta-link", "name": "CTA Link", "category": "action", "confidence": "high", "variantCount": 4, "priorityHint": "primary", "keyInsightSeed": "Section exits use bold uppercase labels, a trailing arrow, and a 4px underline offset."},
+    {"slug": "navigation", "name": "Navigation", "category": "shell", "confidence": "high", "variantCount": 2, "priorityHint": "primary", "keyInsightSeed": "A 58px fixed top bar pairs a compact wordmark with dense text navigation and a square theme control."}
+  ]
+}

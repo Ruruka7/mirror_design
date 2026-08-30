@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "headBoilerplate": "<link rel=\"stylesheet\" href=\"../../colors_and_type.css\">",
+  "corePreviewComponents": [
+    {"slug": "button", "reason": "fixed slot button; primary reading and theme controls are visible in the source page", "evidenceFile": "components/button.json", "priority": 1, "slot": "button"},
+    {"slug": "navigation", "reason": "fixed slot navigation; 58px top shell and inverse footer are visible", "evidenceFile": "components/navigation.json", "priority": 2, "slot": "navigation"},
+    {"slug": "card", "reason": "fixed slot card; article and project index cells are visible", "evidenceFile": "components/card.json", "priority": 3, "slot": "card"},
+    {"slug": "badge", "reason": "fixed slot tag; category and metadata labels are visible", "evidenceFile": "components/badge.json", "priority": 4, "slot": "tag"},
+    {"slug": "cta-link", "reason": "section exits and arrow links are repeated across the homepage", "evidenceFile": "components/cta-link.json", "priority": 5},
+    {"slug": "input", "reason": "archive/search field is a documented reusable inference", "evidenceFile": "components/input.json", "priority": 6}
+  ],
+  "supportEvidenceComponents": [],
+  "allowedComponents": ["button", "navigation", "card", "badge", "cta-link", "input"],
+  "screenBlueprints": [
+    {"name": "CONSTRUCT home", "componentSlugs": ["navigation", "button", "card", "badge", "cta-link"], "role": "primary"},
+    {"name": "Archive index", "componentSlugs": ["navigation", "card", "badge", "cta-link", "input"], "role": "secondary"},
+    {"name": "Project catalog", "componentSlugs": ["navigation", "card", "badge", "cta-link"], "role": "secondary"}
+  ],
+  "productContext": {
+    "kitType": "marketing",
+    "productType": "Marketing/Landing",
+    "dominantCopy": ["AI 叙事引擎 / 技术笔记 / 开源项目", "精选文章", "开源项目", "AI 笔记摘要"],
+    "pageNames": ["home", "articles", "projects", "notes", "about"],
+    "selectedFrameNames": ["home", "archive", "catalog"]
+  },
+  "selectionPolicy": "fixed-slots-first",
+  "slotAssignments": [
+    {"slot": "button", "slug": "button", "reason": "semantic"},
+    {"slot": "navigation", "slug": "navigation", "reason": "semantic"},
+    {"slot": "card", "slug": "card", "reason": "semantic"},
+    {"slot": "tag", "slug": "badge", "reason": "semantic"}
+  ],
+  "missingFixedSlots": ["menu", "table"],
+  "fallbackComponents": ["cta-link", "input"],
+  "needsNarrative": false,
+  "forbiddenInventedComponents": [],
+  "lowConfidence": false,
+  "warnings": ["missing-fixed-slot:menu", "missing-fixed-slot:table", "input-contract-inferred-from-shared-site-tokens"]
+}

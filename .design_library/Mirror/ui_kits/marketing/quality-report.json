@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "screensGenerated": 5,
+  "coreComponentsUsed": ["button", "navigation", "card", "badge", "cta-link", "input"],
+  "supportComponentsUsed": [],
+  "previewClassReuseRate": 0.88,
+  "hasProductContext": true,
+  "inventedComponents": ["input field instance (no visible homepage input)"],
+  "renderedFromEvidence": ["https://emaostudio.online/", "browser computed styles", "homepage DOM", "source stylesheet media queries"],
+  "warnings": ["Input is a documented inference; no visible homepage field was found.", "No source-site images or font files are bundled.", "Narrow-width browser override was not reliable in this session."]
+}

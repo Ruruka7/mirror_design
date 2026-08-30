@@ -1,0 +1,21 @@
+{
+  "slug": "button",
+  "schemaVersion": 2,
+  "name": "Button",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["primary-action", "utility-control", "theme-toggle"],
+  "variantDimensions": {"intent": ["primary", "secondary", "ghost", "icon"], "size": ["sm", "md", "lg"], "state": ["default", "hover", "focus", "disabled"]},
+  "representativeVariants": [
+    {"name": "Primary — large", "whySelected": "The homepage's main reading CTA is a black, square-cornered action with generous horizontal padding.", "traits": {"background": "var(--color-primary)", "color": "var(--color-on-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "min-height": "var(--size-button-lg)", "padding": "var(--space-4) var(--space-5)", "font-family": "var(--font-body)", "font-size": "var(--font-size-body)", "font-weight": "var(--font-weight-h3)", "letter-spacing": "var(--tracking-wider)", "transition": "var(--transition-fast)"}, "childrenDigest": ["label", "trailing-arrow"]},
+    {"name": "Secondary — large", "whySelected": "The paired About CTA reverses the same black-and-white rule while keeping the heavy outline visible.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "min-height": "var(--size-button-lg)", "padding": "var(--space-4) var(--space-5)", "font-family": "var(--font-body)", "font-size": "var(--font-size-body)", "font-weight": "var(--font-weight-h3)", "letter-spacing": "var(--tracking-wider)"}, "childrenDigest": ["label", "trailing-arrow"]},
+    {"name": "Utility — square", "whySelected": "The visible theme toggle is a 36px square utility control with a 2px border and no fill.", "traits": {"background": "transparent", "color": "var(--color-text-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "width": "var(--size-button-sm)", "height": "var(--size-button-sm)", "padding": "var(--space-1)", "transition": "var(--transition-base)"}, "childrenDigest": ["icon"]},
+    {"name": "Ghost — compact", "whySelected": "Dense nav links use transparent surfaces and become filled only when the route is active.", "traits": {"background": "transparent", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "min-height": "var(--size-button-sm)", "padding": "var(--space-2) var(--space-3)", "font-family": "var(--font-body)", "font-size": "var(--font-size-caption)", "font-weight": "var(--font-weight-caption)", "transition": "var(--transition-fast)"}, "childrenDigest": ["label"]}
+  ],
+  "anatomy": ["root", "label", "icon-slot", "focus-ring"],
+  "structurePatterns": ["inline-flex row", "center-aligned", "square rule", "optional trailing arrow"],
+  "usageHints": {"priorityHint": "Use one filled primary action per major section; use the secondary outline beside it and compact controls for utilities.", "a11y": "Keep a visible focus ring, preserve a minimum 36px target for utility controls, and provide an accessible label for icon-only buttons."},
+  "doNotInvent": ["rounded pill buttons", "gradient fills", "shadow elevation", "split-button menus"],
+  "unknowns": ["The exact disabled-state opacity was not visible on the public homepage."]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "badge",
+  "schemaVersion": 2,
+  "name": "Badge",
+  "category": "status",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["category-tag", "status-label", "metadata-chip"],
+  "variantDimensions": {"tone": ["neutral", "muted", "inverse"], "size": ["sm", "md"]},
+  "representativeVariants": [
+    {"name": "Category — neutral", "whySelected": "Homepage tags such as #AI and #日常 use compact monochrome labels rather than colorful status chips.", "traits": {"background": "var(--color-surface)", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "padding": "var(--space-1) var(--space-2)", "font-family": "var(--font-body)", "font-size": "var(--font-size-caption)", "font-weight": "var(--font-weight-caption)", "line-height": "var(--line-height-caption)"}, "childrenDigest": ["label"]},
+    {"name": "Metadata — quiet", "whySelected": "Dates, reading times, and taxonomy labels sit in a smaller quiet treatment inside article cards.", "traits": {"background": "transparent", "color": "var(--color-text-secondary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "padding": "var(--space-1) var(--space-2)", "font-size": "var(--font-size-mono)", "font-family": "var(--font-mono)", "letter-spacing": "var(--tracking-wide)"}, "childrenDigest": ["label"]},
+    {"name": "Inverse — footer", "whySelected": "The dark footer reverses text and surface values while keeping the same no-radius, rule-based shape.", "traits": {"background": "var(--color-primary)", "color": "var(--color-on-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "padding": "var(--space-1) var(--space-2)", "font-size": "var(--font-size-caption)"}, "childrenDigest": ["label"]}
+  ],
+  "anatomy": ["label", "optional-count"],
+  "structurePatterns": ["inline label", "small rule-bound rectangle", "metadata row"],
+  "usageHints": {"priorityHint": "Use for category and metadata context; do not make badges carry the primary action.", "a11y": "Do not rely on color alone to communicate status; pair status with readable text."},
+  "doNotInvent": ["pill radius", "neon status palette", "animated badges", "icon-only badges"],
+  "unknowns": []
+}

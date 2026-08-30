@@ -1,0 +1,20 @@
+{
+  "slug": "card",
+  "schemaVersion": 2,
+  "name": "Card",
+  "category": "surface",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["article-preview", "project-summary", "note-item"],
+  "variantDimensions": {"surface": ["flat", "outlined", "muted"], "density": ["compact", "comfortable"]},
+  "representativeVariants": [
+    {"name": "Editorial — outlined", "whySelected": "Featured articles appear as grid cells separated by visible rules, with no shadow or rounded corners.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "padding": "var(--space-5)", "box-shadow": "var(--shadow-1)", "transition": "var(--transition-fast)"}, "childrenDigest": ["eyebrow", "title", "summary", "meta"]},
+    {"name": "Project — heavy rule", "whySelected": "Project cards use a strong rectangular boundary and compact metadata rows to read like an index or catalog.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "padding": "var(--space-5)", "box-shadow": "var(--shadow-1)"}, "childrenDigest": ["status", "title", "summary", "tags", "cta-link"]},
+    {"name": "Muted — supporting item", "whySelected": "The blog uses #f5f5f5 card surfaces for quieter content blocks while maintaining the same square silhouette.", "traits": {"background": "var(--color-surface)", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "padding": "var(--space-4)", "box-shadow": "var(--shadow-1)"}, "childrenDigest": ["label", "body", "meta"]}
+  ],
+  "anatomy": ["surface", "eyebrow", "title", "body", "metadata", "action"],
+  "structurePatterns": ["grid cell", "vertical rhythm", "rule-separated metadata", "hover background wash"],
+  "usageHints": {"priorityHint": "Use outlined cards for editorial indexes and heavy-rule cards for projects; reserve muted cards for secondary information.", "a11y": "When the whole card is clickable, expose one clear link target and keep heading hierarchy intact."},
+  "doNotInvent": ["rounded cards", "ambient shadows", "carousel behavior", "decorative gradients"],
+  "unknowns": []
+}

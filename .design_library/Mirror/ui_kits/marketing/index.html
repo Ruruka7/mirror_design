@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Marketing UI Kit</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="../../components.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--color-background); color: var(--color-foreground); font-family: var(--font-body); }
+    .ui-kit-sidebar { position: fixed; inset: 0 auto 0 0; width: 220px; overflow-y: auto; border-right: var(--line-heavy); background: var(--color-background); }
+    .ui-kit-sidebar__brand { display: block; padding: var(--space-5); border-bottom: var(--line-heavy); color: var(--color-foreground); text-decoration: none; font-family: var(--font-display); font-weight: var(--font-weight-h3); letter-spacing: var(--tracking-wide); }
+    .ui-kit-sidebar nav { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-4); }
+    .ui-kit-sidebar nav a { padding: var(--space-2) var(--space-3); color: var(--color-text-secondary); text-decoration: none; font-family: var(--font-mono); font-size: var(--font-size-mono); }
+    .ui-kit-sidebar nav a:hover, .ui-kit-sidebar nav a:focus-visible { background: var(--color-muted); color: var(--color-text-primary); outline: 0; }
+    .ui-kit-main { max-width: 1120px; margin-left: 220px; padding: var(--space-7) var(--space-6); }
+    .kit-header { min-height: 360px; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-4); padding: var(--space-8) 0; border-bottom: var(--line-heavy); }
+    .kit-header__title { margin: 0; font-family: var(--font-display); font-size: var(--font-size-display); line-height: var(--line-height-display); font-weight: var(--font-weight-display); letter-spacing: var(--tracking-tightest); }
+    .kit-header__lead { max-width: 680px; margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-lead); line-height: var(--line-height-body); }
+    .kit-section { padding: var(--space-8) 0; border-bottom: var(--line-heavy); }
+    .kit-section__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .kit-section__title { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h2); line-height: var(--line-height-h2); font-weight: var(--font-weight-h3); }
+    .kit-section__note { margin: 0; max-width: 560px; color: var(--color-text-secondary); line-height: var(--line-height-body); }
+    .eyebrow { margin: 0 0 var(--space-2); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: var(--font-size-mono); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+    .swatch-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+    .swatch-group { border: var(--line-thin); }
+    .swatch-group h3 { margin: 0; padding: var(--space-3) var(--space-4); border-bottom: var(--line-thin); font-size: var(--font-size-caption); }
+    .swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .swatch { min-height: 62px; display: flex; align-items: flex-end; padding: var(--space-2); box-sizing: border-box; border-right: var(--line-thin); border-bottom: var(--line-thin); color: var(--color-text-primary); font-family: var(--font-mono); font-size: 10px; }
+    .swatch:nth-child(5n) { border-right: 0; }
+    .swatch span { padding: 2px; background: var(--color-background); }
+    .color-primary .s-50 { background: var(--mirror-primary-50); } .color-primary .s-100 { background: var(--mirror-primary-100); } .color-primary .s-200 { background: var(--mirror-primary-200); } .color-primary .s-300 { background: var(--mirror-primary-300); } .color-primary .s-400 { background: var(--mirror-primary-400); } .color-primary .s-500 { background: var(--mirror-primary-500); } .color-primary .s-600 { background: var(--mirror-primary-600); color: var(--color-on-primary); } .color-primary .s-700 { background: var(--mirror-primary-700); color: var(--color-on-primary); } .color-primary .s-800 { background: var(--mirror-primary-800); color: var(--color-on-primary); } .color-primary .s-900 { background: var(--mirror-primary-900); color: var(--color-on-primary); }
+    .color-neutral .s-50 { background: var(--mirror-neutral-50); } .color-neutral .s-100 { background: var(--mirror-neutral-100); } .color-neutral .s-200 { background: var(--mirror-neutral-200); } .color-neutral .s-300 { background: var(--mirror-neutral-300); } .color-neutral .s-400 { background: var(--mirror-neutral-400); } .color-neutral .s-500 { background: var(--mirror-neutral-500); } .color-neutral .s-600 { background: var(--mirror-neutral-600); } .color-neutral .s-700 { background: var(--mirror-neutral-700); } .color-neutral .s-800 { background: var(--mirror-neutral-800); color: var(--color-on-primary); } .color-neutral .s-900 { background: var(--mirror-neutral-900); color: var(--color-on-primary); }
+    .color-surface .s-50 { background: var(--mirror-surface-50); } .color-surface .s-100 { background: var(--mirror-surface-100); } .color-surface .s-200 { background: var(--mirror-surface-200); } .color-surface .s-300 { background: var(--mirror-surface-300); } .color-surface .s-400 { background: var(--mirror-surface-400); } .color-surface .s-500 { background: var(--mirror-surface-500); } .color-surface .s-600 { background: var(--mirror-surface-600); } .color-surface .s-700 { background: var(--mirror-surface-700); } .color-surface .s-800 { background: var(--mirror-surface-800); } .color-surface .s-900 { background: var(--mirror-surface-900); }
+    .color-error .s-50 { background: var(--mirror-error-50); } .color-error .s-100 { background: var(--mirror-error-100); } .color-error .s-200 { background: var(--mirror-error-200); } .color-error .s-300 { background: var(--mirror-error-300); } .color-error .s-400 { background: var(--mirror-error-400); } .color-error .s-500 { background: var(--mirror-error-500); } .color-error .s-600 { background: var(--mirror-error-600); } .color-error .s-700 { background: var(--mirror-error-700); color: var(--color-on-primary); } .color-error .s-800 { background: var(--mirror-error-800); color: var(--color-on-primary); } .color-error .s-900 { background: var(--mirror-error-900); color: var(--color-on-primary); }
+    .type-specimens { display: grid; gap: var(--space-4); }
+    .type-specimen { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: var(--line-thin); }
+    .type-specimen__sample { margin: 0; }
+    .type-specimen__meta { margin: 0; color: var(--color-text-secondary); font-family: var(--font-mono); font-size: var(--font-size-mono); text-align: right; }
+    .type-display { font-family: var(--font-display); font-size: var(--font-size-display); font-weight: var(--font-weight-display); line-height: var(--line-height-display); letter-spacing: var(--tracking-tightest); }
+    .type-h1 { font-family: var(--font-display); font-size: var(--font-size-h1); font-weight: var(--font-weight-h1); line-height: var(--line-height-h1); }
+    .type-body { font-family: var(--font-body); font-size: var(--font-size-body); line-height: var(--line-height-body); }
+    .type-mono { font-family: var(--font-mono); font-size: var(--font-size-mono); }
+    .component-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+    .ui-kit-card { min-width: 0; border: var(--line-thin); }
+    .ui-kit-card__head { padding: var(--space-4); border-bottom: var(--line-heavy); }
+    .ui-kit-card__head h3 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h3); }
+    .ui-kit-card__body { display: grid; gap: var(--space-4); padding: var(--space-4); }
+    .showcase-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .showcase-label { width: 88px; color: var(--color-text-secondary); font-family: var(--font-mono); font-size: var(--font-size-mono); }
+    .token-demo { display: grid; gap: var(--space-5); }
+    .space-demo, .radius-demo, .shadow-demo { display: flex; align-items: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+    .space-item, .radius-item, .shadow-item { display: grid; gap: var(--space-1); color: var(--color-text-secondary); font-family: var(--font-mono); font-size: var(--font-size-mono); }
+    .space-box { width: var(--space-6); background: var(--color-primary); }
+    .space-1 { height: var(--space-1); } .space-2 { height: var(--space-2); } .space-3 { height: var(--space-3); } .space-4 { height: var(--space-4); } .space-5 { height: var(--space-5); } .space-6 { height: var(--space-6); } .space-7 { height: var(--space-7); } .space-8 { height: var(--space-8); }
+    .radius-box { width: 82px; height: 42px; border: var(--line-thin); background: var(--color-surface); }
+    .radius-none { border-radius: var(--radius-none); } .radius-full { border-radius: var(--radius-full); }
+    .shadow-box { width: 110px; height: 54px; border: var(--line-thin); background: var(--color-background); box-shadow: var(--shadow-1); }
+    .motion-box { display: inline-flex; align-items: center; justify-content: center; min-height: var(--size-button-md); padding: 0 var(--space-4); border: var(--line-heavy); transition: var(--transition-fast); }
+    .motion-box:hover { background: var(--color-primary); color: var(--color-on-primary); }
+    .pattern-stack { display: grid; gap: var(--space-6); }
+    .pattern-hero { display: grid; gap: var(--space-5); padding: var(--space-8) var(--space-6); border: var(--line-heavy); }
+    .pattern-hero h3 { max-width: 700px; margin: 0; font-family: var(--font-display); font-size: clamp(48px, 8vw, 128px); line-height: var(--line-height-display); font-weight: var(--font-weight-display); letter-spacing: var(--tracking-tightest); }
+    .pattern-hero p { max-width: 560px; margin: 0; color: var(--color-text-secondary); line-height: var(--line-height-body); }
+    .pattern-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+    .pattern-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pattern-card-grid .mirror-card { min-height: 180px; }
+    .pattern-cta { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-7) var(--space-6); border: var(--line-heavy); background: var(--color-primary); color: var(--color-on-primary); }
+    .pattern-cta h3 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h2); }
+    .pattern-cta p { margin: var(--space-2) 0 0; color: var(--mirror-neutral-300); }
+    .pattern-footer { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-6); padding: var(--space-7) var(--space-5); background: var(--color-primary); color: var(--color-on-primary); }
+    .pattern-footer h3, .pattern-footer p { margin: 0; }
+    .pattern-footer h3 { font-family: var(--font-display); font-size: var(--font-size-h3); }
+    .pattern-footer p, .pattern-footer a { color: var(--mirror-neutral-300); font-size: var(--font-size-caption); line-height: var(--line-height-body); }
+    .pattern-footer a { display: block; text-decoration: none; }
+    .pattern-footer a:hover { color: var(--color-on-primary); text-decoration: underline; }
+    @media (max-width: 900px) { .ui-kit-main { padding: var(--space-6) var(--space-4); } .swatch-groups, .component-grid { grid-template-columns: 1fr; } .pattern-card-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) { .ui-kit-sidebar { position: static; width: auto; border-right: 0; border-bottom: var(--line-heavy); } .ui-kit-sidebar nav { flex-direction: row; flex-wrap: wrap; } .ui-kit-main { margin-left: 0; } .kit-header { min-height: 260px; } .kit-header__title { font-size: 72px; } .type-specimen, .pattern-cta { align-items: flex-start; flex-direction: column; } .type-specimen__meta { text-align: left; } .pattern-footer { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <aside class="ui-kit-sidebar">
+    <a class="ui-kit-sidebar__brand" href="#top">MIRROR / CONSTRUCT</a>
+    <nav aria-label="UI Kit sections">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#components">Components</a>
+      <a href="#tokens">Tokens</a>
+      <a href="#patterns">Patterns</a>
+    </nav>
+  </aside>
+
+  <main class="ui-kit-main">
+    <header class="kit-header" id="top">
+      <p class="eyebrow">Mirror · Marketing UI Kit</p>
+      <h1 class="kit-header__title">MIRROR</h1>
+      <p class="kit-header__lead">一个以黑白、分隔线、紧凑信息层级和内容网格为核心的个人博客设计语言。基于公开页面研究生成，可复用于 AI 笔记、项目档案、文章索引与个人构建页面。</p>
+    </header>
+
+    <section class="kit-section" id="colors">
+      <div class="kit-section__head"><div><p class="eyebrow">01 / Palette</p><h2 class="kit-section__title">Color system</h2></div><p class="kit-section__note">默认画布保持白色，黑色承担行动与边界，灰色负责纸面层级；系统不依赖渐变或装饰性高光。</p></div>
+      <div class="swatch-groups">
+        <div class="swatch-group color-primary"><h3>Primary / ink</h3><div class="swatches"><div class="swatch s-50"><span>50</span></div><div class="swatch s-100"><span>100</span></div><div class="swatch s-200"><span>200</span></div><div class="swatch s-300"><span>300</span></div><div class="swatch s-400"><span>400</span></div><div class="swatch s-500"><span>500</span></div><div class="swatch s-600"><span>600</span></div><div class="swatch s-700"><span>700</span></div><div class="swatch s-800"><span>800</span></div><div class="swatch s-900"><span>900</span></div></div></div>
+        <div class="swatch-group color-neutral"><h3>Neutral / paper to ink</h3><div class="swatches"><div class="swatch s-50"><span>50</span></div><div class="swatch s-100"><span>100</span></div><div class="swatch s-200"><span>200</span></div><div class="swatch s-300"><span>300</span></div><div class="swatch s-400"><span>400</span></div><div class="swatch s-500"><span>500</span></div><div class="swatch s-600"><span>600</span></div><div class="swatch s-700"><span>700</span></div><div class="swatch s-800"><span>800</span></div><div class="swatch s-900"><span>900</span></div></div></div>
+        <div class="swatch-group color-surface"><h3>Surface / muted cards</h3><div class="swatches"><div class="swatch s-50"><span>50</span></div><div class="swatch s-100"><span>100</span></div><div class="swatch s-200"><span>200</span></div><div class="swatch s-300"><span>300</span></div><div class="swatch s-400"><span>400</span></div><div class="swatch s-500"><span>500</span></div><div class="swatch s-600"><span>600</span></div><div class="swatch s-700"><span>700</span></div><div class="swatch s-800"><span>800</span></div><div class="swatch s-900"><span>900</span></div></div></div>
+        <div class="swatch-group color-error"><h3>Error / observed semantic family</h3><div class="swatches"><div class="swatch s-50"><span>50</span></div><div class="swatch s-100"><span>100</span></div><div class="swatch s-200"><span>200</span></div><div class="swatch s-300"><span>300</span></div><div class="swatch s-400"><span>400</span></div><div class="swatch s-500"><span>500</span></div><div class="swatch s-600"><span>600</span></div><div class="swatch s-700"><span>700</span></div><div class="swatch s-800"><span>800</span></div><div class="swatch s-900"><span>900</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="kit-section" id="typography">
+      <div class="kit-section__head"><div><p class="eyebrow">02 / Type</p><h2 class="kit-section__title">Typography</h2></div><p class="kit-section__note">标题用紧凑的 Inter Tight，正文用 Inter，日期与标签切换到 JetBrains Mono，形成叙事层与索引层的双轨。</p></div>
+      <div class="type-specimens">
+        <div class="type-specimen"><p class="type-specimen__sample type-display">MIRROR</p><p class="type-specimen__meta">Inter Tight Variable · 128px · 900 · 0.85</p></div>
+        <div class="type-specimen"><p class="type-specimen__sample type-h1">精选文章 / 项目档案</p><p class="type-specimen__meta">Inter Tight Variable · 48px · 900 · 1</p></div>
+        <div class="type-specimen"><p class="type-specimen__sample type-body">AI 叙事引擎 / 技术笔记 / 开源项目</p><p class="type-specimen__meta">Inter Variable · 16px · 400 · 1.5</p></div>
+        <div class="type-specimen"><p class="type-specimen__sample type-mono">2026.08.30 · 4 MIN READ</p><p class="type-specimen__meta">JetBrains Mono Variable · 12px · 400</p></div>
+      </div>
+    </section>
+
+    <section class="kit-section" id="components">
+      <div class="kit-section__head"><div><p class="eyebrow">03 / Components</p><h2 class="kit-section__title">Component showcase</h2></div><p class="kit-section__note">六个固定槽位覆盖博客壳层、内容卡片、索引标签、动作出口和可复用表单入口。</p></div>
+      <div class="component-grid">
+        <article class="ui-kit-card" data-component="button"><div class="ui-kit-card__head"><h3>Button</h3></div><div class="ui-kit-card__body"><div class="showcase-row"><span class="showcase-label">primary</span><button class="mirror-button mirror-button--primary" type="button">开始阅读 →</button></div><div class="showcase-row"><span class="showcase-label">secondary</span><button class="mirror-button mirror-button--secondary" type="button">关于我 →</button></div><div class="showcase-row"><span class="showcase-label">utility</span><button class="mirror-button mirror-button--icon" type="button" aria-label="切换主题">◐</button></div></div></article>
+        <article class="ui-kit-card" data-component="card"><div class="ui-kit-card__head"><h3>Card</h3></div><div class="ui-kit-card__body"><div class="mirror-card"><p class="mirror-card__eyebrow">思考 · 2026.08.13</p><h4 class="mirror-card__title">从关键词到发布</h4><p class="mirror-card__body">把内容做成可回看的结构。</p><div class="mirror-card__meta">4 分钟 →</div></div></div></article>
+        <article class="ui-kit-card" data-component="input"><div class="ui-kit-card__head"><h3>Input</h3></div><div class="ui-kit-card__body"><label class="mirror-eyebrow" for="kit-search">SEARCH ARCHIVE</label><input class="mirror-input" id="kit-search" placeholder="搜索文章或标签"><label class="mirror-eyebrow" for="kit-filter">FILTER</label><input class="mirror-input mirror-input--muted" id="kit-filter" placeholder="筛选内容"></div></article>
+        <article class="ui-kit-card" data-component="badge"><div class="ui-kit-card__head"><h3>Badge</h3></div><div class="ui-kit-card__body"><div class="showcase-row"><span class="mirror-badge">#AI</span><span class="mirror-badge">技术笔记</span><span class="mirror-badge mirror-badge--quiet">2026.08.30</span></div></div></article>
+        <article class="ui-kit-card" data-component="cta-link"><div class="ui-kit-card__head"><h3>CTA Link</h3></div><div class="ui-kit-card__body"><a class="mirror-cta" href="#patterns">查看全部 →</a><a class="mirror-cta mirror-cta--primary" href="#patterns">开始阅读 →</a></div></article>
+        <article class="ui-kit-card" data-component="navigation"><div class="ui-kit-card__head"><h3>Navigation</h3></div><div class="ui-kit-card__body"><nav class="mirror-nav" aria-label="UI kit navigation"><a class="mirror-nav__wordmark" href="#top">CONSTRUCT/博客</a><div class="mirror-nav__links"><a href="#components" aria-current="page">首页</a><a href="#patterns">项目</a></div></nav></div></article>
+      </div>
+    </section>
+
+    <section class="kit-section" id="tokens">
+      <div class="kit-section__head"><div><p class="eyebrow">04 / Tokens</p><h2 class="kit-section__title">Design tokens</h2></div><p class="kit-section__note">尺寸、半径、阴影和动效都服务于“像目录一样清晰”的内容界面。</p></div>
+      <div class="token-demo">
+        <div><p class="eyebrow">Spacing · 4px base</p><div class="space-demo"><div class="space-item"><div class="space-box space-1"></div><span>1 / 4</span></div><div class="space-item"><div class="space-box space-2"></div><span>2 / 8</span></div><div class="space-item"><div class="space-box space-3"></div><span>3 / 12</span></div><div class="space-item"><div class="space-box space-4"></div><span>4 / 16</span></div><div class="space-item"><div class="space-box space-5"></div><span>5 / 24</span></div><div class="space-item"><div class="space-box space-6"></div><span>6 / 32</span></div><div class="space-item"><div class="space-box space-7"></div><span>7 / 48</span></div><div class="space-item"><div class="space-box space-8"></div><span>8 / 64</span></div></div></div>
+        <div><p class="eyebrow">Radius · square first</p><div class="radius-demo"><div class="radius-item"><div class="radius-box radius-none"></div><span>none / 0</span></div><div class="radius-item"><div class="radius-box radius-full"></div><span>full / 9999</span></div></div></div>
+        <div><p class="eyebrow">Shadow · none observed</p><div class="shadow-demo"><div class="shadow-item"><div class="shadow-box"></div><span>shadow-1 → none</span></div><div class="shadow-item"><div class="shadow-box"></div><span>shadow-5 → none</span></div></div></div>
+        <div><p class="eyebrow">Transition · hover me</p><div class="motion-box">0.15s / cubic-bezier(0.4, 0, 0.2, 1)</div></div>
+      </div>
+    </section>
+
+    <section class="kit-section" id="patterns">
+      <div class="kit-section__head"><div><p class="eyebrow">05 / Patterns</p><h2 class="kit-section__title">Marketing patterns</h2></div><p class="kit-section__note">内容型首页的骨架：先建立身份，再给出精选内容，随后展开日常、项目、笔记和标签，最后以逆色页脚收束。</p></div>
+      <div class="pattern-stack">
+        <section class="pattern-hero"><p class="eyebrow">PERSONAL BLOG</p><h3>AI 叙事引擎 / 技术笔记 / 开源项目</h3><p>记录 AI 辅助叙事创作研究与个人构建，把灵感、实验和半成品脑洞整理成可继续阅读的档案。</p><div class="pattern-actions"><a class="mirror-cta mirror-cta--primary" href="#components">开始阅读 →</a><a class="mirror-cta mirror-cta--outline" href="#components">关于我 →</a></div></section>
+        <section><p class="eyebrow">FEATURED · 精选</p><div class="pattern-card-grid"><article class="mirror-card"><p class="mirror-card__eyebrow">思考</p><h3 class="mirror-card__title">人机协作的一点思考</h3><p class="mirror-card__body">与其让 AI 写好故事，不如让它少犯错。</p><div class="mirror-card__meta">2026.07.14 · 3 分钟</div></article><article class="mirror-card"><p class="mirror-card__eyebrow">随笔</p><h3 class="mirror-card__title">骨架与血肉</h3><p class="mirror-card__body">模糊也是一种技巧。</p><div class="mirror-card__meta">2026.07.12 · 1 分钟</div></article><article class="mirror-card"><p class="mirror-card__eyebrow">技术</p><h3 class="mirror-card__title">从 0 到 1 的搭建日记</h3><p class="mirror-card__body">记录一次个人博客的构建过程。</p><div class="mirror-card__meta">2026.07.11 · 5 分钟</div></article></div></section>
+        <section class="pattern-cta"><div><h3>把灵感整理成下一篇</h3><p>保持黑白，保留问题，继续构建。</p></div><a class="mirror-button mirror-button--secondary" href="#top">返回顶部 ↑</a></section>
+        <footer class="pattern-footer"><div><h3>CONSTRUCT/博客</h3><p>黑白极简风格的个人博客。</p><p>在黑白之间，寻找秩序与混沌的平衡。</p></div><div><p class="eyebrow">导航</p><a href="#top">首页</a><a href="#patterns">原创</a><a href="#components">项目</a></div><div><p class="eyebrow">更多</p><a href="#typography">关于</a><a href="#colors">标签</a><a href="#tokens">归档</a></div></footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

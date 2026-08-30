@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Button</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); }
+    .preview { max-width: 960px; margin: 0 auto; padding: var(--space-7) var(--space-5); }
+    .preview h1 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+    .preview p { color: var(--color-text-secondary); }
+    .preview-section { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; padding: var(--space-5) 0; border-bottom: var(--line-thin); }
+    .preview-label { min-width: 150px; font-family: var(--font-mono); font-size: var(--font-size-mono); text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <p class="mirror-eyebrow">Mirror · Component Preview</p>
+    <h1>Button</h1>
+    <section class="preview-section"><span class="preview-label">Primary / large</span><button class="mirror-button mirror-button--primary" type="button">开始阅读 <span aria-hidden="true">→</span></button></section>
+    <section class="preview-section"><span class="preview-label">Secondary / large</span><button class="mirror-button mirror-button--secondary" type="button">关于我 <span aria-hidden="true">→</span></button></section>
+    <section class="preview-section"><span class="preview-label">Utility / square</span><button class="mirror-button mirror-button--icon" type="button" aria-label="切换主题"><span aria-hidden="true">◐</span></button></section>
+    <section class="preview-section"><span class="preview-label">Ghost / compact</span><button class="mirror-button mirror-button--ghost" type="button">查看全部</button></section>
+  </main>
+</body>
+</html>

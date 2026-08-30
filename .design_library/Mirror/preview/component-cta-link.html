@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — CTA Link</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <link rel="stylesheet" href="../components.css">
+  <style>
+    body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); }
+    .preview { max-width: 960px; margin: 0 auto; padding: var(--space-7) var(--space-5); }
+    .preview h1 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-h1); line-height: var(--line-height-h1); }
+    .preview-section { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; padding: var(--space-5) 0; border-bottom: var(--line-thin); }
+    .preview-label { width: 160px; font-family: var(--font-mono); font-size: var(--font-size-mono); text-transform: uppercase; }
+    .preview-inverse { padding-inline: var(--space-4); background: var(--color-primary); }
+    .preview-inverse .preview-label { color: var(--color-on-primary); }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <p class="mirror-eyebrow">Mirror · Component Preview</p>
+    <h1>CTA Link</h1>
+    <section class="preview-section"><span class="preview-label">Section exit</span><a class="mirror-cta" href="#">查看全部 <span aria-hidden="true">→</span></a></section>
+    <section class="preview-section"><span class="preview-label">Hero / filled</span><a class="mirror-cta mirror-cta--primary" href="#">开始阅读 <span aria-hidden="true">→</span></a></section>
+    <section class="preview-section"><span class="preview-label">Hero / outline</span><a class="mirror-cta mirror-cta--outline" href="#">关于我 <span aria-hidden="true">→</span></a></section>
+    <section class="preview-section preview-inverse"><span class="preview-label">Footer / inverse</span><a class="mirror-cta mirror-cta--inverse" href="#">友链 <span aria-hidden="true">→</span></a></section>
+  </main>
+</body>
+</html>

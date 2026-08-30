@@ -1,0 +1,239 @@
+/* Aggregated component CSS for Mirror / CONSTRUCT. Values resolve to colors_and_type.css. */
+
+.mirror-button,
+.mirror-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: var(--line-heavy);
+  border-radius: var(--radius-none);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-h3);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.mirror-button:focus-visible,
+.mirror-cta:focus-visible,
+.mirror-input:focus-visible,
+.mirror-nav a:focus-visible {
+  outline: var(--line-heavy);
+  outline-offset: var(--space-1);
+}
+
+.mirror-button--primary,
+.mirror-cta--primary {
+  min-height: var(--size-button-lg);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.mirror-button--primary:hover,
+.mirror-cta--primary:hover {
+  background: var(--mirror-primary-900);
+}
+
+.mirror-button--secondary,
+.mirror-cta--outline {
+  min-height: var(--size-button-lg);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.mirror-button--secondary:hover,
+.mirror-cta--outline:hover {
+  background: var(--color-muted);
+}
+
+.mirror-button--ghost {
+  min-height: var(--size-button-sm);
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: var(--line-thin);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-caption);
+}
+
+.mirror-button--ghost:hover {
+  background: var(--color-muted);
+}
+
+.mirror-button--icon {
+  width: var(--size-button-sm);
+  height: var(--size-button-sm);
+  padding: var(--space-1);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: var(--line-heavy);
+}
+
+.mirror-button--icon:hover {
+  background: var(--color-muted);
+}
+
+.mirror-icon {
+  display: inline-block;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  flex: 0 0 auto;
+}
+
+.mirror-icon--sm { width: var(--size-icon-sm); height: var(--size-icon-sm); }
+.mirror-icon--lg { width: var(--size-icon-lg); height: var(--size-icon-lg); }
+
+.mirror-card {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  border: var(--line-thin);
+  border-radius: var(--radius-none);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition-fast);
+}
+
+.mirror-card:hover { background: var(--color-muted); }
+.mirror-card--heavy { border: var(--line-heavy); }
+.mirror-card--muted { background: var(--color-surface); }
+
+.mirror-card__eyebrow,
+.mirror-eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-mono);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.mirror-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: var(--font-weight-h3);
+}
+
+.mirror-card__body {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.mirror-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-mono);
+}
+
+.mirror-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: var(--size-input-height);
+  padding: var(--space-2) var(--space-3);
+  border: var(--line-thin);
+  border-radius: var(--radius-none);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  transition: var(--transition-fast);
+}
+
+.mirror-input:hover,
+.mirror-input:focus { border-width: 2px; }
+.mirror-input::placeholder { color: var(--color-text-secondary); }
+.mirror-input--muted { background: var(--color-surface); }
+
+.mirror-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-icon-sm);
+  padding: var(--space-1) var(--space-2);
+  border: var(--line-thin);
+  border-radius: var(--radius-none);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-caption);
+  line-height: var(--line-height-caption);
+}
+
+.mirror-badge--quiet {
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-mono);
+  letter-spacing: var(--tracking-wide);
+}
+
+.mirror-badge--inverse {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.mirror-cta {
+  border: 0;
+  padding: 0 0 var(--space-1);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-h3);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.mirror-cta:hover { text-decoration: underline; text-underline-offset: var(--space-1); }
+.mirror-cta--inverse { color: var(--color-on-primary); }
+
+.mirror-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--size-nav-height);
+  padding: 0 var(--space-5);
+  border-bottom: var(--line-thin);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+.mirror-nav__wordmark,
+.mirror-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.mirror-nav a { color: inherit; text-decoration: none; }
+.mirror-nav__wordmark { font-family: var(--font-display); font-weight: var(--font-weight-h3); letter-spacing: var(--tracking-wide); }
+.mirror-nav__links a { padding: var(--space-2) var(--space-3); font-size: var(--font-size-caption); font-weight: var(--font-weight-caption); }
+.mirror-nav__links a:hover,
+.mirror-nav__links a[aria-current="page"] { background: var(--color-primary); color: var(--color-on-primary); }
+
+.mirror-nav--inverse {
+  border-color: var(--color-on-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+@media (max-width: 768px) {
+  .mirror-nav { padding: 0 var(--space-4); }
+  .mirror-nav__links { display: none; }
+  .mirror-card { padding: var(--space-4); }
+}

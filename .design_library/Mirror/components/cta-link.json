@@ -1,0 +1,21 @@
+{
+  "slug": "cta-link",
+  "schemaVersion": 2,
+  "name": "CTA Link",
+  "category": "action",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["section-exit", "article-link", "navigation-link"],
+  "variantDimensions": {"intent": ["primary", "quiet", "inverse"], "size": ["sm", "md", "lg"]},
+  "representativeVariants": [
+    {"name": "Section exit — default", "whySelected": "The homepage repeatedly uses bold uppercase exits such as 查看全部 and 更多日常 with a trailing arrow.", "traits": {"background": "transparent", "color": "var(--color-text-primary)", "border": "none", "border-radius": "var(--radius-none)", "padding": "0 0 var(--space-1)", "font-family": "var(--font-body)", "font-size": "var(--font-size-caption)", "font-weight": "var(--font-weight-h3)", "letter-spacing": "var(--tracking-wider)", "text-transform": "uppercase", "transition": "var(--transition-fast)"}, "childrenDigest": ["label", "arrow-icon"]},
+    {"name": "Hero — filled", "whySelected": "开始阅读 is the primary route out of the homepage hero and uses the same 16/24px padding model as the main CTA.", "traits": {"background": "var(--color-primary)", "color": "var(--color-on-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "padding": "var(--space-4) var(--space-5)", "font-size": "var(--font-size-body)", "font-weight": "var(--font-weight-h3)", "letter-spacing": "var(--tracking-wider)", "text-transform": "uppercase"}, "childrenDigest": ["label", "arrow-icon"]},
+    {"name": "Hero — outline", "whySelected": "关于我 is the white inverse of the hero CTA and keeps the black 2px boundary visible.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "padding": "var(--space-4) var(--space-5)", "font-size": "var(--font-size-body)", "font-weight": "var(--font-weight-h3)", "letter-spacing": "var(--tracking-wider)", "text-transform": "uppercase"}, "childrenDigest": ["label", "arrow-icon"]},
+    {"name": "Footer — inverse", "whySelected": "Footer navigation reverses the body palette and exposes quiet text links without extra surfaces.", "traits": {"background": "transparent", "color": "var(--color-on-primary)", "border": "none", "border-radius": "var(--radius-none)", "padding": "var(--space-1) 0", "font-size": "var(--font-size-caption)", "font-weight": "var(--font-weight-body)", "transition": "var(--transition-fast)"}, "childrenDigest": ["label"]}
+  ],
+  "anatomy": ["label", "optional-arrow-icon", "underline"],
+  "structurePatterns": ["inline-flex row", "uppercase utility label", "arrow affordance", "underline on hover"],
+  "usageHints": {"priorityHint": "Use for route exits and content discovery; use the filled form only for the single main action in a section.", "a11y": "The visible label must describe the destination; preserve a clear focus state and do not make the arrow the only cue."},
+  "doNotInvent": ["gradient CTA links", "pill buttons", "underlines on every static nav item", "external-link icons without a destination"],
+  "unknowns": []
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "navigation",
+  "schemaVersion": 2,
+  "name": "Navigation",
+  "category": "shell",
+  "sourceKind": "from-scratch",
+  "confidence": "high",
+  "semanticTypeCandidates": ["site-header", "primary-navigation", "section-navigation"],
+  "variantDimensions": {"mode": ["desktop", "compact"], "theme": ["light", "dark"]},
+  "representativeVariants": [
+    {"name": "Desktop — light", "whySelected": "The rendered homepage uses a fixed 58px white navigation bar with a compact CONSTRUCT/博客 mark and dense route links.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border-bottom": "var(--line-thin)", "height": "var(--size-nav-height)", "padding": "0 var(--space-5)", "display": "flex", "align-items": "center", "justify-content": "space-between", "font-family": "var(--font-body)", "font-size": "var(--font-size-caption)"}, "childrenDigest": ["wordmark", "route-list", "utility-control"]},
+    {"name": "Compact — utility", "whySelected": "At narrow widths the nav intent is preserved as a small wordmark and square menu/theme control rather than a large decorative header.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border-bottom": "var(--line-thin)", "height": "var(--size-nav-height)", "padding": "0 var(--space-4)", "display": "flex", "align-items": "center", "justify-content": "space-between", "font-size": "var(--font-size-caption)"}, "childrenDigest": ["wordmark", "menu-control", "theme-control"]},
+    {"name": "Footer — inverse", "whySelected": "The site footer reverses to #0a0a0a with white text and multi-column link groups, extending the same shell language.", "traits": {"background": "var(--color-primary)", "color": "var(--color-on-primary)", "border-top": "var(--line-heavy)", "padding": "var(--space-7) var(--space-5)", "display": "flex", "align-items": "flex-start", "justify-content": "space-between", "font-family": "var(--font-body)"}, "childrenDigest": ["wordmark", "link-groups", "social-links", "copyright"]}
+  ],
+  "anatomy": ["header", "wordmark", "primary-links", "utility-controls", "footer-groups"],
+  "structurePatterns": ["fixed top shell", "flex row", "dense text navigation", "rule boundary", "inverse footer"],
+  "usageHints": {"priorityHint": "Use the desktop shell as the default website frame; keep the wordmark and route hierarchy stable when collapsing for smaller screens.", "a11y": "Use a landmark, expose the current route, provide a labeled menu/theme control, and keep keyboard focus visible."},
+  "doNotInvent": ["mega-menu", "rounded navigation pills", "opaque shadow bar", "decorative logo redraw"],
+  "unknowns": ["The browser viewport override did not expose a reliable narrow-width measurement in this session; breakpoint behavior is therefore recorded from the site's stylesheet media queries rather than a confirmed mobile screenshot."]
+}

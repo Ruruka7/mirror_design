@@ -1,0 +1,26 @@
+{
+  "brand": "Mirror",
+  "language": "zh",
+  "kitType": "marketing",
+  "readOrder": [
+    {"file": "README.md", "purpose": "Brand context, content fundamentals, and visual foundations — read first for design intent"},
+    {"file": "SKILL.md", "purpose": "Skill entry point and quick essentials"},
+    {"file": "css.json", "purpose": "Structured token understanding source — read to understand color, type, spacing, radius, and motion values"},
+    {"file": "colors_and_type.css", "purpose": "Runtime CSS variables — link into HTML"},
+    {"file": "components/index.json", "purpose": "Component index and cross-component patterns"},
+    {"file": "components.css", "purpose": "Aggregated component CSS"}
+  ],
+  "components": ["button", "card", "input", "badge", "cta-link", "navigation"],
+  "componentSourcePriority": {
+    "first": "preview/component-{slug}.html",
+    "second": "components/{slug}.json",
+    "fallback": "components/_evidence/{slug}.json"
+  },
+  "notes": [
+    "css.json is the token understanding source; colors_and_type.css is the runtime link source.",
+    "Preview DOM/CSS is the first source for component fidelity; component JSON provides intent and evidence notes.",
+    "Light theme is default; .dark overrides semantic aliases for the inverse footer and dark surfaces.",
+    "The system is monochrome by default; colored semantic statuses are not promoted without source evidence.",
+    "No source-site images or font files are bundled; previews and the UI Kit use local CSS and inline primitives only."
+  ]
+}

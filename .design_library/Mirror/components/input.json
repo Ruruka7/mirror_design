@@ -1,0 +1,20 @@
+{
+  "slug": "input",
+  "schemaVersion": 2,
+  "name": "Input",
+  "category": "form",
+  "sourceKind": "from-scratch",
+  "confidence": "medium",
+  "semanticTypeCandidates": ["search-field", "filter-field", "text-entry"],
+  "variantDimensions": {"surface": ["outlined", "muted"], "state": ["default", "focus", "error", "disabled"]},
+  "representativeVariants": [
+    {"name": "Default — outlined", "whySelected": "No visible form field appeared on the homepage, so the default follows the site's observed 1px/2px rule language and typography stack.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "height": "var(--size-input-height)", "padding": "var(--space-2) var(--space-3)", "font-family": "var(--font-body)", "font-size": "var(--font-size-body)", "line-height": "var(--line-height-body)"}, "childrenDigest": ["label", "field"]},
+    {"name": "Focus — active", "whySelected": "Focus needs to remain high-contrast without introducing a new brand hue; the existing black ring is the source-aligned emphasis.", "traits": {"background": "var(--color-background)", "color": "var(--color-text-primary)", "border": "var(--line-heavy)", "border-radius": "var(--radius-none)", "height": "var(--size-input-height)", "padding": "var(--space-2) var(--space-3)", "outline": "var(--line-heavy)", "outline-offset": "var(--space-1)"}, "childrenDigest": ["label", "field"]},
+    {"name": "Muted — filter", "whySelected": "A muted surface is appropriate for tag or archive filters while preserving the square field silhouette.", "traits": {"background": "var(--color-surface)", "color": "var(--color-text-primary)", "border": "var(--line-thin)", "border-radius": "var(--radius-none)", "height": "var(--size-input-height)", "padding": "var(--space-2) var(--space-3)", "font-size": "var(--font-size-caption)"}, "childrenDigest": ["field", "trailing-icon"]}
+  ],
+  "anatomy": ["label", "field", "optional-icon", "focus-ring", "error-message"],
+  "structurePatterns": ["stacked label and field", "single-line entry", "square border", "compact filter control"],
+  "usageHints": {"priorityHint": "Use for archive search and content filtering; keep the field visually subordinate to the article and project cards.", "a11y": "Every field needs a visible label or aria-label, a focus indicator, and an associated error message when invalid."},
+  "doNotInvent": ["rounded search bars", "autocomplete menus", "password affordances", "floating labels"],
+  "unknowns": ["The public homepage exposes no visible input or search field; field height and focus treatment are reusable inferences from the observed token system."]
+}
