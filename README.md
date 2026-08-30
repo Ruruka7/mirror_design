@@ -127,7 +127,7 @@ mirror_design/
 
 本仓库中由作者编写、且不属于第三方内容的代码、文档、JSON schema、CSS、HTML 和工作流规范，除另有说明外，按 [MIT License](./LICENSE) 发布。
 
-OpenAI、Voith、Endfield/终末地等名称、商标、标识、原网站文案、字体、图标、视觉资产，以及文档中引用的外部资源，仍归各自权利人所有；MIT License 不授予这些第三方内容的商标权、品牌授权或再分发权。本项目与相关品牌没有隶属、赞助或官方合作关系。
+OpenAI、Voith、Endfield/终末地等名称，仅用于标记公开页面研究样例的来源。仓库中的模板、页面与设计数据，是基于公开可访问网页信息进行的研究性还原和抽象；仓库未随附这些品牌的官方源文件、专有字体、官方图标、原始图片或官方组件包，也不代表获得任何品牌授权。本项目与相关品牌不存在隶属、赞助、背书或官方合作关系。MIT License 仅适用于作者有权许可的原创工作流、规范、代码和文档内容。
 
 使用这套工作流时，请只处理你有权研究、改编和使用的官网及资产，并对最终生成物进行人工版权与商标审查。
 
@@ -161,6 +161,6 @@ This is a workflow asset for AI Agents, not an installable CLI, SDK, or command-
 
 ### Legal boundary
 
-The MIT License applies only to original repository materials that the author is able to license. Brand names, trademarks, logos, source-site copy, fonts, icons, visual assets, and external resources remain the property of their respective owners. The project is unofficial and does not imply affiliation, endorsement, or permission to use third-party brands in production.
+Names such as OpenAI, Voith, and Endfield/终末地 are used only to identify the public-page sources of the research examples. The templates, pages, and design data are research reconstructions and abstractions based on publicly accessible web pages. The repository does not provide or claim to provide official brand source files, proprietary fonts, official icons, original images, component packages, or brand authorization. The project is unofficial and is not affiliated with, sponsored by, endorsed by, or officially partnered with those brands. The MIT License applies only to original workflow materials, specifications, code, and documentation that the author is able to license.
 
 Preview pages intentionally use neutral placeholder copy and sample data. Use the workflow only with source pages and assets you are authorized to research and use. See [LICENSE](./LICENSE) for the full license text.
