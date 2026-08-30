@@ -88,7 +88,7 @@ Define pass/fail criteria between each phase of the reverse-design-system workfl
 ## Validator usage
 
 ```powershell
-node "{skill_base}/scripts/validate-design-library-output.mjs" "{output_dir}"
+node "scripts/validate-design-library-output.mjs" "{output_dir}"
 ```
 
 ## BOM stripping script (MUST run before validation)

@@ -9,7 +9,7 @@ Before starting, confirm all of the following:
 * **Target URL** — the full homepage URL to reverse-engineer (e.g., `https://endfield.hypergryph.com/`).
 * **Output directory** — `{workspace}/.design_library/{BrandName}/`. Where the final Design Library lives.
 * **Temp directory** — `{tmp_dir}/{BrandName}/`. All intermediate artifacts go here. Cleaned up at the end.
-* **`skill_base` path** — absolute path to the `design-library-creator` skill directory. All `scripts/*.mjs` references use this path.
+* **Scripts directory** — `scripts/` directory within this repository. Contains Node.js `.mjs` scripts for token generation, validation, and UIKit planning. All `scripts/*.mjs` references use this path.
 * **Browser automation available** — confirm the `browser_use` subagent (or `browser_navigate` / `browser_evaluate` / `browser_take_screenshot` tools) is available. This is the **PRIMARY** extraction method. If unavailable, the workflow falls back to `curl` + CSS regex only (lower quality — see Troubleshooting).
 
 > **Decision point:** If any prerequisite is missing, stop and ask the user. Do not guess the URL or brand name.
@@ -202,7 +202,7 @@ See `examples/brand-profile-example.json` for a real reference.
 
 ### Step 1.2 — Save Brand Profile
 
-Save to `{tmp_dir}/{BrandName}/phase2-brand-analyst.json`. (Filename is `phase2-brand-analyst.json` — not `phase1` — because downstream `design-library-creator` scripts expect this exact name. Non-negotiable.)
+Save to `{tmp_dir}/{BrandName}/phase2-brand-analyst.json`. (Filename is `phase2-brand-analyst.json` — not `phase1` — because downstream generator scripts expect this exact name. Non-negotiable.)
 
 ### Gate 1
 
@@ -233,7 +233,7 @@ The sub-agent must generate: full 10-step color scales (50–900) per group (pri
 ### Step 2.2 — Generate css.json
 
 ```powershell
-node "{skill_base}/scripts/css-to-json.mjs" "{output_dir}/colors_and_type.css" --output "{output_dir}/css.json"
+node "scripts/css-to-json.mjs" "{output_dir}/colors_and_type.css" --output "{output_dir}/css.json"
 ```
 
 ### Gate 2
@@ -277,7 +277,7 @@ Each reads the component JSON contract(s), `colors_and_type.css`, and **the orig
 ### Step 3.4 — Extract Components CSS
 
 ```powershell
-node "{skill_base}/scripts/extract-components-css.mjs" "{output_dir}"
+node "scripts/extract-components-css.mjs" "{output_dir}"
 ```
 
 ### Gate 3
@@ -295,7 +295,7 @@ Check: 6 component JSONs + 6 preview HTMLs exist; `components.css` non-empty; al
 ### Step 4.1 — Generate UIKit Plan
 
 ```powershell
-node "{skill_base}/scripts/generate-uikit-plan.mjs" `
+node "scripts/generate-uikit-plan.mjs" `
   --component-index "{output_dir}/components/index.json" `
   --components-dir "{output_dir}/components" `
   --brand-data "{tmp_dir}/{BrandName}/phase2-brand-analyst.json" `
@@ -303,7 +303,7 @@ node "{skill_base}/scripts/generate-uikit-plan.mjs" `
   --components-css "{output_dir}/components.css" `
   --out "{output_dir}/uikit-plan.json"
 
-node "{skill_base}/scripts/validate-uikit-plan.mjs" `
+node "scripts/validate-uikit-plan.mjs" `
   --plan "{output_dir}/uikit-plan.json" `
   --component-index "{output_dir}/components/index.json" `
   --components-dir "{output_dir}/components" `
@@ -350,13 +350,13 @@ node -e "const fs=require('fs');const dir='{tmp_dir}/{BrandName}';function walk(
 ### Step 5.2 — Regenerate css.json
 
 ```powershell
-node "{skill_base}/scripts/css-to-json.mjs" "{output_dir}/colors_and_type.css" --output "{output_dir}/css.json"
+node "scripts/css-to-json.mjs" "{output_dir}/colors_and_type.css" --output "{output_dir}/css.json"
 ```
 
 ### Step 5.3 — Validate
 
 ```powershell
-node "{skill_base}/scripts/validate-design-library-output.mjs" "{output_dir}"
+node "scripts/validate-design-library-output.mjs" "{output_dir}"
 ```
 
 Re-run until exit code 0. Common fixes: undefined CSS vars → add to `colors_and_type.css`; slug mismatches → fix `slug` field; invalid JSON → re-run BOM strip.

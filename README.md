@@ -36,6 +36,8 @@ mirror_design/
     OpenAI/          # Minimal white + green
     Voith/           # Industrial blue + cyan
     Endfield/        # Dark + hazard yellow + neon green + magenta
+  skills/
+    reverse-design-system/   # Reverse-engineering workflow & specs
 ```
 
 ***
@@ -72,6 +74,8 @@ mirror_design/
     OpenAI/          # 极简白 + 绿
     Voith/           # 工业蓝 + 青
     Endfield/        # 暗色 + 危险黄 + 霓虹绿 + 品红
+  skills/
+    reverse-design-system/   # 逆向工程工作流与规范
 ```
 
 ***

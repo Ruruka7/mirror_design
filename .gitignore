@@ -1,3 +1,8 @@
+# IDE / tool directories
+.trae/
+.vscode/
+.idea/
+
 # Agent reports and temp files
 **/agent-reports/
 *.tmp

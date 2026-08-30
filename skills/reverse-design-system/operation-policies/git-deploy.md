@@ -51,7 +51,7 @@ feat: add reverse-design-system skill with full reverse-engineering workflow
 ## .gitignore rules
 
 - Ignore: `agent-reports/`, `*.tmp`, `phase0-*.txt`, `phase1-*.txt`, `ef_*.css`, `css_*.css`, `target_page.html`
-- Do NOT ignore: `.design_library/`, `.trae/skills/`, `README.md`, `LICENSE`
+- Do NOT ignore: `.design_library/`, `skills/`, `README.md`, `LICENSE`
 
 ### Standard .gitignore content
 

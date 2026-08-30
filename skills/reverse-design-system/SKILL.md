@@ -1,11 +1,11 @@
 ---
 name: "reverse-design-system"
-description: "Reverse-engineer a website's live CSS to extract real design tokens, then generate a complete Design Library through the design-library-creator pipeline. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system, or says '从官网逆向'/'从网站提取设计'/'reverse engineer design from URL'. Do NOT invoke for Figma exports, from-scratch systems without a reference URL, or page/UI design."
+description: "Reverse-engineer a website's live CSS to extract real design tokens, then generate a complete Design Library through the design library generator pipeline. Invoke when user provides a URL and asks to reverse/extract/reconstruct a design system, or says '从官网逆向'/'从网站提取设计'/'reverse engineer design from URL'. Do NOT invoke for Figma exports, from-scratch systems without a reference URL, or page/UI design."
 ---
 
 # Reverse Design System
 
-Reverse-engineer any website's visual design language from its live CSS, then generate a complete Design Library using the `design-library-creator` pipeline.
+Reverse-engineer any website's visual design language from its live CSS, then generate a complete Design Library using the design library generator pipeline.
 
 ## When to Invoke
 
@@ -16,17 +16,16 @@ Reverse-engineer any website's visual design language from its live CSS, then ge
 
 ## When NOT to Invoke
 
-- User already has a Figma export, design spec bundle, or brand guide → use `design-library-creator` directly
-- User wants to create a design system from scratch without a reference URL → use `design-library-creator`
-- User wants to edit an existing design system → use `design-library-creator` (refine route)
+- User already has a Figma export, design spec bundle, or brand guide → use a design library generator directly
+- User wants to create a design system from scratch without a reference URL → use a design library generator
+- User wants to edit an existing design system → use a design library generator (refine route)
 - User wants page/UI design, not a token system → use `solo-design`
 
 ## Prerequisites
 
 - Target URL must be publicly accessible (no auth-required pages)
-- `design-library-creator` skill must be available in the environment
-- Node.js runtime with design-library-creator scripts at:
-  `c:\Users\25230\.trae-cn\builtin\design\default\skills\design-library-creator\scripts\`
+- Design library generator scripts available at `scripts/` (Node.js .mjs files)
+- Node.js runtime (v18+ recommended)
 - Browser automation capability (browser_use subagent or browser_navigate/evaluate/screenshot tools)
 - If browser automation unavailable: falls back to curl + CSS regex (reduced accuracy)
 
@@ -147,7 +146,7 @@ Phase 5: Validate & Deploy         [Main Agent]
 
 1. **No hallucination**: Every color, font, size, shadow value MUST come from the target website's real CSS. Never invent values. If extraction is sparse, report it rather than fabricating.
 2. **Evidence-first**: Extract raw CSS data before making any design decisions. The data drives the system, not the other way around.
-3. **Full delegation for generation**: Phases 2-4 use the `design-library-creator` pipeline exactly as-is. Do not reinvent token generation, component contracts, or preview authoring.
+3. **Full delegation for generation**: Phases 2-4 use the design library generator pipeline exactly as-is. Do not reinvent token generation, component contracts, or preview authoring.
 4. **BOM safety**: All generated files must be UTF-8 without BOM. Run a BOM-stripping pass before any validation or JSON parsing step.
 5. **Git-ready**: Final output should be committable to a design-systems repository without modification. Commit messages follow conventional-commits format.
 6. **Parallel where possible**: Component previews (Phase 3) and documentation (Phase 4) should be dispatched as parallel sub-agent batches to minimize wall-clock time.
