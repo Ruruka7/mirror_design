@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voith - Hero Stage</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* ===== Layout: Hero Stage ===== */
+.voith-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 500px;
+    padding: 0 32px 48px;
+    background-image: linear-gradient(
+        var(--color-overlay-dark, rgba(0, 30, 60, 0.55)),
+        var(--color-overlay-dark, rgba(0, 30, 60, 0.65))
+    ),
+    url('https://placehold.co/1920x600/003d71/ffffff?text=Voith+China');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: var(--font-family-body, Arial, sans-serif);
+}
+
+.voith-hero__inner {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Breadcrumb */
+.voith-hero__breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+    list-style: none;
+    padding: 0;
+}
+.voith-hero__breadcrumb li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.voith-hero__breadcrumb li:not(:last-child)::after {
+    content: '/';
+    color: var(--color-text-white, rgba(255,255,255,0.6));
+    font-size: var(--font-size-small, 13px);
+}
+.voith-hero__breadcrumb a {
+    text-decoration: none;
+    font-size: var(--font-size-small, 13px);
+    color: var(--color-text-white, rgba(255,255,255,0.85));
+    transition: color var(--transition-fast, 0.2s) ease;
+}
+.voith-hero__breadcrumb a:hover {
+    color: var(--color-accent, #00a0e3);
+}
+.voith-hero__breadcrumb [aria-current="page"] {
+    font-size: var(--font-size-small, 13px);
+    color: var(--color-text-white, #ffffff);
+    font-weight: var(--font-weight-medium, 500);
+}
+
+/* Page title */
+.voith-hero__title {
+    margin: 0 0 16px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-hero, 44px);
+    font-weight: var(--font-weight-bold, 700);
+    line-height: 1.2;
+    color: var(--color-text-white, #ffffff);
+}
+
+/* Intro text */
+.voith-hero__intro {
+    margin: 0;
+    max-width: 640px;
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.6;
+    color: var(--color-text-white, rgba(255,255,255,0.9));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voith-hero {
+        min-height: 350px;
+        padding: 0 16px 32px;
+    }
+    .voith-hero__title {
+        font-size: var(--font-size-h1, 32px);
+    }
+    .voith-hero__breadcrumb {
+        margin-bottom: 16px;
+    }
+}
+@media (max-width: 375px) {
+    .voith-hero {
+        min-height: 280px;
+        padding: 0 12px 24px;
+    }
+    .voith-hero__title {
+        font-size: var(--font-size-h2, 24px);
+    }
+    .voith-hero__intro {
+        font-size: var(--font-size-small, 13px);
+    }
+}
+</style>
+</head>
+<body>
+
+<section class="voith-hero" role="banner">
+    <div class="voith-hero__inner">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb">
+            <ol class="voith-hero__breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Markets &amp; Locations</a></li>
+                <li aria-current="page">China</li>
+            </ol>
+        </nav>
+
+        <!-- Page title -->
+        <h1 class="voith-hero__title">China</h1>
+
+        <!-- Intro text -->
+        <p class="voith-hero__intro">
+            Voith has been active in China since 1910 and today operates multiple
+            production and service locations across the country, serving the energy,
+            paper, and drive technology sectors.
+        </p>
+    </div>
+</section>
+
+</body>
+</html>

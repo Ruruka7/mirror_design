@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voith - Related Links</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* ===== Layout: Related Links (4-col) ===== */
+.voith-related {
+    padding: 60px 32px;
+    font-family: var(--font-family-body, Arial, sans-serif);
+}
+.voith-related__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.voith-related__heading {
+    margin: 0 0 32px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h2, 28px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text, #1a1a1a);
+}
+
+/* 4-col grid */
+.voith-related__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* Link card */
+.voith-link-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    text-decoration: none;
+    background: var(--color-bg-card, #ffffff);
+    border: 1px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.voith-link-card:hover {
+    box-shadow: var(--shadow-md, 0 4px 16px rgba(0,0,0,0.1));
+    border-color: var(--color-primary, #003d71);
+}
+.voith-link-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0 0 16px;
+    border-radius: var(--radius-sm, 4px);
+    background: var(--color-primary-light, rgba(0, 61, 113, 0.08));
+    color: var(--color-primary, #003d71);
+    font-size: 24px;
+}
+.voith-link-card__title {
+    margin: 0 0 8px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h3, 20px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text, #1a1a1a);
+}
+.voith-link-card__desc {
+    margin: 0;
+    font-size: var(--font-size-small, 13px);
+    line-height: 1.5;
+    color: var(--color-text-light, #666);
+}
+.voith-link-card__arrow {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 16px;
+    font-size: var(--font-size-small, 13px);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--color-primary, #003d71);
+    transition: gap var(--transition-fast, 0.2s) ease;
+}
+.voith-link-card:hover .voith-link-card__arrow {
+    gap: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voith-related__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 375px) {
+    .voith-related {
+        padding: 40px 16px;
+    }
+    .voith-related__grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<section class="voith-related" aria-labelledby="related-heading">
+    <div class="voith-related__container">
+        <h2 class="voith-related__heading" id="related-heading">Related Topics</h2>
+
+        <div class="voith-related__grid">
+            <!-- Card 1 -->
+            <a href="#" class="voith-link-card">
+                <div>
+                    <div class="voith-link-card__icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="voith-link-card__title">Company</h3>
+                    <p class="voith-link-card__desc">Learn about the Voith Group and its global operations.</p>
+                </div>
+                <span class="voith-link-card__arrow">Read more &rarr;</span>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="#" class="voith-link-card">
+                <div>
+                    <div class="voith-link-card__icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+                        </svg>
+                    </div>
+                    <h3 class="voith-link-card__title">Global Locations</h3>
+                    <p class="voith-link-card__desc">Explore all Voith locations worldwide.</p>
+                </div>
+                <span class="voith-link-card__arrow">Read more &rarr;</span>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="#" class="voith-link-card">
+                <div>
+                    <div class="voith-link-card__icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19a2 2 0 002 2h12a2 2 0 002-2M4 19l4-4 4 2 4-4 4 4"/>
+                        </svg>
+                    </div>
+                    <h3 class="voith-link-card__title">Sustainability</h3>
+                    <p class="voith-link-card__desc">Discover Voith's commitment to sustainable technology.</p>
+                </div>
+                <span class="voith-link-card__arrow">Read more &rarr;</span>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="#" class="voith-link-card">
+                <div>
+                    <div class="voith-link-card__icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="7" width="18" height="13" rx="2"/>
+                            <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M12 12v4M9.5 14h5"/>
+                        </svg>
+                    </div>
+                    <h3 class="voith-link-card__title">Career</h3>
+                    <p class="voith-link-card__desc">Join the Voith team and shape the future of industry.</p>
+                </div>
+                <span class="voith-link-card__arrow">Read more &rarr;</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

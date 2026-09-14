@@ -1,0 +1,13 @@
+{
+  "brand": "OpenAI",
+  "patterns": [
+    { "name": "sticky-navigation", "type": "scroll", "trigger": "scroll past 0px", "effect": "nav stays fixed at top", "sections": ["all"] },
+    { "name": "card-hover-lift", "type": "hover", "trigger": "mouseenter on .card", "effect": "subtle shadow increase", "duration": "0.2s", "easing": "ease", "sections": ["feature-grid", "card-row"] },
+    { "name": "scroll-reveal", "type": "scroll", "trigger": "section enters viewport", "effect": "fade-in-up", "duration": "0.6s", "easing": "ease-out", "sections": ["content-split", "card-row"] },
+    { "name": "cta-button-hover", "type": "hover", "trigger": "mouseenter on button", "effect": "background darken", "duration": "0.2s", "sections": ["hero", "cta-banner"] }
+  ],
+  "responsiveBehaviors": [
+    { "breakpoint": "768px", "changes": ["grid 3-col → 1-col", "nav links → hamburger menu", "hero min-height 600 → 400", "footer 4-col → 2-col"] },
+    { "breakpoint": "375px", "changes": ["footer 2-col → 1-col", "hero font-size reduce", "section padding reduce 80px → 48px"] }
+  ]
+}

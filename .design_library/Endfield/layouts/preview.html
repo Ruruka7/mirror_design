@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield - Layout Preview</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* === Fallback token definitions (in case colors_and_type.css is not present) === */
+:root {
+  --endfield-bg-primary: #0a0a0a;
+  --endfield-bg-secondary: #141414;
+  --endfield-bg-tertiary: #1c1c1c;
+  --endfield-text-primary: #ffffff;
+  --endfield-text-secondary: #a0a0a0;
+  --endfield-text-muted: #6a6a6a;
+  --endfield-accent: #e8b04b;
+  --endfield-accent-hover: #f0c060;
+  --endfield-accent-rgb: 232, 176, 75;
+  --endfield-border: rgba(255, 255, 255, 0.1);
+  --endfield-border-strong: rgba(255, 255, 255, 0.2);
+  --endfield-overlay: rgba(0, 0, 0, 0.7);
+  --endfield-overlay-strong: rgba(0, 0, 0, 0.85);
+  --endfield-font-display: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-font-body: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-radius: 4px;
+  --endfield-radius-lg: 8px;
+  --endfield-transition: 0.3s ease;
+  --endfield-letter-spacing: 0.05em;
+  --endfield-letter-spacing-wide: 0.15em;
+  --endfield-letter-spacing-ultra: 0.3em;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--endfield-font-body);
+  background: var(--endfield-bg-primary);
+  color: var(--endfield-text-primary);
+  line-height: 1.6;
+}
+
+/* ========================================
+   1. NAVIGATION
+   ======================================== */
+.endfield-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: var(--endfield-overlay);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--endfield-border);
+}
+
+.endfield-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.endfield-nav__logo-text {
+  font-family: var(--endfield-font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-primary);
+  text-decoration: none;
+}
+
+.endfield-nav__logo-sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--endfield-text-secondary);
+  letter-spacing: var(--endfield-letter-spacing);
+}
+
+.endfield-nav__links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.endfield-nav__links a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  text-decoration: none;
+  transition: color var(--endfield-transition);
+  white-space: nowrap;
+}
+
+.endfield-nav__links a:hover,
+.endfield-nav__links a.active {
+  color: var(--endfield-accent);
+}
+
+.endfield-nav__user-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.endfield-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border: 1px solid var(--endfield-border-strong);
+  border-radius: var(--endfield-radius);
+  background: transparent;
+  color: var(--endfield-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-nav__btn:hover {
+  border-color: var(--endfield-accent);
+  color: var(--endfield-accent);
+}
+
+.endfield-nav__btn--primary {
+  background: var(--endfield-accent);
+  border-color: var(--endfield-accent);
+  color: var(--endfield-bg-primary);
+}
+
+.endfield-nav__btn--primary:hover {
+  background: var(--endfield-accent-hover);
+  color: var(--endfield-bg-primary);
+}
+
+.endfield-nav__share {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.endfield-nav__share a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius);
+  color: var(--endfield-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-nav__share a:hover {
+  border-color: var(--endfield-accent);
+  color: var(--endfield-accent);
+}
+
+.endfield-nav__toggle { display: none; }
+.endfield-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+.endfield-nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--endfield-text-primary);
+  transition: all var(--endfield-transition);
+}
+
+@media (max-width: 768px) {
+  .endfield-nav__hamburger { display: flex; }
+  .endfield-nav__links {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0;
+    background: var(--endfield-bg-secondary);
+    border-bottom: 1px solid var(--endfield-border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--endfield-transition);
+  }
+  .endfield-nav__links li {
+    width: 100%;
+    border-bottom: 1px solid var(--endfield-border);
+  }
+  .endfield-nav__links a {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+  .endfield-nav__toggle:checked ~ .endfield-nav__links { max-height: 400px; }
+  .endfield-nav__toggle:checked ~ .endfield-nav__hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .endfield-nav__toggle:checked ~ .endfield-nav__hamburger span:nth-child(2) { opacity: 0; }
+  .endfield-nav__toggle:checked ~ .endfield-nav__hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .endfield-nav__share { display: none; }
+}
+
+/* ========================================
+   2. HERO FULLSCREEN
+   ======================================== */
+.endfield-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  overflow: hidden;
+  background: var(--endfield-bg-primary);
+}
+
+.endfield-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.endfield-hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--endfield-overlay-strong) 0%, var(--endfield-overlay) 50%, var(--endfield-overlay-strong) 100%);
+}
+
+.endfield-hero__bg-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--endfield-bg-secondary);
+}
+
+.endfield-hero__decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  z-index: 1;
+  pointer-events: none;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: radial-gradient(circle, rgba(var(--endfield-accent-rgb), 0.08) 0%, transparent 70%);
+}
+
+.endfield-hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.endfield-hero__title {
+  font-family: var(--endfield-font-display);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: var(--endfield-letter-spacing-ultra);
+  line-height: 1;
+  color: var(--endfield-text-primary);
+  text-transform: uppercase;
+}
+
+.endfield-hero__subtitle {
+  font-family: var(--endfield-font-display);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-hero__tagline {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+.endfield-hero__cta-group {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.endfield-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border-radius: var(--endfield-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-hero__btn--primary {
+  background: var(--endfield-accent);
+  border: 1px solid var(--endfield-accent);
+  color: var(--endfield-bg-primary);
+}
+
+.endfield-hero__btn--primary:hover {
+  background: var(--endfield-accent-hover);
+  border-color: var(--endfield-accent-hover);
+}
+
+.endfield-hero__btn--secondary {
+  background: transparent;
+  border: 1px solid var(--endfield-border-strong);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-hero__btn--secondary:hover {
+  border-color: var(--endfield-accent);
+  color: var(--endfield-accent);
+}
+
+.endfield-hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.endfield-hero__scroll-text {
+  font-size: 11px;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-muted);
+  text-transform: uppercase;
+}
+
+.endfield-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--endfield-text-muted), transparent);
+}
+
+@media (max-width: 768px) {
+  .endfield-hero { min-height: 80vh; }
+  .endfield-hero__cta-group { flex-direction: column; width: 100%; max-width: 320px; }
+  .endfield-hero__btn { width: 100%; }
+}
+
+/* ========================================
+   3. OPERATOR DISPLAY
+   ======================================== */
+.endfield-operator {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.endfield-section-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-section-title {
+  font-family: var(--endfield-font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-operator__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.endfield-operator__character {
+  position: relative;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.endfield-operator__character-placeholder {
+  font-family: var(--endfield-font-display);
+  font-size: 120px;
+  font-weight: 900;
+  color: var(--endfield-text-muted);
+}
+
+.endfield-operator__character-tag {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.endfield-operator__character-faction {
+  font-size: 11px;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-operator__character-codename {
+  font-family: var(--endfield-font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--endfield-text-primary);
+}
+
+.endfield-operator__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+}
+
+.endfield-operator__info-name {
+  font-family: var(--endfield-font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--endfield-text-primary);
+}
+
+.endfield-operator__stats { display: flex; flex-direction: column; gap: 16px; }
+.endfield-operator__stat { display: flex; flex-direction: column; gap: 6px; }
+.endfield-operator__stat-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--endfield-text-secondary); }
+.endfield-operator__stat-bar { height: 4px; background: var(--endfield-bg-tertiary); border-radius: var(--endfield-radius); overflow: hidden; }
+.endfield-operator__stat-fill { height: 100%; background: var(--endfield-accent); border-radius: var(--endfield-radius); }
+.endfield-operator__description { font-size: 14px; line-height: 1.8; color: var(--endfield-text-secondary); }
+.endfield-operator__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.endfield-operator__tag { padding: 4px 12px; font-size: 12px; border: 1px solid var(--endfield-border-strong); border-radius: var(--endfield-radius); color: var(--endfield-text-secondary); }
+
+@media (max-width: 768px) {
+  .endfield-operator__grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   4. WORLDVIEW ACCORDION
+   ======================================== */
+.endfield-worldview {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-accordion { display: flex; flex-direction: column; gap: 12px; }
+
+.endfield-accordion-item {
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  background: var(--endfield-bg-secondary);
+  overflow: hidden;
+}
+
+.endfield-accordion-item[open] { border-color: var(--endfield-border-strong); }
+
+.endfield-accordion-item__summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.endfield-accordion-item__summary::-webkit-details-marker { display: none; }
+
+.endfield-accordion-item__left { display: flex; flex-direction: row; align-items: center; gap: 20px; }
+.endfield-accordion-item__number { font-family: var(--endfield-font-display); font-size: 14px; font-weight: 700; color: var(--endfield-accent); }
+.endfield-accordion-item__heading { font-family: var(--endfield-font-display); font-size: 20px; font-weight: 600; color: var(--endfield-text-primary); }
+
+.endfield-accordion-item__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--endfield-border-strong);
+  border-radius: 50%;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-accordion-item__icon::before,
+.endfield-accordion-item__icon::after {
+  content: "";
+  position: absolute;
+  background: var(--endfield-text-secondary);
+  transition: all var(--endfield-transition);
+}
+
+.endfield-accordion-item__icon::before { width: 12px; height: 2px; }
+.endfield-accordion-item__icon::after { width: 2px; height: 12px; }
+
+.endfield-accordion-item[open] .endfield-accordion-item__icon { background: var(--endfield-accent); border-color: var(--endfield-accent); }
+.endfield-accordion-item[open] .endfield-accordion-item__icon::before,
+.endfield-accordion-item[open] .endfield-accordion-item__icon::after { background: var(--endfield-bg-primary); }
+.endfield-accordion-item[open] .endfield-accordion-item__icon::after { transform: rotate(90deg); opacity: 0; }
+
+.endfield-accordion-item__content { padding: 0 32px 24px 32px; display: flex; flex-direction: column; gap: 16px; }
+.endfield-accordion-item__text { font-size: 14px; line-height: 1.8; color: var(--endfield-text-secondary); }
+.endfield-accordion-item__tag { padding: 4px 12px; font-size: 12px; border: 1px solid var(--endfield-border-strong); border-radius: var(--endfield-radius); color: var(--endfield-text-muted); }
+
+/* ========================================
+   5. MEDIA GALLERY
+   ======================================== */
+.endfield-media {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-media__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+
+.endfield-media__more {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  text-decoration: none;
+  transition: color var(--endfield-transition);
+}
+
+.endfield-media__more:hover { color: var(--endfield-accent); }
+
+.endfield-media__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.endfield-media-item {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--endfield-transition);
+}
+
+.endfield-media-item:hover { border-color: var(--endfield-border-strong); }
+
+.endfield-media-item__thumb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--endfield-bg-tertiary), var(--endfield-bg-secondary));
+  font-family: var(--endfield-font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--endfield-text-muted);
+}
+
+.endfield-media-item__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--endfield-overlay-strong);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.endfield-media-item:hover .endfield-media-item__overlay { opacity: 1; }
+
+.endfield-media-item__play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--endfield-accent);
+  border-radius: 50%;
+  background: rgba(var(--endfield-accent-rgb), 0.1);
+  transform: scale(0.8);
+  transition: transform var(--endfield-transition);
+}
+
+.endfield-media-item:hover .endfield-media-item__play { transform: scale(1); }
+
+.endfield-media-item__play::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--endfield-accent);
+  margin-left: 4px;
+}
+
+.endfield-media-item__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: linear-gradient(180deg, transparent, var(--endfield-overlay-strong));
+  z-index: 1;
+}
+
+.endfield-media-item__type { font-size: 11px; font-weight: 600; letter-spacing: var(--endfield-letter-spacing-wide); color: var(--endfield-accent); text-transform: uppercase; }
+.endfield-media-item__name { font-size: 14px; font-weight: 500; color: var(--endfield-text-primary); }
+
+@media (max-width: 768px) { .endfield-media__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 375px) { .endfield-media__grid { grid-template-columns: 1fr; } }
+
+/* ========================================
+   6. TIMELINE
+   ======================================== */
+.endfield-timeline {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-timeline__track {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--endfield-border-strong) transparent;
+}
+
+.endfield-timeline-item {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.endfield-timeline-item__marker { display: flex; flex-direction: row; align-items: center; gap: 12px; }
+
+.endfield-timeline-item__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--endfield-accent);
+  border: 2px solid var(--endfield-bg-primary);
+  box-shadow: 0 0 0 2px var(--endfield-accent);
+  flex-shrink: 0;
+}
+
+.endfield-timeline-item__line { flex: 1; height: 1px; background: var(--endfield-border-strong); }
+.endfield-timeline-item__date { font-family: var(--endfield-font-display); font-size: 14px; font-weight: 700; color: var(--endfield-accent); }
+
+.endfield-timeline-item__card {
+  padding: 24px;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color var(--endfield-transition);
+}
+
+.endfield-timeline-item__card:hover { border-color: var(--endfield-border-strong); }
+.endfield-timeline-item__version { font-family: var(--endfield-font-display); font-size: 20px; font-weight: 700; color: var(--endfield-text-primary); }
+.endfield-timeline-item__desc { font-size: 14px; line-height: 1.6; color: var(--endfield-text-secondary); }
+
+/* ========================================
+   7. FEATURE SPLIT
+   ======================================== */
+.endfield-feature {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-feature__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.endfield-feature__text { display: flex; flex-direction: column; gap: 24px; }
+
+.endfield-feature__paragraph { font-size: 15px; line-height: 1.8; color: var(--endfield-text-secondary); }
+
+.endfield-feature__list { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+
+.endfield-feature__list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-feature__list-item::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--endfield-accent);
+  flex-shrink: 0;
+}
+
+.endfield-feature__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border: 1px solid var(--endfield-accent);
+  border-radius: var(--endfield-radius);
+  background: transparent;
+  color: var(--endfield-accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+  align-self: flex-start;
+}
+
+.endfield-feature__cta:hover { background: var(--endfield-accent); color: var(--endfield-bg-primary); }
+
+.endfield-feature__visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.endfield-feature__visual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid var(--endfield-accent);
+  border-left: 2px solid var(--endfield-accent);
+}
+
+.endfield-feature__visual::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  border-bottom: 2px solid var(--endfield-accent);
+  border-right: 2px solid var(--endfield-accent);
+}
+
+.endfield-feature__visual-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.endfield-feature__visual-icon {
+  font-family: var(--endfield-font-display);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--endfield-text-muted);
+  letter-spacing: var(--endfield-letter-spacing-wide);
+}
+
+.endfield-feature__visual-label { font-size: 13px; color: var(--endfield-text-muted); }
+
+@media (max-width: 768px) { .endfield-feature__grid { grid-template-columns: 1fr; } }
+
+/* ========================================
+   8. CARD GRID INFO
+   ======================================== */
+.endfield-cards {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.endfield-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  transition: all var(--endfield-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.endfield-info-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--endfield-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--endfield-transition);
+}
+
+.endfield-info-card:hover { border-color: var(--endfield-border-strong); background: var(--endfield-bg-tertiary); }
+.endfield-info-card:hover::before { transform: scaleX(1); }
+
+.endfield-info-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--endfield-border-strong);
+  border-radius: var(--endfield-radius);
+  font-family: var(--endfield-font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--endfield-accent);
+}
+
+.endfield-info-card__title { font-family: var(--endfield-font-display); font-size: 20px; font-weight: 700; color: var(--endfield-text-primary); }
+.endfield-info-card__body { font-size: 14px; line-height: 1.7; color: var(--endfield-text-secondary); flex: 1; }
+
+.endfield-info-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--endfield-accent);
+  text-decoration: none;
+  transition: gap var(--endfield-transition);
+}
+
+.endfield-info-card__link:hover { gap: 12px; }
+
+@media (max-width: 768px) { .endfield-cards__grid { grid-template-columns: 1fr; } }
+
+/* ========================================
+   9. FOOTER CTA
+   ======================================== */
+.endfield-footer {
+  position: relative;
+  width: 100%;
+  padding: 80px 24px 40px;
+  background: var(--endfield-bg-secondary);
+  border-top: 1px solid var(--endfield-border);
+  overflow: hidden;
+}
+
+.endfield-footer__bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--endfield-accent-rgb), 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.endfield-footer__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.endfield-footer__title {
+  font-family: var(--endfield-font-display);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-primary);
+  line-height: 1.3;
+}
+
+.endfield-footer__subtitle { font-size: 15px; line-height: 1.8; color: var(--endfield-text-secondary); max-width: 500px; }
+
+.endfield-footer__cta-group { display: flex; flex-direction: row; gap: 16px; }
+
+.endfield-footer__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border-radius: var(--endfield-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-footer__btn--primary { background: var(--endfield-accent); border: 1px solid var(--endfield-accent); color: var(--endfield-bg-primary); }
+.endfield-footer__btn--primary:hover { background: var(--endfield-accent-hover); }
+.endfield-footer__btn--secondary { background: transparent; border: 1px solid var(--endfield-border-strong); color: var(--endfield-text-primary); }
+.endfield-footer__btn--secondary:hover { border-color: var(--endfield-accent); color: var(--endfield-accent); }
+
+.endfield-footer__divider { width: 100%; height: 1px; background: var(--endfield-border); margin-top: 48px; }
+
+.endfield-footer__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.endfield-footer__links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  text-decoration: none;
+  transition: color var(--endfield-transition);
+}
+
+.endfield-footer__links a:hover { color: var(--endfield-accent); }
+
+.endfield-footer__copyright { margin-top: 24px; font-size: 12px; color: var(--endfield-text-muted); text-align: center; }
+
+@media (max-width: 768px) {
+  .endfield-footer__cta-group { flex-direction: column; width: 100%; max-width: 320px; }
+  .endfield-footer__btn { width: 100%; }
+}
+
+/* Section spacing */
+section { scroll-margin-top: 72px; }
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     1. NAVIGATION
+     ======================================== -->
+<header class="endfield-nav">
+  <div class="endfield-nav__logo">
+    <a href="#home" class="endfield-nav__logo-text">ENDFIELD</a>
+    <span class="endfield-nav__logo-sub">终末地</span>
+  </div>
+
+  <input type="checkbox" id="nav-toggle" class="endfield-nav__toggle">
+  <label for="nav-toggle" class="endfield-nav__hamburger" aria-label="菜单">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav class="endfield-nav__links">
+    <li><a href="#home" class="active">探索</a></li>
+    <li><a href="#operator-intel">领取</a></li>
+    <li><a href="#footer-cta">预约</a></li>
+    <li><a href="#worldview">世界观</a></li>
+    <li><a href="#operator-intel">角色</a></li>
+    <li><a href="#footer-cta">开发组</a></li>
+  </nav>
+
+  <div class="endfield-nav__user-area">
+    <a href="#login" class="endfield-nav__btn">登录</a>
+    <a href="#footer-cta" class="endfield-nav__btn endfield-nav__btn--primary">预约</a>
+  </div>
+
+  <div class="endfield-nav__share">
+    <a href="#share-weibo" aria-label="微博">微博</a>
+    <a href="#share-bilibili" aria-label="哔哩哔哩">B站</a>
+  </div>
+</header>
+
+<!-- ========================================
+     2. HERO FULLSCREEN
+     ======================================== -->
+<section class="endfield-hero" id="home">
+  <div class="endfield-hero__bg">
+    <div class="endfield-hero__bg-placeholder"></div>
+  </div>
+
+  <div class="endfield-hero__decor" aria-hidden="true"></div>
+
+  <div class="endfield-hero__content">
+    <h1 class="endfield-hero__title">ENDFIELD</h1>
+    <div class="endfield-hero__subtitle">终末地</div>
+    <p class="endfield-hero__tagline">探索未知的前线，在终末之地上开拓文明的新纪元</p>
+
+    <div class="endfield-hero__cta-group">
+      <a href="#footer-cta" class="endfield-hero__btn endfield-hero__btn--primary">预约</a>
+      <a href="#operator-intel" class="endfield-hero__btn endfield-hero__btn--secondary">探索</a>
+    </div>
+  </div>
+
+  <div class="endfield-hero__scroll" aria-hidden="true">
+    <span class="endfield-hero__scroll-text">SCROLL</span>
+    <div class="endfield-hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- ========================================
+     3. OPERATOR DISPLAY
+     ======================================== -->
+<section class="endfield-operator" id="operator-intel">
+  <div class="endfield-section-header">
+    <span class="endfield-section-label">OPERATOR INTEL</span>
+    <h2 class="endfield-section-title">干员情报</h2>
+  </div>
+
+  <div class="endfield-operator__grid">
+    <div class="endfield-operator__character">
+      <div class="endfield-operator__character-placeholder">OP</div>
+      <div class="endfield-operator__character-tag">
+        <span class="endfield-operator__character-faction">ENDFIELD</span>
+        <span class="endfield-operator__character-codename">干员代号</span>
+      </div>
+    </div>
+
+    <div class="endfield-operator__info">
+      <span class="endfield-section-label">OPERATOR</span>
+      <h3 class="endfield-operator__info-name">干员名称</h3>
+      <span style="font-size: 14px; color: var(--endfield-text-secondary);">职业 · 阵营</span>
+
+      <div class="endfield-operator__stats">
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label"><span>战斗</span><span>S</span></div>
+          <div class="endfield-operator__stat-bar"><div class="endfield-operator__stat-fill" style="width: 90%"></div></div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label"><span>生存</span><span>A</span></div>
+          <div class="endfield-operator__stat-bar"><div class="endfield-operator__stat-fill" style="width: 75%"></div></div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label"><span>机动</span><span>B</span></div>
+          <div class="endfield-operator__stat-bar"><div class="endfield-operator__stat-fill" style="width: 60%"></div></div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label"><span>支援</span><span>A</span></div>
+          <div class="endfield-operator__stat-bar"><div class="endfield-operator__stat-fill" style="width: 78%"></div></div>
+        </div>
+      </div>
+
+      <p class="endfield-operator__description">
+        作为终末地探索部队的一员，该干员拥有丰富的前线作战经验。在未知环境的探索任务中表现出卓越的适应能力与战术执行力。
+      </p>
+
+      <div class="endfield-operator__tags">
+        <span class="endfield-operator__tag">近战</span>
+        <span class="endfield-operator__tag">输出</span>
+        <span class="endfield-operator__tag">生存</span>
+        <span class="endfield-operator__tag">探索</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     4. WORLDVIEW ACCORDION
+     ======================================== -->
+<section class="endfield-worldview" id="worldview">
+  <div class="endfield-section-header">
+    <span class="endfield-section-label">WORLDVIEW</span>
+    <h2 class="endfield-section-title">世界观资料</h2>
+  </div>
+
+  <div class="endfield-accordion">
+    <details class="endfield-accordion-item" open>
+      <summary class="endfield-accordion-item__summary">
+        <div class="endfield-accordion-item__left">
+          <span class="endfield-accordion-item__number">01</span>
+          <span class="endfield-accordion-item__heading">终末地概述</span>
+        </div>
+        <span class="endfield-accordion-item__icon"></span>
+      </summary>
+      <div class="endfield-accordion-item__content">
+        <p class="endfield-accordion-item__text">
+          终末地是一片充满未知与危险的前线区域。在源石灾难之后，文明在废墟之上重建，探索者们踏上了开拓新领地的征途。
+        </p>
+        <div style="display: flex; gap: 8px;">
+          <span class="endfield-accordion-item__tag">地理</span>
+          <span class="endfield-accordion-item__tag">历史</span>
+          <span class="endfield-accordion-item__tag">文明</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="endfield-accordion-item">
+      <summary class="endfield-accordion-item__summary">
+        <div class="endfield-accordion-item__left">
+          <span class="endfield-accordion-item__number">02</span>
+          <span class="endfield-accordion-item__heading">源石与天灾</span>
+        </div>
+        <span class="endfield-accordion-item__icon"></span>
+      </summary>
+      <div class="endfield-accordion-item__content">
+        <p class="endfield-accordion-item__text">
+          源石作为一种蕴含巨大能量的矿物，既是文明的基石，也是天灾的根源。
+        </p>
+      </div>
+    </details>
+
+    <details class="endfield-accordion-item">
+      <summary class="endfield-accordion-item__summary">
+        <div class="endfield-accordion-item__left">
+          <span class="endfield-accordion-item__number">03</span>
+          <span class="endfield-accordion-item__heading">探索部队</span>
+        </div>
+        <span class="endfield-accordion-item__icon"></span>
+      </summary>
+      <div class="endfield-accordion-item__content">
+        <p class="endfield-accordion-item__text">
+          探索部队是由各领域精英组成的特勤小队，负责在终末地执行侦察、开拓与救援任务。
+        </p>
+      </div>
+    </details>
+
+    <details class="endfield-accordion-item">
+      <summary class="endfield-accordion-item__summary">
+        <div class="endfield-accordion-item__left">
+          <span class="endfield-accordion-item__number">04</span>
+          <span class="endfield-accordion-item__heading">集成工业</span>
+        </div>
+        <span class="endfield-accordion-item__icon"></span>
+      </summary>
+      <div class="endfield-accordion-item__content">
+        <p class="endfield-accordion-item__text">
+          集成工业是终末地探索的后勤保障体系，涵盖资源采集、设施建造、装备制造与基地运营。
+        </p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ========================================
+     5. MEDIA GALLERY
+     ======================================== -->
+<section class="endfield-media" id="media">
+  <div class="endfield-media__header">
+    <div class="endfield-section-header" style="margin-bottom: 0;">
+      <span class="endfield-section-label">MEDIA</span>
+      <h2 class="endfield-section-title">影像资料</h2>
+    </div>
+    <a href="#media-all" class="endfield-media__more">查看全部 →</a>
+  </div>
+
+  <div class="endfield-media__grid">
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">VIDEO</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">终末地首曝PV</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">VIDEO</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">世界观预告</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">IMAGE</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">查看</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">截图</span>
+        <span class="endfield-media-item__name">前线场景</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">VIDEO</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">干员展示</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">IMAGE</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">查看</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">截图</span>
+        <span class="endfield-media-item__name">集成工业</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">VIDEO</div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span style="font-size: 13px; color: var(--endfield-text-primary);">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">玩法演示</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     6. TIMELINE
+     ======================================== -->
+<section class="endfield-timeline" id="version-calendar">
+  <div class="endfield-section-header">
+    <span class="endfield-section-label">VERSION CALENDAR</span>
+    <h2 class="endfield-section-title">版本日历</h2>
+  </div>
+
+  <div class="endfield-timeline__track">
+    <div class="endfield-timeline-item">
+      <div class="endfield-timeline-item__marker">
+        <span class="endfield-timeline-item__dot"></span>
+        <span class="endfield-timeline-item__line"></span>
+        <span class="endfield-timeline-item__date">2024.03</span>
+      </div>
+      <div class="endfield-timeline-item__card">
+        <span class="endfield-timeline-item__version">首曝公开</span>
+        <p class="endfield-timeline-item__desc">终末地项目首次公开，公开首支概念PV。</p>
+      </div>
+    </div>
+
+    <div class="endfield-timeline-item">
+      <div class="endfield-timeline-item__marker">
+        <span class="endfield-timeline-item__dot"></span>
+        <span class="endfield-timeline-item__line"></span>
+        <span class="endfield-timeline-item__date">2024.07</span>
+      </div>
+      <div class="endfield-timeline-item__card">
+        <span class="endfield-timeline-item__version">世界观公开</span>
+        <p class="endfield-timeline-item__desc">公开终末地世界观设定与探索部队信息。</p>
+      </div>
+    </div>
+
+    <div class="endfield-timeline-item">
+      <div class="endfield-timeline-item__marker">
+        <span class="endfield-timeline-item__dot"></span>
+        <span class="endfield-timeline-item__line"></span>
+        <span class="endfield-timeline-item__date">2024.11</span>
+      </div>
+      <div class="endfield-timeline-item__card">
+        <span class="endfield-timeline-item__version">干员情报</span>
+        <p class="endfield-timeline-item__desc">首批干员情报公开，展示角色设计与战斗风格。</p>
+      </div>
+    </div>
+
+    <div class="endfield-timeline-item">
+      <div class="endfield-timeline-item__marker">
+        <span class="endfield-timeline-item__dot"></span>
+        <span class="endfield-timeline-item__line"></span>
+        <span class="endfield-timeline-item__date">2025.06</span>
+      </div>
+      <div class="endfield-timeline-item__card">
+        <span class="endfield-timeline-item__version">预约开启</span>
+        <p class="endfield-timeline-item__desc">全平台预约正式开启，开放预约专属奖励。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     7. FEATURE SPLIT
+     ======================================== -->
+<section class="endfield-feature" id="gameplay">
+  <div class="endfield-feature__grid">
+    <div class="endfield-feature__text">
+      <span class="endfield-section-label">GAMEPLAY</span>
+      <h2 class="endfield-section-title">玩法介绍</h2>
+      <p class="endfield-feature__paragraph">
+        在终末地中，玩家将组建自己的探索部队，深入未知的前线区域进行开拓作战。通过即时战术与角色技能的配合，应对多变的战场环境与强敌挑战。
+      </p>
+      <p class="endfield-feature__paragraph">
+        集成工业系统为探索提供全面的后勤保障，从资源采集到设施建造，构建可持续的前线基地。
+      </p>
+      <ul class="endfield-feature__list">
+        <li class="endfield-feature__list-item">即时战术战斗，多角色技能协同</li>
+        <li class="endfield-feature__list-item">集成工业系统，资源采集与基地建造</li>
+        <li class="endfield-feature__list-item">开放区域探索，动态环境与随机事件</li>
+      </ul>
+      <a href="#gameplay-detail" class="endfield-feature__cta">了解更多 →</a>
+    </div>
+
+    <div class="endfield-feature__visual">
+      <div class="endfield-feature__visual-placeholder">
+        <span class="endfield-feature__visual-icon">GAME</span>
+        <span class="endfield-feature__visual-label">玩法演示</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     8. CARD GRID INFO
+     ======================================== -->
+<section class="endfield-cards" id="industrial-knowledge">
+  <div class="endfield-section-header">
+    <span class="endfield-section-label">INDUSTRIAL KNOWLEDGE</span>
+    <h2 class="endfield-section-title">集成工业知识</h2>
+  </div>
+
+  <div class="endfield-cards__grid">
+    <article class="endfield-info-card">
+      <div class="endfield-info-card__icon">01</div>
+      <h3 class="endfield-info-card__title">资源采集</h3>
+      <p class="endfield-info-card__body">
+        在终末地的各个区域部署采集设施，获取源石、矿物与有机资源。合理规划采集网络是后勤运转的基础。
+      </p>
+      <a href="#knowledge-1" class="endfield-info-card__link">查看详情 →</a>
+    </article>
+
+    <article class="endfield-info-card">
+      <div class="endfield-info-card__icon">02</div>
+      <h3 class="endfield-info-card__title">设施建造</h3>
+      <p class="endfield-info-card__body">
+        利用模块化建造系统，在前线快速搭建作战设施与生产基地。设施的布局与等级直接影响探索效率。
+      </p>
+      <a href="#knowledge-2" class="endfield-info-card__link">查看详情 →</a>
+    </article>
+
+    <article class="endfield-info-card">
+      <div class="endfield-info-card__icon">03</div>
+      <h3 class="endfield-info-card__title">装备制造</h3>
+      <p class="endfield-info-card__body">
+        通过工业链路将采集的原料转化为装备与补给品。高级制造需要解锁对应的技术蓝图与生产线。
+      </p>
+      <a href="#knowledge-3" class="endfield-info-card__link">查看详情 →</a>
+    </article>
+  </div>
+</section>
+
+<!-- ========================================
+     9. FOOTER CTA
+     ======================================== -->
+<footer class="endfield-footer" id="footer-cta">
+  <div class="endfield-footer__bg" aria-hidden="true"></div>
+
+  <div class="endfield-footer__content">
+    <h2 class="endfield-footer__title">立即预约，开启终末地探索之旅</h2>
+    <p class="endfield-footer__subtitle">
+      预约即可获得专属奖励，第一时间获取最新资讯与测试资格。
+    </p>
+
+    <div class="endfield-footer__cta-group">
+      <a href="#preregister" class="endfield-footer__btn endfield-footer__btn--primary">预约</a>
+      <a href="#follow" class="endfield-footer__btn endfield-footer__btn--secondary">关注我们</a>
+    </div>
+  </div>
+
+  <div class="endfield-footer__divider"></div>
+
+  <div class="endfield-footer__links">
+    <a href="#about">关于我们</a>
+    <a href="#devteam">开发组</a>
+    <a href="#privacy">隐私政策</a>
+    <a href="#terms">用户协议</a>
+    <a href="#community">社区</a>
+    <a href="#contact">联系我们</a>
+  </div>
+
+  <p class="endfield-footer__copyright">
+    © Hypergryph. ENDFIELD 终末地. All Rights Reserved.
+  </p>
+</footer>
+
+</body>
+</html>

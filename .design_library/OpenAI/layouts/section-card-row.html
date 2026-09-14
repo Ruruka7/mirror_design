@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI — 客户案例卡片行</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* ── Card Row (3-column testimonials) ── */
+    .card-row {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .card-row__header {
+      text-align: center;
+      margin-bottom: var(--space-7);
+    }
+
+    .card-row__title {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-h1);
+      line-height: var(--line-height-h1);
+      letter-spacing: var(--letter-spacing-h1);
+      color: var(--color-foreground);
+    }
+
+    .card-row__subtitle {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-lead);
+      line-height: var(--line-height-lead);
+      letter-spacing: var(--letter-spacing-lead);
+      color: var(--muted-foreground);
+    }
+
+    .card-row__items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .story-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: var(--space-6);
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .story-card:hover {
+      box-shadow: var(--shadow-2);
+      transform: translateY(-2px);
+    }
+
+    .story-card__quote {
+      margin: 0 0 var(--space-6);
+      font-family: var(--font-body);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-body);
+      line-height: var(--line-height-body);
+      letter-spacing: var(--letter-spacing-body);
+      color: var(--color-foreground);
+      flex: 1;
+    }
+
+    .story-card__author {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .story-card__author-name {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-h4);
+      line-height: var(--line-height-h4);
+      letter-spacing: var(--letter-spacing-h4);
+      color: var(--color-foreground);
+    }
+
+    .story-card__author-role {
+      font-family: var(--font-body);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-caption);
+      line-height: var(--line-height-caption);
+      color: var(--muted-foreground);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .card-row__items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card-row {
+        padding: var(--space-7) var(--space-5);
+      }
+
+      .card-row__items {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+    }
+
+    @media (max-width: 375px) {
+      .card-row {
+        padding: var(--space-6) var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="card-row">
+    <div class="card-row__header">
+      <h2 class="card-row__title">客户案例</h2>
+      <p class="card-row__subtitle">了解各行业如何使用 OpenAI 技术推动创新</p>
+    </div>
+    <div class="card-row__items">
+      <article class="story-card">
+        <p class="story-card__quote">"ChatGPT 帮助我们的工程团队将开发效率提升了数倍，显著缩短了产品迭代周期。"</p>
+        <div class="story-card__author">
+          <span class="story-card__author-name">张明</span>
+          <span class="story-card__author-role">首席技术官 · 科技公司</span>
+        </div>
+      </article>
+      <article class="story-card">
+        <p class="story-card__quote">"通过 API 平台，我们构建了智能客服系统，将响应时间从分钟级缩短到秒级。"</p>
+        <div class="story-card__author">
+          <span class="story-card__author-name">李薇</span>
+          <span class="story-card__author-role">产品总监 · 金融服务</span>
+        </div>
+      </article>
+      <article class="story-card">
+        <p class="story-card__quote">"OpenAI 的研究为我们的教育产品提供了核心能力，让个性化学习成为可能。"</p>
+        <div class="story-card__author">
+          <span class="story-card__author-name">王浩</span>
+          <span class="story-card__author-role">创始人 · 教育科技</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</body>
+</html>

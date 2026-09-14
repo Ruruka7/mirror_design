@@ -1,0 +1,15 @@
+{
+  "brand": "OpenAI",
+  "entryPoint": "https://openai.com/zh-Hans-CN/",
+  "primaryGoal": "Understand OpenAI's research and products, start using ChatGPT or API",
+  "steps": [
+    { "step": 1, "action": "view hero", "section": "hero", "intent": "understand value proposition", "nextAction": "scroll to products", "timeOnSection": "5s" },
+    { "step": 2, "action": "browse product cards", "section": "feature-grid", "intent": "identify which product to explore", "nextAction": "click product card", "timeOnSection": "10s" },
+    { "step": 3, "action": "read research highlights", "section": "content-split", "intent": "understand research depth", "nextAction": "scroll to stories", "timeOnSection": "15s" },
+    { "step": 4, "action": "view customer stories", "section": "card-row", "intent": "see real-world applications", "nextAction": "scroll to CTA", "timeOnSection": "10s" },
+    { "step": 5, "action": "click CTA", "section": "cta-banner", "intent": "start using product", "nextAction": "redirect to product page", "timeOnSection": "3s" }
+  ],
+  "conversionPath": ["hero → product cards → research → stories → CTA click"],
+  "exitPoints": ["footer links", "social media", "research papers"],
+  "navigationPattern": "sticky-nav"
+}

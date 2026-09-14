@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield - Operator Display</title>
+<style>
+:root {
+  --endfield-bg-primary: #0a0a0a;
+  --endfield-bg-secondary: #141414;
+  --endfield-bg-tertiary: #1c1c1c;
+  --endfield-text-primary: #ffffff;
+  --endfield-text-secondary: #a0a0a0;
+  --endfield-text-muted: #6a6a6a;
+  --endfield-accent: #e8b04b;
+  --endfield-accent-hover: #f0c060;
+  --endfield-accent-rgb: 232, 176, 75;
+  --endfield-border: rgba(255, 255, 255, 0.1);
+  --endfield-border-strong: rgba(255, 255, 255, 0.2);
+  --endfield-overlay: rgba(0, 0, 0, 0.7);
+  --endfield-font-display: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-font-body: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-radius: 4px;
+  --endfield-radius-lg: 8px;
+  --endfield-transition: 0.3s ease;
+  --endfield-letter-spacing: 0.05em;
+  --endfield-letter-spacing-wide: 0.15em;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--endfield-font-body);
+  background: var(--endfield-bg-primary);
+  color: var(--endfield-text-primary);
+}
+
+/* === Operator Intel Section === */
+.endfield-operator {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-operator__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.endfield-operator__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-operator__title {
+  font-family: var(--endfield-font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-operator__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* Character Display - Left */
+.endfield-operator__character {
+  position: relative;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.endfield-operator__character-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.endfield-operator__character-placeholder {
+  width: 80%;
+  height: 90%;
+  background: linear-gradient(180deg, var(--endfield-bg-tertiary) 0%, var(--endfield-bg-secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--endfield-font-display);
+  font-size: 120px;
+  font-weight: 900;
+  color: var(--endfield-text-muted);
+  letter-spacing: var(--endfield-letter-spacing-ultra, 0.3em);
+}
+
+.endfield-operator__character-tag {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.endfield-operator__character-faction {
+  font-size: 11px;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-operator__character-codename {
+  font-family: var(--endfield-font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--endfield-text-primary);
+}
+
+/* Info Panel - Right */
+.endfield-operator__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+}
+
+.endfield-operator__info-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.endfield-operator__info-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-operator__info-name {
+  font-family: var(--endfield-font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-operator__info-role {
+  font-size: 14px;
+  color: var(--endfield-text-secondary);
+  letter-spacing: var(--endfield-letter-spacing);
+}
+
+.endfield-operator__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.endfield-operator__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.endfield-operator__stat-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--endfield-text-secondary);
+  letter-spacing: var(--endfield-letter-spacing);
+}
+
+.endfield-operator__stat-bar {
+  height: 4px;
+  background: var(--endfield-bg-tertiary);
+  border-radius: var(--endfield-radius);
+  overflow: hidden;
+}
+
+.endfield-operator__stat-fill {
+  height: 100%;
+  background: var(--endfield-accent);
+  border-radius: var(--endfield-radius);
+}
+
+.endfield-operator__description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-operator__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.endfield-operator__tag {
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: var(--endfield-letter-spacing);
+  border: 1px solid var(--endfield-border-strong);
+  border-radius: var(--endfield-radius);
+  color: var(--endfield-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .endfield-operator__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .endfield-operator__character {
+    min-height: 360px;
+  }
+
+  .endfield-operator__info {
+    padding: 24px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Endfield Operator Intel ===== -->
+<section class="endfield-operator" id="operator-intel">
+  <div class="endfield-operator__header">
+    <span class="endfield-operator__label">OPERATOR INTEL</span>
+    <h2 class="endfield-operator__title">干员情报</h2>
+  </div>
+
+  <div class="endfield-operator__grid">
+    <!-- Character Display -->
+    <div class="endfield-operator__character">
+      <div class="endfield-operator__character-bg">
+        <div class="endfield-operator__character-placeholder">OP</div>
+      </div>
+      <div class="endfield-operator__character-tag">
+        <span class="endfield-operator__character-faction">ENDFIELD</span>
+        <span class="endfield-operator__character-codename">干员代号</span>
+      </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="endfield-operator__info">
+      <div class="endfield-operator__info-header">
+        <span class="endfield-operator__info-label">OPERATOR</span>
+        <h3 class="endfield-operator__info-name">干员名称</h3>
+        <span class="endfield-operator__info-role">职业 · 阵营</span>
+      </div>
+
+      <div class="endfield-operator__stats">
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label">
+            <span>战斗</span>
+            <span>S</span>
+          </div>
+          <div class="endfield-operator__stat-bar">
+            <div class="endfield-operator__stat-fill" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label">
+            <span>生存</span>
+            <span>A</span>
+          </div>
+          <div class="endfield-operator__stat-bar">
+            <div class="endfield-operator__stat-fill" style="width: 75%"></div>
+          </div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label">
+            <span>机动</span>
+            <span>B</span>
+          </div>
+          <div class="endfield-operator__stat-bar">
+            <div class="endfield-operator__stat-fill" style="width: 60%"></div>
+          </div>
+        </div>
+        <div class="endfield-operator__stat">
+          <div class="endfield-operator__stat-label">
+            <span>支援</span>
+            <span>A</span>
+          </div>
+          <div class="endfield-operator__stat-bar">
+            <div class="endfield-operator__stat-fill" style="width: 78%"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="endfield-operator__description">
+        作为终末地探索部队的一员，该干员拥有丰富的前线作战经验。在未知环境的探索任务中表现出卓越的适应能力与战术执行力。
+      </p>
+
+      <div class="endfield-operator__tags">
+        <span class="endfield-operator__tag">近战</span>
+        <span class="endfield-operator__tag">输出</span>
+        <span class="endfield-operator__tag">生存</span>
+        <span class="endfield-operator__tag">探索</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

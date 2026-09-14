@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI — 导航栏</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* ── Navigation Bar ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--size-nav);
+      padding: 0 var(--space-5);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      font-family: var(--font-body);
+    }
+
+    .nav-bar__logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      color: var(--color-foreground);
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-h3);
+      letter-spacing: var(--letter-spacing-h3);
+      line-height: var(--line-height-h3);
+    }
+
+    .nav-bar__logo svg {
+      width: var(--size-icon-md);
+      height: var(--size-icon-md);
+      fill: var(--color-foreground);
+    }
+
+    .nav-bar__links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-6);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-bar__links a {
+      text-decoration: none;
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      font-size: var(--font-size-nav);
+      font-weight: var(--font-weight-nav);
+      line-height: var(--line-height-body);
+      letter-spacing: var(--letter-spacing-body);
+      transition: color 0.2s ease;
+    }
+
+    .nav-bar__links a:hover {
+      color: var(--muted-foreground);
+    }
+
+    .nav-bar__cta-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .nav-bar__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--size-button-md);
+      padding: 0 var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      font-size: var(--font-size-button);
+      font-weight: var(--font-weight-button);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-bar__cta--primary {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      border-color: var(--color-primary);
+    }
+
+    .nav-bar__cta--primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .nav-bar__cta:not(.nav-bar__cta--primary):hover {
+      background: var(--color-muted);
+    }
+
+    /* ── Hamburger (checkbox hack) ── */
+    .nav-bar__toggle {
+      display: none;
+    }
+
+    .nav-bar__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: var(--size-icon-md);
+      height: var(--size-icon-md);
+      cursor: pointer;
+    }
+
+    .nav-bar__hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--color-foreground);
+      border-radius: var(--radius-full);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-bar__hamburger {
+        display: flex;
+      }
+
+      .nav-bar__links {
+        position: fixed;
+        top: var(--size-nav);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-5);
+        padding: var(--space-6) var(--space-5);
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .nav-bar__toggle:checked ~ .nav-bar__links {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-bar__toggle:checked ~ .nav-bar__hamburger span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      .nav-bar__toggle:checked ~ .nav-bar__hamburger span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-bar__toggle:checked ~ .nav-bar__hamburger span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      .nav-bar__cta-group {
+        gap: var(--space-2);
+      }
+
+      .nav-bar__cta:not(.nav-bar__cta--primary) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .nav-bar {
+        padding: 0 var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav-bar">
+    <a href="#" class="nav-bar__logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-5.0243-2.8817A5.9855 5.9855 0 0 0 12 0a6.0448 6.0448 0 0 0-5.7417 4.1356 5.9847 5.9847 0 0 0-3.9977 2.8817 6.0462 6.0462 0 0 0 .7413 7.152 5.9847 5.9847 0 0 0 .5157 4.9108 6.0462 6.0462 0 0 0 5.0243 2.8817A5.9847 5.9847 0 0 0 12 24a6.0448 6.0448 0 0 0 5.7417-4.1356 5.9847 5.9847 0 0 0 3.9977-2.8817 6.0462 6.0462 0 0 0-.7413-7.152l-.7162-.0096Z"/>
+      </svg>
+      <span>OpenAI</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-bar__toggle">
+
+    <label for="nav-toggle" class="nav-bar__hamburger" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="nav-bar__links">
+      <a href="#">研究</a>
+      <a href="#">API 平台</a>
+      <a href="#">客户案例</a>
+    </nav>
+
+    <div class="nav-bar__cta-group">
+      <a href="#" class="nav-bar__cta">登录</a>
+      <a href="#" class="nav-bar__cta nav-bar__cta--primary">开始使用</a>
+    </div>
+  </header>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI — 产品卡片网格</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* ── Feature Grid (3-column) ── */
+    .feature-grid {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .feature-grid__header {
+      text-align: center;
+      margin-bottom: var(--space-7);
+    }
+
+    .feature-grid__title {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-h1);
+      line-height: var(--line-height-h1);
+      letter-spacing: var(--letter-spacing-h1);
+      color: var(--color-foreground);
+    }
+
+    .feature-grid__subtitle {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-lead);
+      line-height: var(--line-height-lead);
+      letter-spacing: var(--letter-spacing-lead);
+      color: var(--muted-foreground);
+    }
+
+    .feature-grid__items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-6);
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-1);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-2);
+      transform: translateY(-2px);
+    }
+
+    .feature-card__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size-button-lg);
+      height: var(--size-button-lg);
+      margin-bottom: var(--space-5);
+      border-radius: var(--radius-md);
+      background: var(--color-muted);
+    }
+
+    .feature-card__icon svg {
+      width: var(--size-icon-md);
+      height: var(--size-icon-md);
+      fill: var(--color-foreground);
+    }
+
+    .feature-card__heading {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-h3);
+      line-height: var(--line-height-h3);
+      letter-spacing: var(--letter-spacing-h3);
+      color: var(--color-foreground);
+    }
+
+    .feature-card__body {
+      margin: 0 0 var(--space-5);
+      font-family: var(--font-body);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-body);
+      line-height: var(--line-height-body);
+      letter-spacing: var(--letter-spacing-body);
+      color: var(--muted-foreground);
+      flex: 1;
+    }
+
+    .feature-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      font-size: var(--font-size-button);
+      font-weight: var(--font-weight-button);
+      transition: gap 0.2s ease;
+    }
+
+    .feature-card__link:hover {
+      gap: var(--space-3);
+    }
+
+    .feature-card__link svg {
+      width: var(--size-icon-sm);
+      height: var(--size-icon-sm);
+      fill: currentColor;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .feature-grid__items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .feature-grid {
+        padding: var(--space-7) var(--space-5);
+      }
+
+      .feature-grid__items {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+    }
+
+    @media (max-width: 375px) {
+      .feature-grid {
+        padding: var(--space-6) var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="feature-grid">
+    <div class="feature-grid__header">
+      <h2 class="feature-grid__title">产品</h2>
+      <p class="feature-grid__subtitle">探索 OpenAI 的前沿产品与平台</p>
+    </div>
+    <div class="feature-grid__items">
+      <article class="feature-card">
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
+        </div>
+        <h3 class="feature-card__heading">ChatGPT</h3>
+        <p class="feature-card__body">与 AI 对话，获取创意灵感、编写代码、解答问题，适用于工作与学习场景。</p>
+        <a href="#" class="feature-card__link">与 ChatGPT 对话 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+      </article>
+      <article class="feature-card">
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 7h10v10H7z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <h3 class="feature-card__heading">API 平台</h3>
+        <p class="feature-card__body">在我们的开发者平台上构建智能应用，访问最新的模型与工具。</p>
+        <a href="#" class="feature-card__link">开始使用 API <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+      </article>
+      <article class="feature-card">
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <h3 class="feature-card__heading">研究</h3>
+        <p class="feature-card__body">了解我们在通用人工智能领域的开创性研究进展与技术突破。</p>
+        <a href="#" class="feature-card__link">查看研究 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+      </article>
+    </div>
+  </section>
+
+</body>
+</html>

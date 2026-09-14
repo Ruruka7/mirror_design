@@ -1,172 +1,143 @@
 # Mirror Design
 
-> 从官网自动提取真实视觉规律，让 AI 生成可复用设计系统与页面方案的工作流和模板资产。
->
-> An official-site-driven workflow that lets AI extract visual patterns from a website and turn them into reusable design-system assets.
+[English](#english) | [中文](#中文)
 
-[中文](#中文) · [English](#english)
-
-## 中文
-
-### 这是什么
-
-Mirror Design 的主体不是某一个品牌的设计库，而是一条可复用的 AI 设计工作流：
-
-> 输入一个允许研究和使用的官网地址 → AI 提取页面证据 → 生成设计系统 → 产出可直接复用的页面与组件资产。
-
-仓库里的 OpenAI、Voith、Endfield 目录是这条工作流产出的模板样例，用来展示最终资产长什么样；真正可复用的核心是：
-
-- `skills/reverse-design-system/`：从官网生成设计资产包的 AI 工作流
-- `file-specs/`：token、组件契约、预览页、UI Kit 和质量报告的结构规范
-- `operation-policies/`：证据优先、决策、质量门禁和 Git 交付规则
-- `.design_library/`：可被后续页面项目直接消费的模板化输出
-
-### 核心流程
-
-| 阶段 | AI 自动完成的工作 | 主要产出 |
-| --- | --- | --- |
-| 1. Extract | 打开目标官网，读取渲染后的 computed styles、CSS、DOM 组件、响应式状态和可用资产信息 | 页面证据、截图、样式与组件观察结果 |
-| 2. Analyze | 从证据整理品牌画像、语气、色彩、字体、间距、圆角、阴影和组件规律，并标注未知项 | 品牌画像、关键发现、决策依据 |
-| 3. Generate | 生成 token CSS/JSON、组件契约、HTML 预览、Marketing UI Kit、文档和消费顺序 | 可复用设计系统资产包 |
-| 4. Validate | 检查 BOM、JSON、CSS 变量、组件覆盖率、相对路径和实际渲染结果 | 可提交、可交接、可继续迭代的输出 |
-
-核心原则是 evidence-first：能从目标页面实际读取的值优先使用，无法确认的内容明确标记为推断，不用想象值冒充官网事实。
-
-### 可复用资产包
-
-一条工作流不只生成一张页面，而是生成一套可以被 AI、设计师和前端项目反复消费的资产：
-
-| 资产 | 用途 |
-| --- | --- |
-| `colors_and_type.css` | 页面运行时直接加载的 CSS token |
-| `css.json` | 供 AI 或工具理解的结构化 token |
-| `components/*.json` | 组件意图、变体、结构和使用边界 |
-| `preview/*.html` | 单组件视觉与交互参考 |
-| `ui_kits/marketing/index.html` | 组合后的完整页面方案 |
-| `README.md` / `SKILL.md` | 品牌语气、设计原则和 AI 使用入口 |
-| `quality-report.json` | 组件覆盖率、交互状态和已知警告 |
-
-因此，换一个官网地址，就可以得到另一套风格不同、结构统一、可继续消费的设计资产包。
-
-### 当前模板样例
-
-这些目录是已经整理好的输出模板。
-
-| 模板 | 风格方向 | 入口 |
-| --- | --- | --- |
-| OpenAI | 极简白底、黑色主行动、克制的产品型排版 | [设计库文档](./.design_library/OpenAI/README.md) · [Marketing UI Kit](./.design_library/OpenAI/ui_kits/marketing/index.html) |
-| Voith | 工业工程、海洋蓝与青色强调、机构化信息层级 | [设计库文档](./.design_library/Voith/README.md) · [Marketing UI Kit](./.design_library/Voith/ui_kits/marketing/index.html) |
-| Endfield | 近黑底、危险黄、霓虹强调、几何切角与工业警示纹理 | [设计库文档](./.design_library/Endfield/README.md) · [Marketing UI Kit](./.design_library/Endfield/ui_kits/marketing/index.html) |
-| Mirror | 黑白极简、方角边界、编辑型内容网格、紧凑技术元数据 | [设计库文档](./.design_library/Mirror/README.md) · [Marketing UI Kit](./.design_library/Mirror/ui_kits/marketing/index.html) |
-
-每套模板当前包含 6 个核心组件：`button`、`card`、`input`、`badge`、`cta-link`、`navigation`。
-
-### 如何让 AI 使用这套工作流
-
-在支持浏览器自动化、文件写入和设计资产生成的 AI Agent 环境中，将官网 URL 和本仓库的工作流入口一起提供：
-
-```text
-请使用 skills/reverse-design-system/SKILL.md。
-根据以下官网 URL 生成一套可复用的设计系统资产：
-<official-site-url>
-
-要求：
-1. 以官网实际渲染结果和可读取 CSS 为主要证据；
-2. 完成 Extract → Analyze → Generate → Validate 全流程；
-3. 输出 token、组件契约、HTML 预览、Marketing UI Kit、文档和质量报告；
-4. 无法确认的值标记为推断，不要伪造官网事实；
-5. 默认只在当前项目本地整理、验证和提交，不自动推送到任何远程仓库；
-6. 只有在我明确指定目标仓库、远程和分支并要求推送时，才执行远程同步；不要假设 `origin`、`main` 或当前仓库属于我；
-7. 只使用我有权研究和使用的页面、文案与资产。
-```
-
-完整的阶段说明、输入输出和门禁规则见 [reverse-design-system 工作流](./skills/reverse-design-system/SKILL.md)。
-
-### 目录结构
-
-```text
-mirror_design/
-├── skills/
-│   └── reverse-design-system/
-│       ├── SKILL.md
-│       ├── workflows/
-│       ├── file-specs/
-│       └── operation-policies/
-├── .design_library/
-│   ├── OpenAI/              # 模板样例
-│   ├── Voith/               # 模板样例
-│   ├── Endfield/            # 模板样例
-│   └── Mirror/              # 公开博客页面研究样例
-├── LICENSE
-└── README.md
-```
-
-单套设计库的通用输出结构：
-
-```text
-<library>/
-├── README.md
-├── SKILL.md
-├── colors_and_type.css
-├── css.json
-├── components.css
-├── components/{slug}.json
-├── components/index.json
-├── preview/component-{slug}.html
-├── ui_kits/marketing/index.html
-├── library-consumption.json
-├── uikit-plan.json
-└── ui_kits/marketing/quality-report.json
-```
-
-### 运行前提与边界
-
-- 目标官网需要可访问；登录、验证码、地区限制或强反爬页面可能需要用户提供替代页面或截图。
-- 这是供 AI Agent 阅读、理解并执行的工作流资产，不是需要安装的 CLI、SDK 或命令行工具；具体执行能力取决于宿主 Agent。
-- 页面预览可以直接打开，或用任意静态文件服务器托管仓库根目录。
-- 这是设计语言的研究性重建，不保证像素级一致；每套库的置信度、测量日期、推断值和已知警告以对应文档为准。
-- 生产使用前，请自行确认目标网站的访问权限、字体/图标/图片许可、文案使用权和品牌规范。
-
-### 许可证与第三方权利
-
-本仓库中由作者编写、且不属于第三方内容的代码、文档、JSON schema、CSS、HTML 和工作流规范，除另有说明外，按 [MIT License](./LICENSE) 发布。
-
-OpenAI、Voith、Endfield/终末地等名称，仅用于标记公开页面研究样例的来源。仓库中的模板、页面与设计数据，是基于公开可访问网页信息进行的研究性还原和抽象；仓库未随附这些品牌的官方源文件、专有字体、官方图标、原始图片或官方组件包，也不代表获得任何品牌授权。本项目与相关品牌不存在隶属、赞助、背书或官方合作关系。MIT License 仅适用于作者有权许可的原创工作流、规范、代码和文档内容。
-
-使用这套工作流时，请只处理你有权研究、改编和使用的官网及资产，并对最终生成物进行人工版权与商标审查。
+***
 
 ## English
 
-### What this is
+A personal collection of reverse-engineered and reconstructed design systems, built for reference, learning, and backup.
 
-Mirror Design is an official-site-driven AI workflow for turning a permitted website URL into a reusable design-system asset package. The current OpenAI, Voith, and Endfield directories are example templates produced by that workflow; they are not the core product.
+Each library includes both **design tokens** (colors, fonts, spacing, components) and **layout templates** (page sections, UX flows, interaction patterns). Combine any token system with any layout system to generate a new website.
 
-The reusable core is:
+### Design Systems
 
-- `skills/reverse-design-system/` — the end-to-end workflow for extraction, analysis, generation, and validation
-- `file-specs/` — reusable schemas for tokens, components, previews, UI kits, and quality reports
-- `operation-policies/` — evidence, decision, quality-gate, and Git delivery rules
-- `.design_library/` — template-style output packages that downstream projects can consume
+| Library                                 | Source                                                                              | Style                                                                         |
+| --------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [OpenAI](./.design_library/OpenAI/)     | [openai.com](https://openai.com/zh-Hans-CN/)                                        | Minimal white-canvas with single green accent                                 |
+| [Voith](./.design_library/Voith/)       | [voith.com](https://www.voith.com/corp-en/about-us/markets-locations/china-cn.html) | Industrial marine-blue corporate engineering                                  |
+| [Endfield](./.design_library/Endfield/) | [endfield.hypergryph.com](https://endfield.hypergryph.com/)                         | Industrial post-apocalyptic dark UI with triple-accent (yellow/green/magenta) |
 
-### Workflow
+### Each Library Includes
 
-1. **Extract** rendered styles, CSS, DOM component patterns, responsive states, and asset metadata from the target site.
-2. **Analyze** the evidence into a brand profile, content tone, visual foundations, component patterns, and explicit unknowns.
-3. **Generate** CSS/JSON tokens, component contracts, HTML previews, a marketing UI kit, documentation, and a consumption guide.
-4. **Validate** BOM, JSON, CSS variables, component coverage, paths, and rendered output.
+**Design Tokens** — extracted from real CSS
 
-The workflow is evidence-first: confirmed values come from the target page, while inferred values are labeled instead of being presented as observed facts.
+* Token system (`colors_and_type.css` + `css.json`)
+* Component contracts (`components/*.json`)
+* Component previews (`preview/*.html`)
+* Marketing UI Kit (`ui_kits/marketing/index.html`)
 
-Git is local-first: the default result is a validated local commit in the current project. Do not push to any remote, assume `origin/main`, or stage unrelated workspace changes. Remote sync is allowed only after the user explicitly requests this exact change and confirms the target repository, remote, and branch.
+**Layout Templates** — extracted from rendered DOM
 
-### Reuse
+* Page section map (`layouts/page-sections.json`)
+* Layout system config (`layouts/layout-system.json`)
+* Reusable HTML section templates (`layouts/section-*.html`) — all use CSS variables, no hardcoded styling
+* Combined preview (`layouts/preview.html`)
+* UX user journey (`ux/user-journey.json`)
+* Interaction patterns (`ux/interaction-patterns.json`)
 
-Give a permitted official-site URL to an AI Agent that can read and follow this workflow, inspect the site, and write the resulting assets. The result is a reusable package containing tokens, machine-readable contracts, previews, a complete UI kit, documentation, and quality metadata—not just a one-off page.
+### Skills / Workflows
 
-This is a workflow asset for AI Agents, not an installable CLI, SDK, or command-line tool. Execution depends on the host agent's capabilities. See [the workflow entry point](./skills/reverse-design-system/SKILL.md) for the full protocol and [the template libraries](./.design_library/) for examples.
+| Skill | Extracts | Output |
+|-------|----------|--------|
+| `reverse-design-system` | Colors, fonts, spacing, shadows, components | Token system + component contracts |
+| `reverse-page-layout` | Page sections, layout grids, UX flows, interactions | HTML layout templates + UX JSON |
 
-### Legal boundary
+### Structure
 
-Names such as OpenAI, Voith, and Endfield/终末地 are used only to identify the public-page sources of the research examples. The templates, pages, and design data are research reconstructions and abstractions based on publicly accessible web pages. The repository does not provide or claim to provide official brand source files, proprietary fonts, official icons, original images, component packages, or brand authorization. The project is unofficial and is not affiliated with, sponsored by, endorsed by, or officially partnered with those brands. The MIT License applies only to original workflow materials, specifications, code, and documentation that the author is able to license.
+```
+mirror_design/
+  .design_library/
+    OpenAI/
+      colors_and_type.css          # Tokens
+      components/                   # Component contracts
+      preview/                      # Component previews
+      ui_kits/marketing/            # Marketing UI Kit
+      layouts/                      # Page layout templates (CSS vars only)
+        section-nav.html
+        section-hero-centered.html
+        section-feature-grid.html
+        ...
+        preview.html                # Combined preview
+      ux/                           # UX flows
+        user-journey.json
+        interaction-patterns.json
+    Voith/                          # same structure
+    Endfield/                       # same structure
+  skills/
+    reverse-design-system/          # Token extraction workflow
+    reverse-page-layout/            # Layout extraction workflow
+```
 
-Preview pages intentionally use neutral placeholder copy and sample data. Use the workflow only with source pages and assets you are authorized to research and use. See [LICENSE](./LICENSE) for the full license text.
+***
+
+## 中文
+
+个人收藏的逆向工程与重建设计系统集合，用于参考、学习和备份。
+
+每个系统同时包含**设计令牌**（颜色、字体、间距、组件）和**布局模板**（页面分区、UX 流程、交互模式）。任意令牌系统 + 任意布局系统 = 一个新网站。
+
+### 设计系统
+
+| 设计系统                                    | 来源                                                                                  | 风格                      |
+| --------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
+| [OpenAI](./.design_library/OpenAI/)     | [openai.com](https://openai.com/zh-Hans-CN/)                                        | 极简白底配单一绿色强调             |
+| [Voith](./.design_library/Voith/)       | [voith.com](https://www.voith.com/corp-en/about-us/markets-locations/china-cn.html) | 工业海洋蓝企业风格               |
+| [Endfield](./.design_library/Endfield/) | [endfield.hypergryph.com](https://endfield.hypergryph.com/)                         | 工业废土暗色 UI，三重强调色（黄/绿/品红） |
+
+### 每个系统包含
+
+**设计令牌** — 从真实 CSS 提取
+
+* 令牌系统（`colors_and_type.css` + `css.json`）
+* 组件契约（`components/*.json`）
+* 组件预览（`preview/*.html`）
+* Marketing UI Kit（`ui_kits/marketing/index.html`）
+
+**布局模板** — 从渲染后 DOM 提取
+
+* 页面分区结构（`layouts/page-sections.json`）
+* 布局系统配置（`layouts/layout-system.json`）
+* 可复用 HTML 区块模板（`layouts/section-*.html`）— 全部使用 CSS 变量，无硬编码样式
+* 合并预览（`layouts/preview.html`）
+* UX 用户旅程（`ux/user-journey.json`）
+* 交互模式（`ux/interaction-patterns.json`）
+
+### 技能 / 工作流
+
+| 技能 | 提取内容 | 产出 |
+|------|---------|------|
+| `reverse-design-system` | 颜色、字体、间距、阴影、组件 | 令牌系统 + 组件契约 |
+| `reverse-page-layout` | 页面分区、布局网格、UX 流程、交互 | HTML 布局模板 + UX JSON |
+
+### 目录结构
+
+```
+mirror_design/
+  .design_library/
+    OpenAI/
+      colors_and_type.css          # 令牌
+      components/                   # 组件契约
+      preview/                      # 组件预览
+      ui_kits/marketing/            # Marketing UI Kit
+      layouts/                      # 页面布局模板（仅 CSS 变量）
+        section-nav.html
+        section-hero-centered.html
+        section-feature-grid.html
+        ...
+        preview.html                # 合并预览
+      ux/                           # UX 流程
+        user-journey.json
+        interaction-patterns.json
+    Voith/                          # 同构
+    Endfield/                       # 同构
+  skills/
+    reverse-design-system/          # 令牌提取工作流
+    reverse-page-layout/            # 布局提取工作流
+```
+
+***
+
+## License / 许可证
+
+MIT

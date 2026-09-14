@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI — 页脚</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* ── Footer (4-column) ── */
+    .footer {
+      background: var(--color-background);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-8) var(--space-5) var(--space-5);
+    }
+
+    .footer__grid {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      padding-bottom: var(--space-7);
+    }
+
+    .footer__brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      color: var(--color-foreground);
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-h3);
+      letter-spacing: var(--letter-spacing-h3);
+      line-height: var(--line-height-h3);
+    }
+
+    .footer__logo svg {
+      width: var(--size-icon-md);
+      height: var(--size-icon-md);
+      fill: var(--color-foreground);
+    }
+
+    .footer__tagline {
+      font-family: var(--font-body);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-caption);
+      line-height: var(--line-height-caption);
+      color: var(--muted-foreground);
+      max-width: 200px;
+    }
+
+    .footer__social {
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-3);
+    }
+
+    .footer__social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size-button-md);
+      height: var(--size-button-md);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      color: var(--muted-foreground);
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .footer__social a:hover {
+      background: var(--color-muted);
+      color: var(--color-foreground);
+    }
+
+    .footer__social svg {
+      width: var(--size-icon-sm);
+      height: var(--size-icon-sm);
+      fill: currentColor;
+    }
+
+    .footer__col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .footer__col-title {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-caption);
+      line-height: var(--line-height-caption);
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer__col-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer__col-links a {
+      text-decoration: none;
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-body);
+      line-height: var(--line-height-body);
+      letter-spacing: var(--letter-spacing-body);
+      transition: color 0.2s ease;
+    }
+
+    .footer__col-links a:hover {
+      color: var(--muted-foreground);
+    }
+
+    .footer__bottom {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer__copyright {
+      font-family: var(--font-body);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-caption);
+      line-height: var(--line-height-caption);
+      color: var(--muted-foreground);
+    }
+
+    .footer__legal {
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+
+    .footer__legal a {
+      text-decoration: none;
+      color: var(--muted-foreground);
+      font-family: var(--font-body);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-caption);
+      line-height: var(--line-height-caption);
+      transition: color 0.2s ease;
+    }
+
+    .footer__legal a:hover {
+      color: var(--color-foreground);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .footer__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-5);
+      }
+
+      .footer__bottom {
+        flex-direction: column;
+        gap: var(--space-4);
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .footer {
+        padding: var(--space-6) var(--space-4) var(--space-4);
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="#" class="footer__logo">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-5.0243-2.8817A5.9855 5.9855 0 0 0 12 0a6.0448 6.0448 0 0 0-5.7417 4.1356 5.9847 5.9847 0 0 0-3.9977 2.8817 6.0462 6.0462 0 0 0 .7413 7.152 5.9847 5.9847 0 0 0 .5157 4.9108 6.0462 6.0462 0 0 0 5.0243 2.8817A5.9847 5.9847 0 0 0 12 24a6.0448 6.0448 0 0 0 5.7417-4.1356 5.9847 5.9847 0 0 0 3.9977-2.8817 6.0462 6.0462 0 0 0-.7413-7.152l-.7162-.0096Z"/></svg>
+          <span>OpenAI</span>
+        </a>
+        <p class="footer__tagline">通往 AGI 之路的开创性研究</p>
+        <div class="footer__social">
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h3 class="footer__col-title">产品</h3>
+        <ul class="footer__col-links">
+          <li><a href="#">ChatGPT</a></li>
+          <li><a href="#">API 平台</a></li>
+          <li><a href="#">Sora</a></li>
+          <li><a href="#">GPT-4</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3 class="footer__col-title">公司</h3>
+        <ul class="footer__col-links">
+          <li><a href="#">研究</a></li>
+          <li><a href="#">客户案例</a></li>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">招贤纳士</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3 class="footer__col-title">支持</h3>
+        <ul class="footer__col-links">
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">开发者文档</a></li>
+          <li><a href="#">社区</a></li>
+          <li><a href="#">状态</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copyright">© 2026 OpenAI</span>
+      <div class="footer__legal">
+        <a href="#">条款</a>
+        <a href="#">隐私</a>
+        <a href="#">Cookie 设置</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

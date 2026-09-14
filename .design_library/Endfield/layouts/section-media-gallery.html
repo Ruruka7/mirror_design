@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield - Media Gallery</title>
+<style>
+:root {
+  --endfield-bg-primary: #0a0a0a;
+  --endfield-bg-secondary: #141414;
+  --endfield-bg-tertiary: #1c1c1c;
+  --endfield-text-primary: #ffffff;
+  --endfield-text-secondary: #a0a0a0;
+  --endfield-text-muted: #6a6a6a;
+  --endfield-accent: #e8b04b;
+  --endfield-accent-hover: #f0c060;
+  --endfield-accent-rgb: 232, 176, 75;
+  --endfield-border: rgba(255, 255, 255, 0.1);
+  --endfield-border-strong: rgba(255, 255, 255, 0.2);
+  --endfield-overlay: rgba(0, 0, 0, 0.7);
+  --endfield-overlay-strong: rgba(0, 0, 0, 0.85);
+  --endfield-font-display: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-font-body: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-radius: 4px;
+  --endfield-radius-lg: 8px;
+  --endfield-transition: 0.2s ease;
+  --endfield-transition-slow: 0.3s ease;
+  --endfield-letter-spacing: 0.05em;
+  --endfield-letter-spacing-wide: 0.15em;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--endfield-font-body);
+  background: var(--endfield-bg-primary);
+  color: var(--endfield-text-primary);
+}
+
+/* === Media Gallery Section === */
+.endfield-media {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-media__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+
+.endfield-media__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.endfield-media__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-media__title {
+  font-family: var(--endfield-font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-media__more {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  text-decoration: none;
+  transition: color var(--endfield-transition-slow);
+}
+
+.endfield-media__more:hover {
+  color: var(--endfield-accent);
+}
+
+.endfield-media__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Media Item */
+.endfield-media-item {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--endfield-transition-slow);
+}
+
+.endfield-media-item:hover {
+  border-color: var(--endfield-border-strong);
+}
+
+.endfield-media-item__thumb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--endfield-bg-tertiary), var(--endfield-bg-secondary));
+}
+
+.endfield-media-item__thumb-icon {
+  font-family: var(--endfield-font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--endfield-text-muted);
+  letter-spacing: var(--endfield-letter-spacing-wide);
+}
+
+/* Hover overlay */
+.endfield-media-item__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--endfield-overlay-strong);
+  opacity: 0;
+  transition: opacity var(--endfield-transition);
+}
+
+.endfield-media-item:hover .endfield-media-item__overlay {
+  opacity: 1;
+}
+
+.endfield-media-item__play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--endfield-accent);
+  border-radius: 50%;
+  background: rgba(var(--endfield-accent-rgb), 0.1);
+  transform: scale(0.8);
+  transition: transform var(--endfield-transition-slow);
+}
+
+.endfield-media-item:hover .endfield-media-item__play {
+  transform: scale(1);
+}
+
+.endfield-media-item__play::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--endfield-accent);
+  margin-left: 4px;
+}
+
+.endfield-media-item__overlay-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+}
+
+/* Caption below */
+.endfield-media-item__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: linear-gradient(180deg, transparent, var(--endfield-overlay-strong));
+  z-index: 1;
+}
+
+.endfield-media-item__type {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-media-item__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--endfield-text-primary);
+  letter-spacing: var(--endfield-letter-spacing);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .endfield-media__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .endfield-media__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .endfield-media__title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 375px) {
+  .endfield-media__grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Endfield Media Gallery ===== -->
+<section class="endfield-media" id="media">
+  <div class="endfield-media__header">
+    <div class="endfield-media__header-left">
+      <span class="endfield-media__label">MEDIA</span>
+      <h2 class="endfield-media__title">影像资料</h2>
+    </div>
+    <a href="#media-all" class="endfield-media__more">查看全部 →</a>
+  </div>
+
+  <div class="endfield-media__grid">
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">VIDEO</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">终末地首曝PV</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">VIDEO</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">世界观预告</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">IMAGE</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">查看</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">截图</span>
+        <span class="endfield-media-item__name">前线场景</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">VIDEO</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">干员展示</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">IMAGE</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">查看</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">截图</span>
+        <span class="endfield-media-item__name">集成工业</span>
+      </div>
+    </div>
+
+    <div class="endfield-media-item">
+      <div class="endfield-media-item__thumb">
+        <span class="endfield-media-item__thumb-icon">VIDEO</span>
+      </div>
+      <div class="endfield-media-item__overlay">
+        <div class="endfield-media-item__play"></div>
+        <span class="endfield-media-item__overlay-label">播放</span>
+      </div>
+      <div class="endfield-media-item__caption">
+        <span class="endfield-media-item__type">PV</span>
+        <span class="endfield-media-item__name">玩法演示</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

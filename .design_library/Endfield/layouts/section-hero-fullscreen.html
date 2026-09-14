@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield - Hero Fullscreen</title>
+<style>
+:root {
+  --endfield-bg-primary: #0a0a0a;
+  --endfield-bg-secondary: #141414;
+  --endfield-bg-tertiary: #1c1c1c;
+  --endfield-text-primary: #ffffff;
+  --endfield-text-secondary: #a0a0a0;
+  --endfield-text-muted: #6a6a6a;
+  --endfield-accent: #e8b04b;
+  --endfield-accent-hover: #f0c060;
+  --endfield-accent-rgb: 232, 176, 75;
+  --endfield-border: rgba(255, 255, 255, 0.1);
+  --endfield-border-strong: rgba(255, 255, 255, 0.2);
+  --endfield-overlay: rgba(0, 0, 0, 0.7);
+  --endfield-overlay-strong: rgba(0, 0, 0, 0.85);
+  --endfield-font-display: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-font-body: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-radius: 4px;
+  --endfield-radius-lg: 8px;
+  --endfield-transition: 0.3s ease;
+  --endfield-letter-spacing: 0.05em;
+  --endfield-letter-spacing-wide: 0.15em;
+  --endfield-letter-spacing-ultra: 0.3em;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--endfield-font-body);
+  background: var(--endfield-bg-primary);
+  color: var(--endfield-text-primary);
+}
+
+/* === Hero Fullscreen === */
+.endfield-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  overflow: hidden;
+  background: var(--endfield-bg-primary);
+}
+
+/* Video/visual background layer */
+.endfield-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.endfield-hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--endfield-overlay-strong) 0%,
+    var(--endfield-overlay) 50%,
+    var(--endfield-overlay-strong) 100%
+  );
+}
+
+.endfield-hero__bg-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--endfield-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative clip-path element */
+.endfield-hero__decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  z-index: 1;
+  pointer-events: none;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: radial-gradient(circle, rgba(var(--endfield-accent-rgb), 0.08) 0%, transparent 70%);
+}
+
+/* Content layer */
+.endfield-hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.endfield-hero__title {
+  font-family: var(--endfield-font-display);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: var(--endfield-letter-spacing-ultra);
+  line-height: 1;
+  color: var(--endfield-text-primary);
+  text-transform: uppercase;
+}
+
+.endfield-hero__subtitle {
+  font-family: var(--endfield-font-display);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-hero__tagline {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-secondary);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+.endfield-hero__cta-group {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.endfield-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border-radius: var(--endfield-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+}
+
+.endfield-hero__btn--primary {
+  background: var(--endfield-accent);
+  border: 1px solid var(--endfield-accent);
+  color: var(--endfield-bg-primary);
+}
+
+.endfield-hero__btn--primary:hover {
+  background: var(--endfield-accent-hover);
+  border-color: var(--endfield-accent-hover);
+}
+
+.endfield-hero__btn--secondary {
+  background: transparent;
+  border: 1px solid var(--endfield-border-strong);
+  color: var(--endfield-text-primary);
+}
+
+.endfield-hero__btn--secondary:hover {
+  border-color: var(--endfield-accent);
+  color: var(--endfield-accent);
+}
+
+/* Scroll indicator */
+.endfield-hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.endfield-hero__scroll-text {
+  font-size: 11px;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-text-muted);
+  text-transform: uppercase;
+}
+
+.endfield-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--endfield-text-muted), transparent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .endfield-hero {
+    min-height: 80vh;
+    padding: 0 16px;
+  }
+
+  .endfield-hero__decor {
+    width: 300px;
+    height: 300px;
+  }
+
+  .endfield-hero__cta-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .endfield-hero__btn {
+    width: 100%;
+    padding: 14px 32px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Endfield Hero Fullscreen ===== -->
+<section class="endfield-hero" id="home">
+  <div class="endfield-hero__bg">
+    <div class="endfield-hero__bg-placeholder">
+      <!-- Video/visual background placeholder -->
+    </div>
+  </div>
+
+  <div class="endfield-hero__decor" aria-hidden="true"></div>
+
+  <div class="endfield-hero__content">
+    <h1 class="endfield-hero__title">ENDFIELD</h1>
+    <div class="endfield-hero__subtitle">终末地</div>
+    <p class="endfield-hero__tagline">探索未知的前线，在终末之地上开拓文明的新纪元</p>
+
+    <div class="endfield-hero__cta-group">
+      <a href="#preregister" class="endfield-hero__btn endfield-hero__btn--primary">预约</a>
+      <a href="#explore" class="endfield-hero__btn endfield-hero__btn--secondary">探索</a>
+    </div>
+  </div>
+
+  <div class="endfield-hero__scroll" aria-hidden="true">
+    <span class="endfield-hero__scroll-text">SCROLL</span>
+    <div class="endfield-hero__scroll-line"></div>
+  </div>
+</section>
+
+</body>
+</html>

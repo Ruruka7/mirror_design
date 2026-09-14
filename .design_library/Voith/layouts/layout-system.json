@@ -1,0 +1,31 @@
+{
+  "brand": "Voith",
+  "maxContentWidth": "1280px",
+  "sectionSpacing": "60px 0",
+  "containerPadding": "0 32px",
+  "gridGap": "24px",
+  "breakpoints": {
+    "mobile": "375px",
+    "tablet": "768px",
+    "desktop": "1024px",
+    "wide": "1440px"
+  },
+  "gridPatterns": [
+    { "name": "3-col-tiles", "template": "repeat(3, 1fr)", "usage": "market tiles, content tiles", "responsive": "2-col below 768px, 1-col below 375px" },
+    { "name": "2-col-40-60", "template": "2fr 3fr", "usage": "contact section", "responsive": "1-col below 768px" },
+    { "name": "4-col-links", "template": "repeat(4, 1fr)", "usage": "related links, footer", "responsive": "2-col below 768px, 1-col below 375px" }
+  ],
+  "sectionHeights": {
+    "heroStage": "500px",
+    "tileGrid": "600px",
+    "contactInfo": "400px",
+    "relatedLinks": "300px",
+    "footer": "350px"
+  },
+  "navBehavior": {
+    "type": "sticky",
+    "height": "80px",
+    "layout": "flex-row space-between",
+    "hasMegaMenu": true
+  }
+}

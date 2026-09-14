@@ -1,0 +1,17 @@
+{
+  "brand": "Endfield",
+  "entryPoint": "https://endfield.hypergryph.com/#home",
+  "primaryGoal": "Learn about Endfield game, view operators and worldview, pre-register",
+  "steps": [
+    { "step": 1, "action": "view hero", "section": "hero-fullscreen", "intent": "get excited about the game", "nextAction": "scroll to operators", "timeOnSection": "8s" },
+    { "step": 2, "action": "browse operators", "section": "operator-intel", "intent": "see character designs", "nextAction": "scroll to worldview", "timeOnSection": "20s" },
+    { "step": 3, "action": "expand worldview accordion", "section": "worldview", "intent": "understand story/lore", "nextAction": "view media", "timeOnSection": "30s" },
+    { "step": 4, "action": "view media gallery", "section": "media-gallery", "intent": "watch trailers/screenshots", "nextAction": "check version calendar", "timeOnSection": "15s" },
+    { "step": 5, "action": "check timeline", "section": "timeline", "intent": "see update history", "nextAction": "read gameplay", "timeOnSection": "10s" },
+    { "step": 6, "action": "read gameplay info", "section": "feature-split", "intent": "understand game mechanics", "nextAction": "scroll to industrial knowledge", "timeOnSection": "15s" },
+    { "step": 7, "action": "click pre-register", "section": "footer-cta", "intent": "register for the game", "nextAction": "external redirect", "timeOnSection": "5s" }
+  ],
+  "conversionPath": ["hero → operators → worldview → media → timeline → gameplay → pre-register click"],
+  "exitPoints": ["social media links", "app store links", "official community"],
+  "navigationPattern": "sticky-nav with hash sections"
+}

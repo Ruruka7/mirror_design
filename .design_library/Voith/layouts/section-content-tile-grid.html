@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voith - Content Tile Grid</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* ===== Layout: Content Tile Grid (3-col) ===== */
+.voith-tiles {
+    padding: 60px 32px;
+    font-family: var(--font-family-body, Arial, sans-serif);
+}
+.voith-tiles__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.voith-tiles__header {
+    margin: 0 0 32px;
+}
+.voith-tiles__heading {
+    margin: 0 0 8px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h2, 28px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text, #1a1a1a);
+}
+.voith-tiles__subheading {
+    margin: 0;
+    font-size: var(--font-size-body, 16px);
+    color: var(--color-text-light, #666);
+}
+
+/* Grid */
+.voith-tiles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tile item */
+.voith-tile {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background: var(--color-bg-card, #ffffff);
+    border: 1px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.voith-tile:hover {
+    box-shadow: var(--shadow-lg, 0 8px 24px rgba(0,0,0,0.12));
+    transform: translateY(-4px);
+}
+
+/* Tile image */
+.voith-tile__image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--color-bg-alt, #f4f4f4);
+}
+.voith-tile__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.voith-tile:hover .voith-tile__image img {
+    transform: scale(1.05);
+}
+
+/* Tile body */
+.voith-tile__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+}
+.voith-tile__title {
+    margin: 0 0 8px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h3, 20px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text, #1a1a1a);
+}
+.voith-tile__desc {
+    margin: 0 0 16px;
+    flex: 1;
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.5;
+    color: var(--color-text-light, #666);
+}
+.voith-tile__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-small, 13px);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--color-primary, #003d71);
+    text-decoration: none;
+    transition: gap var(--transition-fast, 0.2s) ease;
+}
+.voith-tile:hover .voith-tile__link {
+    gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voith-tiles__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 375px) {
+    .voith-tiles {
+        padding: 40px 16px;
+    }
+    .voith-tiles__grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<section class="voith-tiles" aria-labelledby="tiles-heading">
+    <div class="voith-tiles__container">
+        <div class="voith-tiles__header">
+            <h2 class="voith-tiles__heading" id="tiles-heading">Markets &amp; Locations</h2>
+            <p class="voith-tiles__subheading">Explore Voith's presence across China</p>
+        </div>
+
+        <div class="voith-tiles__grid">
+            <!-- Tile 1 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/003d71/ffffff?text=Hydro+Power" alt="Hydro Power">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Hydro Power</h3>
+                    <p class="voith-tile__desc">Turbines, generators, and automation systems for hydropower plants across China.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Tile 2 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/005691/ffffff?text=Paper" alt="Paper">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Paper</h3>
+                    <p class="voith-tile__desc">Rolls, fabrics, and service solutions for the paper industry.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Tile 3 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/003d71/ffffff?text=Drive+Technology" alt="Drive Technology">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Drive Technology</h3>
+                    <p class="voith-tile__desc">Couplings, gearboxes, and drive systems for industrial applications.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Tile 4 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/005691/ffffff?text=Industrial+Services" alt="Industrial Services">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Industrial Services</h3>
+                    <p class="voith-tile__desc">Maintenance, modernization, and aftermarket services for rotating equipment.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Tile 5 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/003d71/ffffff?text=Shanghai" alt="Shanghai">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Shanghai Location</h3>
+                    <p class="voith-tile__desc">Regional headquarters with production, sales, and service teams.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Tile 6 -->
+            <a href="#" class="voith-tile">
+                <div class="voith-tile__image">
+                    <img src="https://placehold.co/400x200/005691/ffffff?text=Kunshan" alt="Kunshan">
+                </div>
+                <div class="voith-tile__body">
+                    <h3 class="voith-tile__title">Kunshan Location</h3>
+                    <p class="voith-tile__desc">Manufacturing facility for paper machine rolls and drive components.</p>
+                    <span class="voith-tile__link">Learn more &rarr;</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

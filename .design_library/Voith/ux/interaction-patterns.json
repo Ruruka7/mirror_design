@@ -1,0 +1,13 @@
+{
+  "brand": "Voith",
+  "patterns": [
+    { "name": "sticky-navigation", "type": "scroll", "trigger": "scroll past 0px", "effect": "nav stays fixed, shadow appears", "sections": ["all"] },
+    { "name": "mega-menu-dropdown", "type": "hover", "trigger": "hover on nav item", "effect": "full-width dropdown panel with categories", "duration": "0.3s", "easing": "ease", "sections": ["navigation"] },
+    { "name": "tile-hover-lift", "type": "hover", "trigger": "mouseenter on .tile-item", "effect": "shadow increase + image scale 1.05", "duration": "0.3s", "easing": "ease", "sections": ["content-tile-grid"] },
+    { "name": "breadcrumb-context", "type": "static", "trigger": "page load", "effect": "breadcrumb shows page hierarchy", "sections": ["hero-stage"] }
+  ],
+  "responsiveBehaviors": [
+    { "breakpoint": "768px", "changes": ["grid 3-col → 2-col", "mega-menu → hamburger", "hero stage height 500 → 350", "footer 4-col → 2-col", "contact 2-col → 1-col"] },
+    { "breakpoint": "375px", "changes": ["tiles 2-col → 1-col", "footer 2-col → 1-col", "section padding reduce"] }
+  ]
+}

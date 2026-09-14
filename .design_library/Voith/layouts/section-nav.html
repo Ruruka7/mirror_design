@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voith - Corporate Navigation</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* ===== Layout: Corporate Navigation ===== */
+.voith-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 32px;
+    background: var(--color-bg, #ffffff);
+    border-bottom: 1px solid var(--color-border, #e0e0e0);
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.08));
+    font-family: var(--font-family-body, Arial, sans-serif);
+}
+
+/* Logo */
+.voith-nav__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.voith-nav__logo a {
+    text-decoration: none;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h3, 24px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-primary, #003d71);
+    letter-spacing: 0.5px;
+}
+
+/* Mega-menu */
+.voith-nav__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.voith-nav__menu-item {
+    position: relative;
+}
+.voith-nav__menu-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--color-text, #1a1a1a);
+    transition: color var(--transition-fast, 0.2s) ease;
+}
+.voith-nav__menu-link:hover,
+.voith-nav__menu-item:hover .voith-nav__menu-link {
+    color: var(--color-primary, #003d71);
+}
+
+/* Mega-menu dropdown panel (CSS-only, :hover triggered) */
+.voith-nav__mega-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 280px;
+    padding: 24px;
+    background: var(--color-bg, #ffffff);
+    border: 1px solid var(--color-border, #e0e0e0);
+    box-shadow: var(--shadow-lg, 0 8px 24px rgba(0,0,0,0.12));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    pointer-events: none;
+}
+.voith-nav__menu-item:hover .voith-nav__mega-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.voith-nav__mega-panel-title {
+    margin: 0 0 12px;
+    font-size: var(--font-size-small, 13px);
+    font-weight: var(--font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-light, #666);
+}
+.voith-nav__mega-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.voith-nav__mega-panel ul li a {
+    display: block;
+    padding: 6px 0;
+    text-decoration: none;
+    font-size: var(--font-size-body, 16px);
+    color: var(--color-text, #1a1a1a);
+    transition: color var(--transition-fast, 0.2s) ease;
+}
+.voith-nav__mega-panel ul li a:hover {
+    color: var(--color-primary, #003d71);
+}
+
+/* Right side: search + language */
+.voith-nav__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+.voith-nav__search {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-text, #1a1a1a);
+    font-size: 20px;
+}
+.voith-nav__language {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-sm, 4px);
+    background: transparent;
+    color: var(--color-text, #1a1a1a);
+    font-size: var(--font-size-small, 13px);
+    cursor: pointer;
+}
+
+/* Mobile hamburger (checkbox hack) */
+.voith-nav__toggle {
+    display: none;
+}
+.voith-nav__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    gap: 5px;
+}
+.voith-nav__hamburger span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: var(--color-primary, #003d71);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voith-nav {
+        height: 64px;
+        padding: 0 16px;
+    }
+    .voith-nav__hamburger {
+        display: flex;
+    }
+    .voith-nav__menu {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+        background: var(--color-bg, #ffffff);
+        border-top: 1px solid var(--color-border, #e0e0e0);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+    .voith-nav__toggle:checked ~ .voith-nav__menu {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    .voith-nav__menu-link {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--color-border, #e0e0e0);
+    }
+    .voith-nav__mega-panel {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        border: none;
+        box-shadow: none;
+        transition: max-height 0.3s ease;
+    }
+    .voith-nav__menu-item:hover .voith-nav__mega-panel {
+        max-height: 500px;
+        padding: 16px 20px;
+    }
+    .voith-nav__right {
+        gap: 8px;
+    }
+    .voith-nav__language {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="voith-nav" role="banner">
+    <!-- Logo -->
+    <div class="voith-nav__logo">
+        <a href="#">Voith</a>
+    </div>
+
+    <!-- Mobile toggle (checkbox hack) -->
+    <input type="checkbox" id="nav-toggle" class="voith-nav__toggle">
+    <label for="nav-toggle" class="voith-nav__hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <!-- Mega-menu navigation -->
+    <nav class="voith-nav__menu" role="navigation" aria-label="Main navigation">
+        <div class="voith-nav__menu-item">
+            <a href="#" class="voith-nav__menu-link">Products</a>
+            <div class="voith-nav__mega-panel">
+                <p class="voith-nav__mega-panel-title">Product Groups</p>
+                <ul>
+                    <li><a href="#">Hydro Power</a></li>
+                    <li><a href="#">Paper Machine Rolls</a></li>
+                    <li><a href="#">Drive Technology</a></li>
+                    <li><a href="#">Industrial Services</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="voith-nav__menu-item">
+            <a href="#" class="voith-nav__menu-link">Solutions</a>
+            <div class="voith-nav__mega-panel">
+                <p class="voith-nav__mega-panel-title">Industries</p>
+                <ul>
+                    <li><a href="#">Energy</a></li>
+                    <li><a href="#">Paper</a></li>
+                    <li><a href="#">Raw Materials</a></li>
+                    <li><a href="#">Transportation</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="voith-nav__menu-item">
+            <a href="#" class="voith-nav__menu-link">Career</a>
+            <div class="voith-nav__mega-panel">
+                <p class="voith-nav__mega-panel-title">Career at Voith</p>
+                <ul>
+                    <li><a href="#">Job Openings</a></li>
+                    <li><a href="#">Students &amp; Graduates</a></li>
+                    <li><a href="#">Professionals</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="voith-nav__menu-item">
+            <a href="#" class="voith-nav__menu-link">About</a>
+            <div class="voith-nav__mega-panel">
+                <p class="voith-nav__mega-panel-title">About Voith</p>
+                <ul>
+                    <li><a href="#">Company</a></li>
+                    <li><a href="#">Markets &amp; Locations</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Right side: search + language -->
+    <div class="voith-nav__right">
+        <button class="voith-nav__search" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="9" r="7"/>
+                <line x1="14" y1="14" x2="19" y2="19"/>
+            </svg>
+        </button>
+        <div class="voith-nav__language">
+            <span>EN</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="1,1 5,5 9,1"/>
+            </svg>
+        </div>
+    </div>
+</header>
+
+</body>
+</html>

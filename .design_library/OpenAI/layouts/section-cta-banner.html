@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI — CTA 横幅</title>
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    /* ── CTA Banner (full-width, centered) ── */
+    .cta-banner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 100%;
+      min-height: 320px;
+      padding: 80px var(--space-5);
+      text-align: center;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cta-banner__inner {
+      max-width: var(--max-content);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .cta-banner__heading {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-h1);
+      line-height: var(--line-height-h1);
+      letter-spacing: var(--letter-spacing-h1);
+      color: var(--color-foreground);
+      max-width: 700px;
+    }
+
+    .cta-banner__subtext {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-lead);
+      line-height: var(--line-height-lead);
+      letter-spacing: var(--letter-spacing-lead);
+      color: var(--muted-foreground);
+      max-width: 500px;
+    }
+
+    .cta-banner__group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .cta-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--size-button-md);
+      padding: 0 var(--space-6);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--font-size-button);
+      font-weight: var(--font-weight-button);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cta-banner__btn--primary {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      border: 1px solid var(--color-primary);
+    }
+
+    .cta-banner__btn--primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .cta-banner__btn--secondary {
+      background: transparent;
+      color: var(--color-foreground);
+      border: 1px solid var(--color-border);
+    }
+
+    .cta-banner__btn--secondary:hover {
+      background: var(--color-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .cta-banner {
+        padding: var(--space-7) var(--space-5);
+        min-height: 280px;
+      }
+
+      .cta-banner__heading {
+        font-size: var(--font-size-h2);
+        line-height: var(--line-height-h2);
+        letter-spacing: var(--letter-spacing-h2);
+      }
+    }
+
+    @media (max-width: 375px) {
+      .cta-banner {
+        padding: var(--space-6) var(--space-4);
+      }
+
+      .cta-banner__group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .cta-banner__btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="cta-banner">
+    <div class="cta-banner__inner">
+      <h2 class="cta-banner__heading">准备好开始了吗？</h2>
+      <p class="cta-banner__subtext">立即开始使用 OpenAI 的产品与平台，探索通用人工智能的无限可能。</p>
+      <div class="cta-banner__group">
+        <a href="#" class="cta-banner__btn cta-banner__btn--primary">开始使用</a>
+        <a href="#" class="cta-banner__btn cta-banner__btn--secondary">与 ChatGPT 对话</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

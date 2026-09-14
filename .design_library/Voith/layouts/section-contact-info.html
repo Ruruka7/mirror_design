@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voith - Contact Info</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+/* ===== Layout: Contact Info (2-col 40-60) ===== */
+.voith-contact {
+    padding: 60px 32px;
+    background: var(--color-bg-alt, #f4f4f4);
+    font-family: var(--font-family-body, Arial, sans-serif);
+}
+.voith-contact__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.voith-contact__heading {
+    margin: 0 0 32px;
+    font-family: var(--font-family-heading, Arial, sans-serif);
+    font-size: var(--font-size-h2, 28px);
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text, #1a1a1a);
+}
+
+/* 2-col grid: 2fr 3fr */
+.voith-contact__grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 48px;
+    align-items: stretch;
+}
+
+/* Contact details (left) */
+.voith-contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.voith-contact__label {
+    display: block;
+    margin: 0 0 4px;
+    font-size: var(--font-size-small, 13px);
+    font-weight: var(--font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-light, #666);
+}
+.voith-contact__value {
+    margin: 0;
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.6;
+    color: var(--color-text, #1a1a1a);
+}
+.voith-contact__value a {
+    color: var(--color-primary, #003d71);
+    text-decoration: none;
+    transition: color var(--transition-fast, 0.2s) ease;
+}
+.voith-contact__value a:hover {
+    color: var(--color-accent, #00a0e3);
+}
+
+/* Map area (right) */
+.voith-contact__map {
+    min-height: 320px;
+    border-radius: var(--radius-md, 8px);
+    overflow: hidden;
+    background: var(--color-bg-card, #ffffff);
+    border: 1px solid var(--color-border, #e0e0e0);
+}
+.voith-contact__map iframe,
+.voith-contact__map img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border: 0;
+    display: block;
+}
+.voith-contact__map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    font-size: var(--font-size-body, 16px);
+    color: var(--color-text-light, #666);
+    background: var(--color-bg-alt, #e8e8e8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voith-contact__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+@media (max-width: 375px) {
+    .voith-contact {
+        padding: 40px 16px;
+    }
+    .voith-contact__map,
+    .voith-contact__map-placeholder {
+        min-height: 240px;
+    }
+}
+</style>
+</head>
+<body>
+
+<section class="voith-contact" aria-labelledby="contact-heading">
+    <div class="voith-contact__container">
+        <h2 class="voith-contact__heading" id="contact-heading">Contact Voith in China</h2>
+
+        <div class="voith-contact__grid">
+            <!-- Left: Contact details -->
+            <div class="voith-contact__details">
+                <div>
+                    <span class="voith-contact__label">Address</span>
+                    <p class="voith-contact__value">
+                        Voith Hydro (Shanghai) Co., Ltd.<br>
+                        No. 1 Fuquan Road, Anting<br>
+                        Jiading District, Shanghai 201814<br>
+                        China
+                    </p>
+                </div>
+                <div>
+                    <span class="voith-contact__label">Phone</span>
+                    <p class="voith-contact__value">
+                        <a href="tel:+862159566000">+86 21 5956 6000</a>
+                    </p>
+                </div>
+                <div>
+                    <span class="voith-contact__label">Email</span>
+                    <p class="voith-contact__value">
+                        <a href="mailto:info@voith.com">info@voith.com</a>
+                    </p>
+                </div>
+                <div>
+                    <span class="voith-contact__label">Business Hours</span>
+                    <p class="voith-contact__value">
+                        Monday - Friday, 08:30 - 17:00 CST
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Map area -->
+            <div class="voith-contact__map">
+                <div class="voith-contact__map-placeholder">
+                    Map: Shanghai, Jiading District
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

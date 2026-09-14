@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endfield - Feature Split</title>
+<style>
+:root {
+  --endfield-bg-primary: #0a0a0a;
+  --endfield-bg-secondary: #141414;
+  --endfield-bg-tertiary: #1c1c1c;
+  --endfield-text-primary: #ffffff;
+  --endfield-text-secondary: #a0a0a0;
+  --endfield-text-muted: #6a6a6a;
+  --endfield-accent: #e8b04b;
+  --endfield-accent-hover: #f0c060;
+  --endfield-accent-rgb: 232, 176, 75;
+  --endfield-border: rgba(255, 255, 255, 0.1);
+  --endfield-border-strong: rgba(255, 255, 255, 0.2);
+  --endfield-overlay: rgba(0, 0, 0, 0.7);
+  --endfield-font-display: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-font-body: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --endfield-radius: 4px;
+  --endfield-radius-lg: 8px;
+  --endfield-transition: 0.3s ease;
+  --endfield-letter-spacing: 0.05em;
+  --endfield-letter-spacing-wide: 0.15em;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--endfield-font-body);
+  background: var(--endfield-bg-primary);
+  color: var(--endfield-text-primary);
+}
+
+/* === Feature Split Section === */
+.endfield-feature {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.endfield-feature__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Text Content - Left */
+.endfield-feature__text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.endfield-feature__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing-wide);
+  color: var(--endfield-accent);
+  text-transform: uppercase;
+}
+
+.endfield-feature__title {
+  font-family: var(--endfield-font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-primary);
+  line-height: 1.3;
+}
+
+.endfield-feature__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.endfield-feature__paragraph {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-feature__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.endfield-feature__list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--endfield-text-secondary);
+}
+
+.endfield-feature__list-item::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--endfield-accent);
+  flex-shrink: 0;
+}
+
+.endfield-feature__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: var(--endfield-letter-spacing);
+  border: 1px solid var(--endfield-accent);
+  border-radius: var(--endfield-radius);
+  background: transparent;
+  color: var(--endfield-accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--endfield-transition);
+  align-self: flex-start;
+}
+
+.endfield-feature__cta:hover {
+  background: var(--endfield-accent);
+  color: var(--endfield-bg-primary);
+}
+
+/* Visual Content - Right */
+.endfield-feature__visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--endfield-bg-secondary);
+  border: 1px solid var(--endfield-border);
+  border-radius: var(--endfield-radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.endfield-feature__visual-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.endfield-feature__visual-icon {
+  font-family: var(--endfield-font-display);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--endfield-text-muted);
+  letter-spacing: var(--endfield-letter-spacing-wide);
+}
+
+.endfield-feature__visual-label {
+  font-size: 13px;
+  letter-spacing: var(--endfield-letter-spacing);
+  color: var(--endfield-text-muted);
+}
+
+/* Decorative corner accent */
+.endfield-feature__visual::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid var(--endfield-accent);
+  border-left: 2px solid var(--endfield-accent);
+}
+
+.endfield-feature__visual::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  border-bottom: 2px solid var(--endfield-accent);
+  border-right: 2px solid var(--endfield-accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .endfield-feature__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .endfield-feature__title {
+    font-size: 28px;
+  }
+
+  .endfield-feature__visual {
+    aspect-ratio: 16 / 9;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Endfield Feature Split ===== -->
+<section class="endfield-feature" id="gameplay">
+  <div class="endfield-feature__grid">
+    <!-- Text Content -->
+    <div class="endfield-feature__text">
+      <span class="endfield-feature__label">GAMEPLAY</span>
+      <h2 class="endfield-feature__title">玩法介绍</h2>
+      <div class="endfield-feature__body">
+        <p class="endfield-feature__paragraph">
+          在终末地中，玩家将组建自己的探索部队，深入未知的前线区域进行开拓作战。通过即时战术与角色技能的配合，应对多变的战场环境与强敌挑战。
+        </p>
+        <p class="endfield-feature__paragraph">
+          集成工业系统为探索提供全面的后勤保障，从资源采集到设施建造，构建可持续的前线基地。
+        </p>
+      </div>
+      <ul class="endfield-feature__list">
+        <li class="endfield-feature__list-item">即时战术战斗，多角色技能协同</li>
+        <li class="endfield-feature__list-item">集成工业系统，资源采集与基地建造</li>
+        <li class="endfield-feature__list-item">开放区域探索，动态环境与随机事件</li>
+      </ul>
+      <a href="#gameplay-detail" class="endfield-feature__cta">了解更多 →</a>
+    </div>
+
+    <!-- Visual Content -->
+    <div class="endfield-feature__visual">
+      <div class="endfield-feature__visual-placeholder">
+        <span class="endfield-feature__visual-icon">GAME</span>
+        <span class="endfield-feature__visual-label">玩法演示</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

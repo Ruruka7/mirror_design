@@ -1,0 +1,15 @@
+{
+  "brand": "Endfield",
+  "patterns": [
+    { "name": "fullscreen-video-bg", "type": "background", "trigger": "page load", "effect": "autoplay video background in hero", "sections": ["hero-fullscreen"] },
+    { "name": "sticky-navigation", "type": "scroll", "trigger": "scroll past 0px", "effect": "nav stays fixed with active section highlight", "sections": ["all"] },
+    { "name": "accordion-expand", "type": "click", "trigger": "click .accordion-title", "effect": "expand content with smooth height transition", "duration": "0.3s", "easing": "ease", "sections": ["worldview"] },
+    { "name": "media-hover-overlay", "type": "hover", "trigger": "mouseenter on .media-item", "effect": "dark overlay with play icon fade-in", "duration": "0.2s", "sections": ["media-gallery"] },
+    { "name": "scroll-section-reveal", "type": "scroll", "trigger": "section enters viewport 30%", "effect": "clip-path reveal + fade", "duration": "0.6s", "easing": "ease-out", "sections": ["operator-intel", "feature-split", "card-grid-info"] },
+    { "name": "timeline-horizontal-scroll", "type": "scroll", "trigger": "horizontal scroll in timeline section", "effect": "parallax timeline items", "sections": ["timeline"] }
+  ],
+  "responsiveBehaviors": [
+    { "breakpoint": "768px", "changes": ["grid 2-col → 1-col", "nav → hamburger", "hero 100vh → 80vh", "timeline → horizontal scroll", "media 3-col → 2-col"] },
+    { "breakpoint": "375px", "changes": ["media 2-col → 1-col", "hero font-size reduce", "section spacing reduce"] }
+  ]
+}

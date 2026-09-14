@@ -2,7 +2,7 @@
 
 Defines two required JSON files that exist in every design library but were missing from the workflow output spec.
 
----
+***
 
 ## metadata.json
 
@@ -26,11 +26,11 @@ A minimal identity file at the root of every design library.
 
 ### Field Rules
 
-| Field | Type | Required | Rule |
-|-------|------|----------|------|
-| `id` | string | yes | Generate a random 12-char ID like `H0DPM77H.7AKY4`. Can use base36 of a timestamp + random suffix. Must be unique per library. |
-| `name` | string | yes | Exact brand name, matches the directory name under `.design_library/`. Case-sensitive. |
-| `version` | number | yes | Start at `1`. Increment by 1 each time the library is regenerated or updated. |
+| Field     | Type   | Required | Rule                                                                                                                           |
+| --------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `id`      | string | yes      | Generate a random 12-char ID like `H0DPM77H.7AKY4`. Can use base36 of a timestamp + random suffix. Must be unique per library. |
+| `name`    | string | yes      | Exact brand name, matches the directory name under `.design_library/`. Case-sensitive.                                         |
+| `version` | number | yes      | Start at `1`. Increment by 1 each time the library is regenerated or updated.                                                  |
 
 ### Generation Timing
 
@@ -56,7 +56,7 @@ Created at the **start** of Phase 2 (before token generation), so all downstream
 }
 ```
 
----
+***
 
 ## quality-report.json
 
@@ -86,17 +86,17 @@ A quality metrics file inside the UIKit directory, recording what went into the 
 
 ### Field Rules
 
-| Field | Type | Required | Rule |
-|-------|------|----------|------|
-| `schemaVersion` | number | yes | Always `1`. |
-| `screensGenerated` | number | yes | Count of major sections in the UIKit (typically 3-6: hero, features, component showcase, CTA, footer). |
-| `coreComponentsUsed` | string[] | yes | Must include all 6 standard slugs: `["button", "card", "input", "badge", "cta-link", "navigation"]`. |
-| `supportComponentsUsed` | string[] | yes | Additional components beyond the 6 standard. Usually `[]`. |
-| `previewClassReuseRate` | number | yes | Target `0.8` or higher. Below `0.5` means UIKit is mostly custom CSS, not reusing preview patterns. |
-| `hasProductContext` | boolean | yes | `true` if UIKit contains actual brand copy (from uiCopySamples), `false` if using placeholder text. |
-| `inventedComponents` | string[] | yes | List any components that were not derived from extraction data. Should be `[]` for a faithful reverse-engineer. |
-| `renderedFromEvidence` | string[] | yes | Cite evidence sources (e.g., `["phase0a-dom-components.json", "screenshot-full.png"]`). May be `[]`. |
-| `warnings` | string[] | yes | Any quality concerns. May be `[]` if all good. |
+| Field                   | Type      | Required | Rule                                                                                                            |
+| ----------------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| `schemaVersion`         | number    | yes      | Always `1`.                                                                                                     |
+| `screensGenerated`      | number    | yes      | Count of major sections in the UIKit (typically 3-6: hero, features, component showcase, CTA, footer).          |
+| `coreComponentsUsed`    | string\[] | yes      | Must include all 6 standard slugs: `["button", "card", "input", "badge", "cta-link", "navigation"]`.            |
+| `supportComponentsUsed` | string\[] | yes      | Additional components beyond the 6 standard. Usually `[]`.                                                      |
+| `previewClassReuseRate` | number    | yes      | Target `0.8` or higher. Below `0.5` means UIKit is mostly custom CSS, not reusing preview patterns.             |
+| `hasProductContext`     | boolean   | yes      | `true` if UIKit contains actual brand copy (from uiCopySamples), `false` if using placeholder text.             |
+| `inventedComponents`    | string\[] | yes      | List any components that were not derived from extraction data. Should be `[]` for a faithful reverse-engineer. |
+| `renderedFromEvidence`  | string\[] | yes      | Cite evidence sources (e.g., `["phase0a-dom-components.json", "screenshot-full.png"]`). May be `[]`.            |
+| `warnings`              | string\[] | yes      | Any quality concerns. May be `[]` if all good.                                                                  |
 
 ### Generation Timing
 
@@ -120,11 +120,19 @@ Created at the **end** of Phase 4, after the UIKit HTML is written. The UIKit su
 
 ### Validation Checklist
 
-- [ ] `metadata.json` exists at library root
-- [ ] `metadata.json` has `id`, `name`, `version` fields
-- [ ] `metadata.json` `name` matches directory name
-- [ ] `quality-report.json` exists in `ui_kits/marketing/`
-- [ ] `quality-report.json` has all 9 required fields
-- [ ] `coreComponentsUsed` includes all 6 standard slugs
-- [ ] `previewClassReuseRate` >= 0.5
-- [ ] `hasProductContext` is `true`
+* [ ] `metadata.json` exists at library root
+
+* [ ] `metadata.json` has `id`, `name`, `version` fields
+
+* [ ] `metadata.json` `name` matches directory name
+
+* [ ] `quality-report.json` exists in `ui_kits/marketing/`
+
+* [ ] `quality-report.json` has all 9 required fields
+
+* [ ] `coreComponentsUsed` includes all 6 standard slugs
+
+* [ ] `previewClassReuseRate` >= 0.5
+
+* [ ] `hasProductContext` is `true`
+
