@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS GRID — AI 推理基础设施</title>
+<link rel="stylesheet" href="../../Endfield/colors_and_type.css">
+<style>
+/* ==========================================================================
+   NEXUS GRID — Original Landing Page
+   Industrial dark high-tech AI infrastructure company page.
+   ALL colors, fonts, spacing, shadows, radii use CSS variables with fallbacks.
+   ZERO hardcoded colors. ZERO hardcoded font names.
+   ========================================================================== */
+
+/* --- Structural custom properties --- */
+:root {
+  --ng-z-nav: 1000;
+  --ng-clip-btn: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%);
+  --ng-clip-hero: polygon(0 0, 100% 0, 100% calc(100% - 40px), 50% 100%, 0 calc(100% - 40px));
+  --ng-tracking-wide: 0.08em;
+  --ng-max-content: 1200px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-body, 400);
+  line-height: var(--line-height-body, 1.6);
+  background: var(--color-background, #191919);
+  color: var(--color-foreground, #ffffff);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* --- Utility: container --- */
+.ng-container {
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 24px);
+}
+
+/* --- Utility: section base --- */
+.ng-section {
+  padding: var(--space-10, 80px) 0;
+  position: relative;
+}
+
+/* --- Utility: hazard stripe bar --- */
+.ng-hazard-bar {
+  height: 6px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-primary, #fffa00) 0,
+    var(--color-primary, #fffa00) 10px,
+    var(--color-background, #191919) 10px,
+    var(--color-background, #191919) 20px
+  );
+}
+
+/* --- Utility: grid background pattern --- */
+.ng-grid-bg {
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* --- Utility: eyebrow label --- */
+.ng-eyebrow {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+}
+
+.ng-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-primary, #fffa00);
+}
+
+/* --- Utility: section title --- */
+.ng-section-title {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-h2, 700);
+  letter-spacing: var(--tracking-tight, -0.03em);
+  text-transform: uppercase;
+  line-height: var(--line-height-h2, 1.15);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-section-header {
+  margin-bottom: var(--space-8, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 12px);
+}
+
+/* --- Utility: buttons --- */
+.ng-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 12px);
+  padding: var(--space-3, 16px) var(--space-7, 32px);
+  height: var(--size-button-lg, 48px);
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  border: 1px solid var(--color-border, #424242);
+  cursor: pointer;
+  transition: all var(--transition-smooth, 0.3s ease-in-out);
+  position: relative;
+}
+
+.ng-btn--primary {
+  background: var(--color-primary, #fffa00);
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-on-primary, #191919);
+  clip-path: var(--ng-clip-btn, polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%));
+}
+
+.ng-btn--primary:hover {
+  background: var(--color-primary-hover, #fffb00);
+  border-color: var(--color-primary-hover, #fffb00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+}
+
+.ng-btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border, #424242);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-btn--outline:hover {
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+}
+
+/* ========================================================
+   1. NAVIGATION
+   ======================================================== */
+.ng-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--ng-z-nav, 1000);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  background: rgba(25, 25, 25, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border, #424242);
+}
+
+.ng-nav__inner {
+  width: 100%;
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6, 24px);
+}
+
+.ng-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+  flex-shrink: 0;
+}
+
+.ng-nav__logo-mark {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary, #fffa00);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  flex-shrink: 0;
+}
+
+.ng-nav__logo-text {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7, 32px);
+}
+
+.ng-nav__link {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-body, 400);
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--transition-fast, 0.2s ease);
+  white-space: nowrap;
+  position: relative;
+  padding: var(--space-1, 10px) 0;
+}
+
+.ng-nav__link:hover {
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-nav__link.is-active {
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary, #fffa00);
+}
+
+.ng-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 18px);
+  flex-shrink: 0;
+}
+
+.ng-nav__login {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.ng-nav__login:hover {
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2, 12px) var(--space-6, 24px);
+  height: var(--size-button-md, 40px);
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  background: var(--color-primary, #fffa00);
+  color: var(--color-on-primary, #191919);
+  clip-path: var(--ng-clip-btn, polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%));
+  transition: all var(--transition-smooth, 0.3s ease-in-out);
+}
+
+.ng-nav__cta:hover {
+  background: var(--color-primary-hover, #fffb00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+}
+
+.ng-nav__hamburger {
+  display: none;
+  width: 32px;
+  height: 32px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.ng-nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-foreground, #ffffff);
+  transition: all var(--transition-fast, 0.2s ease);
+}
+
+/* ========================================================
+   2. HERO — FULL VIEWPORT
+   ======================================================== */
+.ng-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 var(--space-6, 24px);
+  overflow: hidden;
+  background: var(--color-background, #191919);
+  clip-path: var(--ng-clip-hero, polygon(0 0, 100% 0, 100% calc(100% - 40px), 50% 100%, 0 calc(100% - 40px)));
+}
+
+.ng-hero__grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+}
+
+.ng-hero__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  max-width: 90vw;
+  max-height: 70vh;
+  border-radius: var(--radius-full, 9999px);
+  background: radial-gradient(ellipse at center, rgba(255, 250, 0, 0.08), transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ng-hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5, 20px);
+}
+
+.ng-hero__eyebrow {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+}
+
+.ng-hero__title {
+  font-family: var(--font-impact, 'ProtestStrike', sans-serif);
+  font-size: 8rem;
+  font-weight: var(--font-weight-mega, 400);
+  line-height: var(--line-height-mega, 0.9);
+  letter-spacing: var(--tracking-tightest, -0.08em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+  text-shadow: 0 0 20px rgba(255, 250, 0, 0.3);
+}
+
+.ng-hero__subtitle {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-lead, 22px);
+  font-weight: var(--font-weight-body, 400);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-muted-foreground, #888888);
+  max-width: 640px;
+}
+
+.ng-hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 18px);
+  margin-top: var(--space-3, 16px);
+}
+
+.ng-hero__scroll {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2, 12px);
+}
+
+.ng-hero__scroll-line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--color-primary, #fffa00), transparent);
+  position: relative;
+}
+
+.ng-hero__scroll-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+  animation: ng-scroll-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ng-scroll-pulse {
+  0%, 100% { top: 0; opacity: 1; }
+  50% { top: 36px; opacity: 0.3; }
+}
+
+.ng-hero__scroll-text {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  color: var(--color-muted-foreground, #888888);
+  text-transform: uppercase;
+}
+
+/* ========================================================
+   3. METRICS BAR
+   ======================================================== */
+.ng-metrics {
+  background: var(--color-surface, #2e2e2e);
+  border-top: 1px solid var(--color-border, #424242);
+  border-bottom: 1px solid var(--color-border, #424242);
+}
+
+.ng-metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+}
+
+.ng-metrics__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2, 12px);
+  padding: var(--space-8, 40px) var(--space-5, 20px);
+  border-right: 1px solid var(--color-border, #424242);
+}
+
+.ng-metrics__item:last-child {
+  border-right: none;
+}
+
+.ng-metrics__number {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h1, 48px);
+  font-weight: var(--font-weight-h1, 700);
+  line-height: var(--line-height-h1, 1.1);
+  color: var(--color-primary, #fffa00);
+  text-shadow: 0 0 10px rgba(255, 250, 0, 0.3);
+}
+
+.ng-metrics__label {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-muted-foreground, #888888);
+}
+
+/* ========================================================
+   4. PRODUCT FEATURE CARDS
+   ======================================================== */
+.ng-features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5, 20px);
+}
+
+.ng-feature-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 18px);
+  padding: var(--space-8, 40px) var(--space-6, 24px);
+  background: var(--color-card, #2e2e2e);
+  border: 1px solid var(--color-border, #424242);
+  transition: all var(--transition-smooth, 0.3s ease-in-out);
+  overflow: hidden;
+}
+
+.ng-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary, #fffa00), var(--color-accent, #00ffa2));
+}
+
+.ng-feature-card:hover {
+  border-color: var(--color-accent, #00ffa2);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+  transform: translateY(-4px);
+}
+
+.ng-feature-card__icon {
+  width: var(--size-icon-lg, 32px);
+  height: var(--size-icon-lg, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSS-drawn geometric shapes for icons */
+.ng-icon-circle {
+  width: var(--size-icon-lg, 32px);
+  height: var(--size-icon-lg, 32px);
+  border-radius: var(--radius-full, 9999px);
+  border: 2px solid var(--color-primary, #fffa00);
+}
+
+.ng-icon-square {
+  width: var(--size-icon-lg, 32px);
+  height: var(--size-icon-lg, 32px);
+  border: 2px solid var(--color-accent, #00ffa2);
+  transform: rotate(45deg);
+}
+
+.ng-icon-triangle {
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 28px solid var(--color-tertiary, #ff1aac);
+}
+
+.ng-feature-card__title {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-h4, 600);
+  line-height: var(--line-height-h3, 1.2);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-feature-card__desc {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-muted-foreground, #888888);
+  flex: 1;
+}
+
+.ng-feature-card__link {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-mono, 14px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-accent, #00ffa2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+  transition: gap var(--transition-fast, 0.2s ease);
+}
+
+.ng-feature-card__link:hover {
+  gap: var(--space-4, 18px);
+}
+
+/* ========================================================
+   5. ARCHITECTURE DIAGRAM SECTION
+   ======================================================== */
+.ng-arch__grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: var(--space-10, 80px);
+  align-items: center;
+}
+
+.ng-arch__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+.ng-arch__title {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-h2, 700);
+  letter-spacing: var(--tracking-tight, -0.03em);
+  text-transform: uppercase;
+  line-height: var(--line-height-h2, 1.15);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-arch__desc {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-arch__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 18px);
+  margin-top: var(--space-3, 16px);
+}
+
+.ng-arch__list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 16px);
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-arch__marker {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  background: var(--color-accent, #00ffa2);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px var(--color-accent, #00ffa2);
+}
+
+.ng-arch__visual {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: var(--color-surface, #2e2e2e);
+  border: 1px solid var(--color-border, #424242);
+  overflow: hidden;
+}
+
+.ng-arch-diagram {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ng-arch-square {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.ng-arch-square--outer {
+  width: 300px;
+  height: 300px;
+  border: 2px solid var(--color-tertiary, #ff1aac);
+}
+
+.ng-arch-square--middle {
+  width: 200px;
+  height: 200px;
+  border: 2px solid var(--color-accent, #00ffa2);
+}
+
+.ng-arch-square--inner {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+}
+
+.ng-arch-label {
+  position: absolute;
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+}
+
+.ng-arch-label--edge {
+  top: 10px;
+  right: 10px;
+  color: var(--color-tertiary, #ff1aac);
+}
+
+.ng-arch-label--region {
+  top: 50px;
+  right: 50px;
+  color: var(--color-accent, #00ffa2);
+}
+
+.ng-arch-label--core {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-primary, #fffa00);
+}
+
+/* ========================================================
+   6. PRICING
+   ======================================================== */
+.ng-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5, 20px);
+  align-items: stretch;
+}
+
+.ng-pricing-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+  padding: var(--space-8, 40px) var(--space-6, 24px);
+  background: var(--color-card, #2e2e2e);
+  border: 1px solid var(--color-border, #424242);
+  transition: all var(--transition-smooth, 0.3s ease-in-out);
+}
+
+.ng-pricing-card--featured {
+  border-color: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+  transform: scale(1.02);
+}
+
+.ng-pricing-card__tier {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+}
+
+.ng-pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2, 12px);
+}
+
+.ng-pricing-card__amount {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h1, 48px);
+  font-weight: var(--font-weight-h1, 700);
+  line-height: var(--line-height-h1, 1.1);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-pricing-card--featured .ng-pricing-card__amount {
+  color: var(--color-primary, #fffa00);
+}
+
+.ng-pricing-card__period {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-pricing-card__desc {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-pricing-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 16px);
+  flex: 1;
+}
+
+.ng-pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 16px);
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-pricing-feature__marker {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  background: var(--color-accent, #00ffa2);
+  transform: rotate(45deg);
+}
+
+.ng-pricing-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3, 16px) var(--space-6, 24px);
+  height: var(--size-button-md, 40px);
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  transition: all var(--transition-smooth, 0.3s ease-in-out);
+  cursor: pointer;
+}
+
+.ng-pricing-card__btn--primary {
+  background: var(--color-primary, #fffa00);
+  color: var(--color-on-primary, #191919);
+  clip-path: var(--ng-clip-btn, polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%));
+  border: none;
+}
+
+.ng-pricing-card__btn--primary:hover {
+  background: var(--color-primary-hover, #fffb00);
+  box-shadow: var(--shadow-5, 0 0 10px #fff000);
+}
+
+.ng-pricing-card__btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border, #424242);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-pricing-card__btn--outline:hover {
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-primary, #fffa00);
+}
+
+/* ========================================================
+   7. TESTIMONIAL / QUOTE
+   ======================================================== */
+.ng-testimonial {
+  background: var(--color-secondary, #333333);
+  border-left: 4px solid var(--color-accent, #00ffa2);
+  padding: var(--space-10, 80px) var(--space-10, 80px);
+}
+
+.ng-testimonial__inner {
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 24px);
+}
+
+.ng-testimonial__quote-mark {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-primary, #fffa00);
+  margin-bottom: var(--space-4, 18px);
+}
+
+.ng-testimonial__text {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-h3, 32px);
+  font-weight: var(--font-weight-body, 400);
+  line-height: var(--line-height-h3, 1.2);
+  color: var(--color-foreground, #ffffff);
+  margin-bottom: var(--space-6, 24px);
+}
+
+.ng-testimonial__author {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-muted-foreground, #888888);
+}
+
+/* ========================================================
+   8. CTA + FOOTER
+   ======================================================== */
+.ng-cta {
+  position: relative;
+  text-align: center;
+  padding: var(--space-10, 80px) 0;
+  background: var(--color-background, #191919);
+  overflow: hidden;
+}
+
+.ng-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.2;
+}
+
+.ng-cta__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5, 20px);
+}
+
+.ng-cta__title {
+  font-family: var(--font-display, 'Novecentosanswide', sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-h2, 700);
+  letter-spacing: var(--tracking-tight, -0.03em);
+  text-transform: uppercase;
+  line-height: var(--line-height-h2, 1.15);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ng-cta__subtitle {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-lead, 22px);
+  line-height: var(--line-height-body, 1.6);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-cta__buttons {
+  display: flex;
+  gap: var(--space-4, 18px);
+  margin-top: var(--space-3, 16px);
+}
+
+/* --- Footer --- */
+.ng-footer {
+  background: var(--color-background, #191919);
+  border-top: 1px solid var(--color-border, #424242);
+}
+
+.ng-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-7, 32px);
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+  padding: var(--space-10, 80px) var(--space-6, 24px) var(--space-8, 40px);
+}
+
+.ng-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 16px);
+}
+
+.ng-footer__brand-name {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+}
+
+.ng-footer__brand-tagline {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 16px);
+}
+
+.ng-footer__col-title {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+  margin-bottom: var(--space-2, 12px);
+}
+
+.ng-footer__col a {
+  font-family: var(--font-body, 'Gilroy', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.ng-footer__col a:hover {
+  color: var(--color-primary, #fffa00);
+}
+
+.ng-footer__bottom {
+  border-top: 1px solid var(--color-border, #424242);
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+}
+
+.ng-footer__bottom-inner {
+  max-width: var(--ng-max-content, 1200px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4, 18px);
+}
+
+.ng-footer__copyright {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ng-footer__legal {
+  display: flex;
+  gap: var(--space-5, 20px);
+}
+
+.ng-footer__legal a {
+  font-family: var(--font-mono, 'SpaceGrotesk', monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ng-tracking-wide, 0.08em);
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.ng-footer__legal a:hover {
+  color: var(--color-primary, #fffa00);
+}
+
+/* ========================================================
+   RESPONSIVE
+   ======================================================== */
+@media (max-width: 1024px) {
+  .ng-features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ng-arch__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8, 40px);
+  }
+
+  .ng-arch__visual {
+    min-height: 350px;
+  }
+
+  .ng-pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ng-pricing-card--featured {
+    grid-column: span 2;
+    transform: none;
+  }
+
+  .ng-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ng-nav__links {
+    display: none;
+  }
+
+  .ng-nav__hamburger {
+    display: flex;
+  }
+
+  .ng-nav__login {
+    display: none;
+  }
+
+  .ng-hero__title {
+    font-size: clamp(3rem, 14vw, 6rem);
+  }
+
+  .ng-hero__subtitle {
+    font-size: var(--font-size-body, 16px);
+  }
+
+  .ng-metrics__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ng-metrics__item {
+    border-bottom: 1px solid var(--color-border, #424242);
+  }
+
+  .ng-metrics__item:nth-child(2) {
+    border-right: none;
+  }
+
+  .ng-metrics__item:nth-child(3),
+  .ng-metrics__item:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .ng-features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ng-pricing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ng-pricing-card--featured {
+    grid-column: span 1;
+  }
+
+  .ng-cta__buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ng-cta__buttons .ng-btn {
+    width: 100%;
+  }
+
+  .ng-footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6, 24px);
+  }
+
+  .ng-footer__bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ng-testimonial {
+    padding: var(--space-8, 40px) var(--space-6, 24px);
+  }
+
+  .ng-testimonial__text {
+    font-size: var(--font-size-h4, 24px);
+  }
+
+  .ng-arch-diagram {
+    transform: scale(0.75);
+  }
+}
+</style>
+</head>
+<body class="dark">
+
+<!-- ==================== 1. HAZARD STRIPE + NAVIGATION ==================== -->
+<div class="ng-hazard-bar" aria-hidden="true"></div>
+<header class="ng-nav" role="banner">
+  <div class="ng-nav__inner">
+    <a href="#home" class="ng-nav__logo">
+      <span class="ng-nav__logo-mark" aria-hidden="true"></span>
+      <span class="ng-nav__logo-text">NEXUS GRID</span>
+    </a>
+    <nav class="ng-nav__links" role="navigation" aria-label="主导航">
+      <a href="#architecture" class="ng-nav__link is-active">架构</a>
+      <a href="#features" class="ng-nav__link">产品</a>
+      <a href="#docs" class="ng-nav__link">文档</a>
+      <a href="#pricing" class="ng-nav__link">定价</a>
+      <a href="#about" class="ng-nav__link">关于</a>
+    </nav>
+    <div class="ng-nav__actions">
+      <a href="#login" class="ng-nav__login">登录</a>
+      <a href="#deploy" class="ng-nav__cta">开始部署</a>
+      <div class="ng-nav__hamburger" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 2. HERO — FULL VIEWPORT ==================== -->
+<section class="ng-hero" id="home">
+  <div class="ng-hero__grid-bg" aria-hidden="true"></div>
+  <div class="ng-hero__glow" aria-hidden="true"></div>
+  <div class="ng-hero__content">
+    <span class="ng-hero__eyebrow">AI INFRASTRUCTURE / v3.0</span>
+    <h1 class="ng-hero__title">NEXUS GRID</h1>
+    <p class="ng-hero__subtitle">下一代 AI 推理基础设施 — 从边缘到核心，毫秒级部署</p>
+    <div class="ng-hero__cta-row">
+      <a href="#deploy" class="ng-btn ng-btn--primary">立即部署</a>
+      <a href="#docs" class="ng-btn ng-btn--outline">查看文档</a>
+    </div>
+  </div>
+  <div class="ng-hero__scroll" aria-hidden="true">
+    <span class="ng-hero__scroll-text">SCROLL</span>
+    <span class="ng-hero__scroll-line">
+      <span class="ng-hero__scroll-dot"></span>
+    </span>
+  </div>
+</section>
+
+<!-- ==================== 3. METRICS BAR ==================== -->
+<section class="ng-metrics" id="metrics">
+  <div class="ng-metrics__grid">
+    <div class="ng-metrics__item">
+      <span class="ng-metrics__number">0.8ms</span>
+      <span class="ng-metrics__label">推理延迟</span>
+    </div>
+    <div class="ng-metrics__item">
+      <span class="ng-metrics__number">99.99%</span>
+      <span class="ng-metrics__label">可用性</span>
+    </div>
+    <div class="ng-metrics__item">
+      <span class="ng-metrics__number">40B</span>
+      <span class="ng-metrics__label">日请求量</span>
+    </div>
+    <div class="ng-metrics__item">
+      <span class="ng-metrics__number">2W+</span>
+      <span class="ng-metrics__label">部署节点</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. PRODUCT FEATURE CARDS ==================== -->
+<section class="ng-section" id="features">
+  <div class="ng-container">
+    <div class="ng-section-header">
+      <span class="ng-eyebrow">核心能力</span>
+      <h2 class="ng-section-title">为规模而生的推理引擎</h2>
+    </div>
+    <div class="ng-features__grid">
+      <article class="ng-feature-card">
+        <div class="ng-feature-card__icon">
+          <span class="ng-icon-circle" aria-hidden="true"></span>
+        </div>
+        <h3 class="ng-feature-card__title">分布式推理</h3>
+        <p class="ng-feature-card__desc">跨 GPU 集群自动调度，支持万亿参数模型并行推理</p>
+        <a href="#feature-1" class="ng-feature-card__link">了解更多 →</a>
+      </article>
+      <article class="ng-feature-card">
+        <div class="ng-feature-card__icon">
+          <span class="ng-icon-square" aria-hidden="true"></span>
+        </div>
+        <h3 class="ng-feature-card__title">边缘部署</h3>
+        <p class="ng-feature-card__desc">轻量运行时部署到边缘节点，延迟低于 1ms</p>
+        <a href="#feature-2" class="ng-feature-card__link">了解更多 →</a>
+      </article>
+      <article class="ng-feature-card">
+        <div class="ng-feature-card__icon">
+          <span class="ng-icon-triangle" aria-hidden="true"></span>
+        </div>
+        <h3 class="ng-feature-card__title">弹性扩缩</h3>
+        <p class="ng-feature-card__desc">请求量暴增时自动扩容，闲时回收资源零浪费</p>
+        <a href="#feature-3" class="ng-feature-card__link">了解更多 →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. ARCHITECTURE DIAGRAM SECTION ==================== -->
+<section class="ng-section" id="architecture" style="background: var(--color-surface, #2e2e2e);">
+  <div class="ng-container">
+    <div class="ng-arch__grid">
+      <!-- Left: Text -->
+      <div class="ng-arch__text">
+        <span class="ng-eyebrow">系统架构</span>
+        <h2 class="ng-arch__title">三层推理网络</h2>
+        <p class="ng-arch__desc">NEXUS GRID 采用分层推理架构，将计算任务智能分配到核心、区域和边缘三层节点，确保最优延迟与资源利用率。每一层都可独立扩缩容，满足不同规模和延迟敏感度的业务需求。</p>
+        <ul class="ng-arch__list">
+          <li class="ng-arch__list-item">
+            <span class="ng-arch__marker" aria-hidden="true"></span>
+            <span>核心层 — GPU 集群，处理大模型推理任务</span>
+          </li>
+          <li class="ng-arch__list-item">
+            <span class="ng-arch__marker" aria-hidden="true"></span>
+            <span>区域层 — 区域缓存节点，降低跨域延迟</span>
+          </li>
+          <li class="ng-arch__list-item">
+            <span class="ng-arch__marker" aria-hidden="true"></span>
+            <span>边缘层 — 就近部署，毫秒级响应</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Right: CSS-drawn Architecture Diagram -->
+      <div class="ng-arch__visual">
+        <div class="ng-arch-diagram">
+          <div class="ng-arch-square ng-arch-square--outer"></div>
+          <div class="ng-arch-square ng-arch-square--middle"></div>
+          <div class="ng-arch-square ng-arch-square--inner"></div>
+          <span class="ng-arch-label ng-arch-label--edge">EDGE</span>
+          <span class="ng-arch-label ng-arch-label--region">REGION</span>
+          <span class="ng-arch-label ng-arch-label--core">CORE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. PRICING ==================== -->
+<section class="ng-section" id="pricing">
+  <div class="ng-container">
+    <div class="ng-section-header">
+      <span class="ng-eyebrow">部署方案</span>
+      <h2 class="ng-section-title">选择你的规模</h2>
+    </div>
+    <div class="ng-pricing__grid">
+      <!-- STARTER -->
+      <article class="ng-pricing-card">
+        <span class="ng-pricing-card__tier">STARTER</span>
+        <div class="ng-pricing-card__price">
+          <span class="ng-pricing-card__amount">¥0</span>
+          <span class="ng-pricing-card__period">/ 月</span>
+        </div>
+        <p class="ng-pricing-card__desc">适合原型验证和小规模测试</p>
+        <ul class="ng-pricing-card__features">
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>100K 请求/月</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>2 GPU 节点</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>社区支持</span>
+          </li>
+        </ul>
+        <a href="#signup" class="ng-pricing-card__btn ng-pricing-card__btn--outline">开始使用</a>
+      </article>
+      <!-- PRO (Featured) -->
+      <article class="ng-pricing-card ng-pricing-card--featured">
+        <span class="ng-pricing-card__tier">PRO</span>
+        <div class="ng-pricing-card__price">
+          <span class="ng-pricing-card__amount">¥2,999</span>
+          <span class="ng-pricing-card__period">/ 月</span>
+        </div>
+        <p class="ng-pricing-card__desc">适合生产环境部署</p>
+        <ul class="ng-pricing-card__features">
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>10M 请求/月</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>20 GPU 节点</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>7×24 工单支持</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>自动扩缩容</span>
+          </li>
+        </ul>
+        <a href="#contact-pro" class="ng-pricing-card__btn ng-pricing-card__btn--primary">联系销售</a>
+      </article>
+      <!-- ENTERPRISE -->
+      <article class="ng-pricing-card">
+        <span class="ng-pricing-card__tier">ENTERPRISE</span>
+        <div class="ng-pricing-card__price">
+          <span class="ng-pricing-card__amount">定制</span>
+        </div>
+        <p class="ng-pricing-card__desc">适合大规模企业部署</p>
+        <ul class="ng-pricing-card__features">
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>无限请求</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>专属 GPU 集群</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>专属技术经理</span>
+          </li>
+          <li class="ng-pricing-feature">
+            <span class="ng-pricing-feature__marker" aria-hidden="true"></span>
+            <span>SLA 99.99%</span>
+          </li>
+        </ul>
+        <a href="#contact-enterprise" class="ng-pricing-card__btn ng-pricing-card__btn--outline">联系销售</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. TESTIMONIAL / QUOTE ==================== -->
+<section class="ng-testimonial" id="about">
+  <div class="ng-testimonial__inner">
+    <div class="ng-testimonial__quote-mark" aria-hidden="true">"</div>
+    <blockquote class="ng-testimonial__text">
+      NEXUS GRID 让我们的 AI 推理延迟降低了 80%，从 4ms 到 0.8ms。这对我们的实时推荐系统来说是革命性的。
+    </blockquote>
+    <div class="ng-testimonial__author">
+      张明远 / 首席架构师, 智衍科技
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. CTA + FOOTER ==================== -->
+<!-- CTA Section -->
+<section class="ng-cta" id="deploy">
+  <div class="ng-container">
+    <div class="ng-cta__inner">
+      <h2 class="ng-cta__title">准备好部署了吗？</h2>
+      <p class="ng-cta__subtitle">30 秒内启动你的第一个推理节点</p>
+      <div class="ng-cta__buttons">
+        <a href="#deploy-now" class="ng-btn ng-btn--primary">立即部署</a>
+        <a href="#docs-read" class="ng-btn ng-btn--outline">阅读文档</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="ng-footer" id="docs">
+  <div class="ng-footer__grid">
+    <!-- Brand column -->
+    <div class="ng-footer__brand">
+      <span class="ng-footer__brand-name">NEXUS GRID</span>
+      <span class="ng-footer__brand-tagline">AI 推理基础设施</span>
+    </div>
+    <!-- 产品 column -->
+    <div class="ng-footer__col">
+      <h4 class="ng-footer__col-title">产品</h4>
+      <a href="#architecture">架构</a>
+      <a href="#features">产品</a>
+      <a href="#pricing">定价</a>
+      <a href="#changelog">更新日志</a>
+    </div>
+    <!-- 开发者 column -->
+    <div class="ng-footer__col">
+      <h4 class="ng-footer__col-title">开发者</h4>
+      <a href="#docs">文档</a>
+      <a href="#api">API 参考</a>
+      <a href="#sdk">SDK</a>
+      <a href="#status">状态页</a>
+    </div>
+    <!-- 公司 column -->
+    <div class="ng-footer__col">
+      <h4 class="ng-footer__col-title">公司</h4>
+      <a href="#about">关于我们</a>
+      <a href="#careers">招贤纳士</a>
+      <a href="#blog">博客</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+  <div class="ng-footer__bottom">
+    <div class="ng-footer__bottom-inner">
+      <span class="ng-footer__copyright">© 2026 NEXUS GRID. All rights reserved.</span>
+      <div class="ng-footer__legal">
+        <a href="#terms">服务条款</a>
+        <a href="#privacy">隐私政策</a>
+      </div>
+    </div>
+  </div>
+  <div class="ng-hazard-bar" aria-hidden="true"></div>
+</footer>
+
+</main>
+</body>
+</html>
