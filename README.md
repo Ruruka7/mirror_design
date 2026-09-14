@@ -6,9 +6,9 @@
 
 ## English
 
-A personal collection of reverse-engineered and reconstructed design systems, built for reference, learning, and backup.
+A personal collection of reverse-engineered design systems, built for reference, learning, and backup.
 
-Each library includes both **design tokens** (colors, fonts, spacing, components) and **layout templates** (page sections, UX flows, interaction patterns). Combine any token system with any layout system to generate a new website.
+Each library includes two portable assets: **design tokens** (`colors_and_type.css`) and a **complete site template** (`site-template.html`). All visual values in templates use `var(--name, fallback)` syntax — swap one CSS link to instantly restyle an entire site.
 
 ### Design Systems
 
@@ -22,26 +22,25 @@ Each library includes both **design tokens** (colors, fonts, spacing, components
 
 **Design Tokens** — extracted from real CSS
 
-* Token system (`colors_and_type.css` + `css.json`)
-* Component contracts (`components/*.json`)
-* Component previews (`preview/*.html`)
-* Marketing UI Kit (`ui_kits/marketing/index.html`)
+* `colors_and_type.css` — all visual values (colors, fonts, spacing, shadows, radius)
+* `css.json` — token JSON (derived from CSS)
+* `components/` — component contracts (JSON)
+* `preview/` — component HTML previews
+* `ui_kits/marketing/` — marketing UI kit
 
-**Layout Templates** — extracted from rendered DOM
+**Site Template** — complete page, 1:1 from source
 
-* Page section map (`layouts/page-sections.json`)
-* Layout system config (`layouts/layout-system.json`)
-* Reusable HTML section templates (`layouts/section-*.html`) — all use CSS variables, no hardcoded styling
-* Combined preview (`layouts/preview.html`)
-* UX user journey (`ux/user-journey.json`)
-* Interaction patterns (`ux/interaction-patterns.json`)
+* `site-template.html` — full standalone website page, all sections in one file, zero hardcoded colors
 
-### Skills / Workflows
+**Combinations** — cross-brand layout + token swaps
 
-| Skill | Extracts | Output |
-|-------|----------|--------|
-| `reverse-design-system` | Colors, fonts, spacing, shadows, components | Token system + component contracts |
-| `reverse-page-layout` | Page sections, layout grids, UX flows, interactions | HTML layout templates + UX JSON |
+* `combinations/` — ready-to-open HTML files mixing different layouts with different token sets
+
+### Skill / Workflow
+
+| Skill | What it does | Output |
+|-------|-------------|--------|
+| `reverse-to-site` | Full pipeline: browser extract → tokens → layout → site template → combination | `colors_and_type.css` + `site-template.html` |
 
 ### Structure
 
@@ -49,33 +48,37 @@ Each library includes both **design tokens** (colors, fonts, spacing, components
 mirror_design/
   .design_library/
     OpenAI/
-      colors_and_type.css          # Tokens
+      colors_and_type.css          # Design tokens
+      site-template.html           # Complete site template (all CSS vars)
       components/                   # Component contracts
       preview/                      # Component previews
       ui_kits/marketing/            # Marketing UI Kit
-      layouts/                      # Page layout templates (CSS vars only)
-        section-nav.html
-        section-hero-centered.html
-        section-feature-grid.html
-        ...
-        preview.html                # Combined preview
-      ux/                           # UX flows
-        user-journey.json
-        interaction-patterns.json
     Voith/                          # same structure
     Endfield/                       # same structure
+    combinations/                   # Cross-brand demos
+      openai-layout_endfield-tokens/
+      endfield-layout_openai-tokens/
+      voith-layout_endfield-tokens/
   skills/
-    reverse-design-system/          # Token extraction workflow
-    reverse-page-layout/            # Layout extraction workflow
+    reverse-to-site/
+      SKILL.md                      # Entry point
+      workflows/
+        full-pipeline.md            # Complete A-to-Z workflow
+      specs/
+        token-contract.md           # Portable variable contract
+        template-contract.md        # Site template rules
+        combination-guide.md        # How to create combinations
+      reference/
+        variable-reference.md       # Complete variable lookup table
 ```
 
 ***
 
 ## 中文
 
-个人收藏的逆向工程与重建设计系统集合，用于参考、学习和备份。
+个人收藏的逆向设计系统集合，用于参考、学习和备份。
 
-每个系统同时包含**设计令牌**（颜色、字体、间距、组件）和**布局模板**（页面分区、UX 流程、交互模式）。任意令牌系统 + 任意布局系统 = 一个新网站。
+每个系统包含两类可移植资产：**设计令牌**（`colors_and_type.css`）和**完整站点模板**（`site-template.html`）。模板中所有视觉值使用 `var(--name, fallback)` 语法 — 换一行 CSS 链接即可瞬间改变整站风格。
 
 ### 设计系统
 
@@ -89,26 +92,25 @@ mirror_design/
 
 **设计令牌** — 从真实 CSS 提取
 
-* 令牌系统（`colors_and_type.css` + `css.json`）
-* 组件契约（`components/*.json`）
-* 组件预览（`preview/*.html`）
-* Marketing UI Kit（`ui_kits/marketing/index.html`）
+* `colors_and_type.css` — 所有视觉值（颜色、字体、间距、阴影、圆角）
+* `css.json` — 令牌 JSON（从 CSS 派生）
+* `components/` — 组件契约（JSON）
+* `preview/` — 组件 HTML 预览
+* `ui_kits/marketing/` — Marketing UI Kit
 
-**布局模板** — 从渲染后 DOM 提取
+**站点模板** — 完整页面，1:1 还原源站
 
-* 页面分区结构（`layouts/page-sections.json`）
-* 布局系统配置（`layouts/layout-system.json`）
-* 可复用 HTML 区块模板（`layouts/section-*.html`）— 全部使用 CSS 变量，无硬编码样式
-* 合并预览（`layouts/preview.html`）
-* UX 用户旅程（`ux/user-journey.json`）
-* 交互模式（`ux/interaction-patterns.json`）
+* `site-template.html` — 完整独立网站页面，所有区块在一个文件内，零硬编码颜色
+
+**组合演示** — 跨品牌布局 + 令牌互换
+
+* `combinations/` — 可直接打开的 HTML 文件，混合不同布局与不同令牌
 
 ### 技能 / 工作流
 
-| 技能 | 提取内容 | 产出 |
-|------|---------|------|
-| `reverse-design-system` | 颜色、字体、间距、阴影、组件 | 令牌系统 + 组件契约 |
-| `reverse-page-layout` | 页面分区、布局网格、UX 流程、交互 | HTML 布局模板 + UX JSON |
+| 技能 | 功能 | 产出 |
+|------|------|------|
+| `reverse-to-site` | 完整管线：浏览器提取 → 令牌 → 布局 → 站点模板 → 组合 | `colors_and_type.css` + `site-template.html` |
 
 ### 目录结构
 
@@ -116,24 +118,28 @@ mirror_design/
 mirror_design/
   .design_library/
     OpenAI/
-      colors_and_type.css          # 令牌
+      colors_and_type.css          # 设计令牌
+      site-template.html           # 完整站点模板（全部 CSS 变量）
       components/                   # 组件契约
       preview/                      # 组件预览
       ui_kits/marketing/            # Marketing UI Kit
-      layouts/                      # 页面布局模板（仅 CSS 变量）
-        section-nav.html
-        section-hero-centered.html
-        section-feature-grid.html
-        ...
-        preview.html                # 合并预览
-      ux/                           # UX 流程
-        user-journey.json
-        interaction-patterns.json
     Voith/                          # 同构
     Endfield/                       # 同构
+    combinations/                   # 跨品牌组合演示
+      openai-layout_endfield-tokens/
+      endfield-layout_openai-tokens/
+      voith-layout_endfield-tokens/
   skills/
-    reverse-design-system/          # 令牌提取工作流
-    reverse-page-layout/            # 布局提取工作流
+    reverse-to-site/
+      SKILL.md                      # 入口
+      workflows/
+        full-pipeline.md            # 完整 A-to-Z 工作流
+      specs/
+        token-contract.md           # 可移植变量契约
+        template-contract.md        # 站点模板规则
+        combination-guide.md        # 组合创建指南
+      reference/
+        variable-reference.md       # 完整变量查找表
 ```
 
 ***
