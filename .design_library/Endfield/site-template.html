@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENDFIELD — 终末地 | 工业废土纪事</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+/* ==========================================================================
+   ENDFIELD — Site Template
+   Industrial post-apocalyptic game website.
+   ALL colors, fonts, spacing, shadows, radii use CSS variables with fallbacks.
+   Works with ANY brand's colors_and_type.css.
+   ========================================================================== */
+
+/* --- Structural custom properties (non-color/font/spacing/shadow/radius) --- */
+:root {
+  --ef-transition: 0.3s ease;
+  --ef-transition-fast: 0.2s ease;
+  --ef-z-nav: 1000;
+  --ef-clip-btn: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  --ef-clip-card: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  --ef-clip-card-tl: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);
+  --ef-clip-hero: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 80px));
+  --ef-tracking-tight: -0.03em;
+  --ef-tracking-wide: 0.12em;
+  --ef-tracking-ultra: 0.3em;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-body, 400);
+  line-height: 1.6;
+  background: var(--color-background, #191919);
+  color: var(--color-foreground, #ffffff);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* --- Utility: container --- */
+.ef-container {
+  max-width: var(--max-content, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 24px);
+}
+
+/* --- Utility: section base --- */
+.ef-section {
+  padding: var(--space-10, 80px) 0;
+  position: relative;
+}
+
+.ef-section__header {
+  margin-bottom: var(--space-8, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 12px);
+}
+
+/* --- Utility: eyebrow label --- */
+.ef-eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+}
+
+.ef-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-primary, #fffa00);
+}
+
+/* --- Utility: section title --- */
+.ef-section__title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-h2, 700);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* --- Utility: hazard stripe bar --- */
+.ef-hazard-bar {
+  height: 6px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-primary, #fffa00) 0,
+    var(--color-primary, #fffa00) 10px,
+    var(--color-background, #191919) 10px,
+    var(--color-background, #191919) 20px
+  );
+}
+
+/* --- Utility: grid background pattern --- */
+.ef-grid-bg {
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* --- Utility: buttons --- */
+.ef-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 12px);
+  padding: var(--space-3, 16px) var(--space-7, 32px);
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: 600;
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  border: 1px solid var(--color-border, #424242);
+  cursor: pointer;
+  transition: all var(--ef-transition, 0.3s ease);
+  position: relative;
+}
+
+.ef-btn--primary {
+  background: var(--color-primary, #fffa00);
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-on-primary, #191919);
+}
+
+.ef-btn--primary:hover {
+  background: var(--color-primary-hover, #fffb00);
+  border-color: var(--color-primary-hover, #fffb00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+.ef-btn--secondary {
+  background: transparent;
+  border-color: var(--color-border, #424242);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-btn--secondary:hover {
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+.ef-btn--clip {
+  clip-path: var(--ef-clip-btn, polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%));
+}
+
+.ef-btn--lg {
+  padding: var(--space-5, 20px) var(--space-8, 40px);
+  font-size: var(--font-size-h4, 24px);
+}
+
+/* ========================================================
+   1. NAVIGATION
+   ======================================================== */
+.ef-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--ef-z-nav, 1000);
+  height: var(--size-nav, 64px);
+  display: flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--color-background, #191919) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border, #424242);
+}
+
+.ef-nav__inner {
+  width: 100%;
+  max-width: var(--max-content, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--space-6, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6, 24px);
+}
+
+.ef-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+  flex-shrink: 0;
+}
+
+.ef-nav__logo-mark {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary, #fffa00);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  flex-shrink: 0;
+}
+
+.ef-nav__logo-text {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-display, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7, 32px);
+}
+
+.ef-nav__link {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: 500;
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--ef-transition, 0.3s ease);
+  white-space: nowrap;
+  position: relative;
+  padding: var(--space-1, 10px) 0;
+}
+
+.ef-nav__link:hover,
+.ef-nav__link.is-active {
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary, #fffa00);
+}
+
+.ef-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 18px);
+  flex-shrink: 0;
+}
+
+.ef-nav__lang {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-mono, 14px);
+  font-weight: var(--font-weight-mono, 400);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-muted-foreground, #888888);
+  padding: var(--space-1, 10px) var(--space-2, 12px);
+  border: 1px solid var(--color-border, #424242);
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-nav__lang:hover {
+  border-color: var(--color-primary, #fffa00);
+  color: var(--color-primary, #fffa00);
+}
+
+.ef-nav__download {
+  padding: var(--space-2, 12px) var(--space-6, 24px);
+  font-size: var(--font-size-body, 16px);
+  font-weight: 600;
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  background: var(--color-primary, #fffa00);
+  color: var(--color-on-primary, #191919);
+  clip-path: var(--ef-clip-btn, polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%));
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-nav__download:hover {
+  background: var(--color-primary-hover, #fffb00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+.ef-nav__toggle { display: none; }
+.ef-nav__hamburger { display: none; }
+
+/* ========================================================
+   2. HERO — FULLSCREEN
+   ======================================================== */
+.ef-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 var(--space-6, 24px);
+  overflow: hidden;
+  background: var(--color-background, #191919);
+  clip-path: var(--ef-clip-hero, polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 80px)));
+}
+
+.ef-hero__grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.15;
+}
+
+.ef-hero__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  max-width: 90vw;
+  max-height: 90vw;
+  border-radius: var(--radius-full, 9999px);
+  background: radial-gradient(ellipse at center, var(--color-primary, #fffa00) 0%, transparent 70%);
+  opacity: 0.08;
+  z-index: 1;
+  animation: ef-glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ef-glow-pulse {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.14; }
+}
+
+.ef-hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5, 20px);
+}
+
+.ef-hero__eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-ultra, 0.3em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+}
+
+.ef-hero__title {
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(3rem, 12vw, var(--font-size-mega, 130px));
+  font-weight: var(--font-weight-mega, 700);
+  line-height: 0.9;
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+  text-shadow: 0 0 60px color-mix(in srgb, var(--color-primary, #fffa00) 30%, transparent);
+}
+
+.ef-hero__subtitle {
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(1rem, 3vw, var(--font-size-h3, 32px));
+  font-weight: var(--font-weight-h3, 600);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ef-hero__desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-body, 400);
+  line-height: 1.8;
+  color: var(--color-muted-foreground, #888888);
+  max-width: 540px;
+}
+
+.ef-hero__scroll {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2, 12px);
+}
+
+.ef-hero__scroll-text {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ef-tracking-ultra, 0.3em);
+  color: var(--color-muted-foreground, #888888);
+  text-transform: uppercase;
+}
+
+.ef-hero__scroll-line {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--color-primary, #fffa00), transparent);
+  animation: ef-scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes ef-scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ========================================================
+   3. OPERATOR DISPLAY
+   ======================================================== */
+.ef-operator__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-7, 32px);
+  align-items: stretch;
+}
+
+.ef-operator__visual {
+  position: relative;
+  min-height: 520px;
+  border: 1px solid var(--color-border, #424242);
+  overflow: hidden;
+  clip-path: var(--ef-clip-card, polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%));
+}
+
+.ef-operator__visual-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-surface, #2e2e2e) 0%, var(--color-muted, #333333) 100%);
+}
+
+.ef-operator__visual-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.2;
+}
+
+.ef-operator__visual-silhouette {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 320px;
+  background: linear-gradient(180deg, var(--color-muted-foreground, #888888) 0%, transparent 100%);
+  opacity: 0.15;
+  clip-path: polygon(40% 0%, 60% 0%, 70% 15%, 70% 35%, 90% 70%, 80% 100%, 20% 100%, 10% 70%, 30% 35%, 30% 15%);
+}
+
+.ef-operator__visual-tag {
+  position: absolute;
+  top: var(--space-6, 24px);
+  left: var(--space-6, 24px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 10px);
+}
+
+.ef-operator__visual-tag-id {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-accent, #00ffa2);
+  text-transform: uppercase;
+}
+
+.ef-operator__visual-tag-name {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-h4, 600);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-foreground, #ffffff);
+  text-transform: uppercase;
+}
+
+.ef-operator__visual-corner {
+  position: absolute;
+  bottom: var(--space-6, 24px);
+  right: var(--space-6, 24px);
+  z-index: 2;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  color: var(--color-muted-foreground, #888888);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+}
+
+.ef-operator__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6, 24px);
+  padding: var(--space-8, 40px);
+  background: var(--color-surface, #2e2e2e);
+  border: 1px solid var(--color-border, #424242);
+}
+
+.ef-operator__info-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 12px);
+}
+
+.ef-operator__name {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-h2, 700);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-operator__role {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-mono, 14px);
+  color: var(--color-muted-foreground, #888888);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+}
+
+.ef-operator__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3, 16px);
+}
+
+.ef-operator__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 10px);
+  padding: var(--space-3, 16px);
+  background: var(--color-muted, #333333);
+  border: 1px solid var(--color-border, #424242);
+}
+
+.ef-operator__stat-label {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-muted-foreground, #888888);
+  text-transform: uppercase;
+}
+
+.ef-operator__stat-value {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--font-size-h2, 40px);
+  font-weight: var(--font-weight-display, 700);
+  line-height: 1;
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-operator__stat-value--rank-s { color: var(--color-accent, #00ffa2); }
+.ef-operator__stat-value--rank-a { color: var(--color-primary, #fffa00); }
+.ef-operator__stat-value--rank-b { color: var(--color-muted-foreground, #888888); }
+
+.ef-operator__skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 18px);
+}
+
+.ef-operator__skill {
+  padding-left: var(--space-4, 18px);
+  border-left: 2px solid var(--color-border, #424242);
+  transition: border-color var(--ef-transition, 0.3s ease);
+}
+
+.ef-operator__skill:hover {
+  border-color: var(--color-primary, #fffa00);
+}
+
+.ef-operator__skill-name {
+  display: block;
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-h4, 600);
+  color: var(--color-foreground, #ffffff);
+  margin-bottom: var(--space-1, 10px);
+}
+
+.ef-operator__skill-desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: 1.6;
+  color: var(--color-muted-foreground, #888888);
+}
+
+/* ========================================================
+   4. WORLDVIEW ACCORDION
+   ======================================================== */
+.ef-worldview {
+  background: var(--color-surface, #2e2e2e);
+}
+
+.ef-accordion {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-border, #424242);
+}
+
+.ef-accordion__item {
+  border-bottom: 1px solid var(--color-border, #424242);
+  overflow: hidden;
+}
+
+.ef-accordion__item:first-child {
+  border-top: 1px solid var(--color-border, #424242);
+}
+
+.ef-accordion__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6, 24px);
+  padding: var(--space-6, 24px) var(--space-4, 18px);
+  cursor: pointer;
+  list-style: none;
+  transition: background var(--ef-transition, 0.3s ease);
+}
+
+.ef-accordion__summary::-webkit-details-marker { display: none; }
+
+.ef-accordion__summary:hover {
+  background: var(--color-muted, #333333);
+}
+
+.ef-accordion__index {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-mono, 14px);
+  font-weight: var(--font-weight-mono, 400);
+  color: var(--color-primary, #fffa00);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  flex-shrink: 0;
+  min-width: 32px;
+}
+
+.ef-accordion__title {
+  flex: 1;
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h3, 32px);
+  font-weight: var(--font-weight-h3, 600);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-accordion__icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  position: relative;
+  border: 1px solid var(--color-border, #424242);
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-accordion__icon::before,
+.ef-accordion__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-foreground, #ffffff);
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-accordion__icon::before {
+  width: 12px;
+  height: 2px;
+}
+
+.ef-accordion__icon::after {
+  width: 2px;
+  height: 12px;
+}
+
+.ef-accordion__item[open] .ef-accordion__icon {
+  border-color: var(--color-primary, #fffa00);
+  background: var(--color-primary, #fffa00);
+}
+
+.ef-accordion__item[open] .ef-accordion__icon::before,
+.ef-accordion__item[open] .ef-accordion__icon::after {
+  background: var(--color-on-primary, #191919);
+}
+
+.ef-accordion__item[open] .ef-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+.ef-accordion__content {
+  padding: 0 var(--space-4, 18px) var(--space-6, 24px) calc(var(--space-4, 18px) + 32px + var(--space-6, 24px));
+}
+
+.ef-accordion__content p {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: 1.8;
+  color: var(--color-muted-foreground, #888888);
+  max-width: 720px;
+}
+
+/* ========================================================
+   5. MEDIA GALLERY
+   ======================================================== */
+.ef-media__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5, 20px);
+}
+
+.ef-media__card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border, #424242);
+  clip-path: var(--ef-clip-card, polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%));
+  cursor: pointer;
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-media__card:hover {
+  border-color: var(--color-primary, #fffa00);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+.ef-media__card-visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.ef-media__card-visual--1 { background: linear-gradient(135deg, var(--color-surface, #2e2e2e), var(--color-muted, #333333)); }
+.ef-media__card-visual--2 { background: linear-gradient(225deg, var(--color-surface, #2e2e2e), var(--color-muted, #333333)); }
+.ef-media__card-visual--3 { background: linear-gradient(180deg, var(--color-muted, #333333), var(--color-surface, #2e2e2e)); }
+.ef-media__card-visual--4 { background: linear-gradient(90deg, var(--color-surface, #2e2e2e), var(--color-muted, #333333)); }
+.ef-media__card-visual--5 { background: linear-gradient(315deg, var(--color-muted, #333333), var(--color-surface, #2e2e2e)); }
+.ef-media__card-visual--6 { background: linear-gradient(45deg, var(--color-surface, #2e2e2e), var(--color-muted, #333333)); }
+
+.ef-media__card-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.25;
+  transition: opacity var(--ef-transition, 0.3s ease);
+}
+
+.ef-media__card:hover .ef-media__card-visual::after {
+  opacity: 0.5;
+}
+
+.ef-media__card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-6, 24px) var(--space-5, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 10px);
+  background: linear-gradient(0deg, var(--color-background, #191919) 0%, transparent 100%);
+}
+
+.ef-media__card-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+}
+
+.ef-media__card-title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-h4, 600);
+  color: var(--color-foreground, #ffffff);
+}
+
+/* ========================================================
+   6. TIMELINE
+   ======================================================== */
+.ef-timeline {
+  background: var(--color-surface, #2e2e2e);
+}
+
+.ef-timeline__track {
+  position: relative;
+  padding-left: var(--space-8, 40px);
+  max-width: 800px;
+}
+
+.ef-timeline__line {
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--color-border, #424242);
+}
+
+.ef-timeline__item {
+  position: relative;
+  padding-bottom: var(--space-8, 40px);
+}
+
+.ef-timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+.ef-timeline__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-8, 40px) + 1px);
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-background, #191919);
+  border: 2px solid var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+  z-index: 1;
+}
+
+.ef-timeline__item--future .ef-timeline__dot {
+  border-color: var(--color-border, #424242);
+  box-shadow: none;
+}
+
+.ef-timeline__card {
+  padding: var(--space-6, 24px);
+  background: var(--color-muted, #333333);
+  border: 1px solid var(--color-border, #424242);
+  clip-path: var(--ef-clip-card-tl, polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px));
+  transition: border-color var(--ef-transition, 0.3s ease);
+}
+
+.ef-timeline__card:hover {
+  border-color: var(--color-primary, #fffa00);
+}
+
+.ef-timeline__date {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-mono, 14px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-primary, #fffa00);
+  display: block;
+  margin-bottom: var(--space-2, 12px);
+}
+
+.ef-timeline__item--future .ef-timeline__date {
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ef-timeline__title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h4, 24px);
+  font-weight: var(--font-weight-h4, 600);
+  color: var(--color-foreground, #ffffff);
+  margin-bottom: var(--space-2, 12px);
+}
+
+.ef-timeline__desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: 1.6;
+  color: var(--color-muted-foreground, #888888);
+}
+
+/* ========================================================
+   7. FEATURE SPLIT
+   ======================================================== */
+.ef-feature-split__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10, 80px);
+  align-items: center;
+}
+
+.ef-feature-split__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+.ef-feature-split__title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h1, 48px);
+  font-weight: var(--font-weight-h1, 700);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-feature-split__desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-lead, 22px);
+  line-height: 1.6;
+  color: var(--color-muted-foreground, #888888);
+}
+
+.ef-feature-split__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 18px);
+  margin-top: var(--space-3, 16px);
+}
+
+.ef-feature-split__list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 16px);
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: 1.6;
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-feature-split__list-marker {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  background: var(--color-primary, #fffa00);
+  transform: rotate(45deg);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+.ef-feature-split__visual {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px),
+    var(--color-surface, #2e2e2e);
+  background-size: 40px 40px, 40px 40px, cover;
+  border: 1px solid var(--color-border, #424242);
+  clip-path: var(--ef-clip-card, polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%));
+  overflow: hidden;
+}
+
+.ef-geo-pattern {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ef-geo-square {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--color-primary, #fffa00);
+}
+
+.ef-geo-square--1 { width: 100%; height: 100%; transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+.ef-geo-square--2 { width: 75%; height: 75%; transform: translate(-50%, -50%) rotate(15deg); opacity: 0.7; }
+.ef-geo-square--3 { width: 50%; height: 50%; transform: translate(-50%, -50%) rotate(30deg); opacity: 0.5; border-color: var(--color-accent, #00ffa2); }
+.ef-geo-square--4 { width: 30%; height: 30%; transform: translate(-50%, -50%) rotate(45deg); opacity: 0.3; }
+
+.ef-geo-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+}
+
+/* ========================================================
+   8. INFO CARD GRID
+   ======================================================== */
+.ef-info {
+  background: var(--color-surface, #2e2e2e);
+}
+
+.ef-info__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5, 20px);
+}
+
+.ef-info__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 18px);
+  padding: var(--space-8, 40px) var(--space-6, 24px);
+  background: var(--color-card, #2e2e2e);
+  border: 1px solid var(--color-border, #424242);
+  clip-path: var(--ef-clip-card, polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%));
+  transition: all var(--ef-transition, 0.3s ease);
+}
+
+.ef-info__card:hover {
+  border-color: var(--color-primary, #fffa00);
+  box-shadow: var(--shadow-5, 0 0 10px var(--color-primary, #fffa00));
+  transform: translateY(-4px);
+}
+
+.ef-info__card-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-muted, #333333);
+  border: 1px solid var(--color-border, #424242);
+}
+
+.ef-info__card-icon-shape {
+  width: 24px;
+  height: 24px;
+}
+
+.ef-info__card-icon-shape--triangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid var(--color-primary, #fffa00);
+  background: none;
+}
+
+.ef-info__card-icon-shape--circle {
+  border-radius: var(--radius-full, 9999px);
+  border: 2px solid var(--color-primary, #fffa00);
+  background: none;
+}
+
+.ef-info__card-icon-shape--diamond {
+  background: var(--color-primary, #fffa00);
+  transform: rotate(45deg);
+}
+
+.ef-info__card-title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: var(--font-size-h3, 32px);
+  font-weight: var(--font-weight-h3, 600);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-info__card-desc {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  line-height: 1.6;
+  color: var(--color-muted-foreground, #888888);
+  flex: 1;
+}
+
+.ef-info__card-link {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-mono, 14px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 12px);
+  transition: gap var(--ef-transition, 0.3s ease);
+}
+
+.ef-info__card-link:hover {
+  gap: var(--space-4, 18px);
+}
+
+.ef-info__card-link-arrow {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: var(--color-primary, #fffa00);
+  position: relative;
+}
+
+.ef-info__card-link-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--color-primary, #fffa00);
+  border-right: 1px solid var(--color-primary, #fffa00);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ========================================================
+   9. FOOTER WITH CTA
+   ======================================================== */
+.ef-footer__cta {
+  position: relative;
+  text-align: center;
+  padding: var(--space-10, 80px) 0;
+  background: var(--color-background, #191919);
+  overflow: hidden;
+}
+
+.ef-footer__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-border, #424242) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border, #424242) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.1;
+}
+
+.ef-footer__cta-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-7, 32px);
+}
+
+.ef-footer__cta-title {
+  font-family: var(--font-display, sans-serif);
+  font-size: clamp(2.5rem, 8vw, var(--font-size-display, 64px));
+  font-weight: var(--font-weight-display, 700);
+  letter-spacing: var(--ef-tracking-tight, -0.03em);
+  text-transform: uppercase;
+  color: var(--color-foreground, #ffffff);
+  text-shadow: 0 0 40px color-mix(in srgb, var(--color-primary, #fffa00) 25%, transparent);
+}
+
+.ef-footer__cta-buttons {
+  display: flex;
+  gap: var(--space-4, 18px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ef-footer__links {
+  background: var(--color-surface, #2e2e2e);
+  border-top: 1px solid var(--color-border, #424242);
+  padding: var(--space-10, 80px) 0 var(--space-8, 40px);
+}
+
+.ef-footer__links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-7, 32px);
+}
+
+.ef-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 16px);
+}
+
+.ef-footer__col-title {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-eyebrow, 12px);
+  font-weight: var(--font-weight-eyebrow, 700);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-primary, #fffa00);
+  margin-bottom: var(--space-2, 12px);
+}
+
+.ef-footer__col a {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--font-size-body, 16px);
+  color: var(--color-muted-foreground, #888888);
+  transition: color var(--ef-transition, 0.3s ease);
+}
+
+.ef-footer__col a:hover {
+  color: var(--color-foreground, #ffffff);
+}
+
+.ef-footer__bottom {
+  background: var(--color-surface, #2e2e2e);
+  border-top: 1px solid var(--color-border, #424242);
+  padding: var(--space-5, 20px) 0;
+}
+
+.ef-footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ef-footer__copyright {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-caption, 12px);
+  letter-spacing: var(--ef-tracking-wide, 0.12em);
+  color: var(--color-muted-foreground, #888888);
+}
+
+/* ========================================================
+   RESPONSIVE
+   ======================================================== */
+@media (max-width: 900px) {
+  .ef-operator__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ef-feature-split__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7, 32px);
+  }
+
+  .ef-info__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ef-footer__links-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6, 24px);
+  }
+}
+
+@media (max-width: 768px) {
+  .ef-nav__links {
+    display: none;
+  }
+
+  .ef-nav__inner {
+    padding: 0 var(--space-4, 18px);
+  }
+
+  .ef-nav__lang {
+    display: none;
+  }
+
+  .ef-hero__scroll {
+    bottom: 120px;
+  }
+
+  .ef-media__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ef-footer__links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ef-footer__cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ef-footer__cta-buttons .ef-btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== 1. NAVIGATION ==================== -->
+<div class="ef-hazard-bar" aria-hidden="true"></div>
+<header class="ef-nav" role="banner">
+  <div class="ef-nav__inner">
+    <a href="#home" class="ef-nav__logo">
+      <span class="ef-nav__logo-mark" aria-hidden="true"></span>
+      <span class="ef-nav__logo-text">ENDFIELD</span>
+    </a>
+    <nav class="ef-nav__links" role="navigation" aria-label="主导航">
+      <a href="#home" class="ef-nav__link is-active">首页</a>
+      <a href="#operators" class="ef-nav__link">干员</a>
+      <a href="#intel" class="ef-nav__link">情报</a>
+      <a href="#media" class="ef-nav__link">媒体</a>
+      <a href="#archive" class="ef-nav__link">档案</a>
+    </nav>
+    <div class="ef-nav__actions">
+      <button class="ef-nav__lang" type="button" aria-label="切换语言">CN / EN</button>
+      <a href="#download" class="ef-nav__download">下载</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 2. HERO — FULLSCREEN ==================== -->
+<section class="ef-hero" id="home">
+  <div class="ef-hero__grid-bg" aria-hidden="true"></div>
+  <div class="ef-hero__glow" aria-hidden="true"></div>
+  <div class="ef-hero__content">
+    <span class="ef-hero__eyebrow">ENDFIELD PROTOCOL // SECTOR-07</span>
+    <h1 class="ef-hero__title">ENDFIELD</h1>
+    <p class="ef-hero__subtitle">终末地 — 工业废土纪事</p>
+    <p class="ef-hero__desc">在被遗弃的泰拉工业区深处，探索未知的终末之地，于废墟之上重建文明的火种。每一次部署，都是对末世的抗争。</p>
+  </div>
+  <div class="ef-hero__scroll" aria-hidden="true">
+    <span class="ef-hero__scroll-text">SCROLL</span>
+    <span class="ef-hero__scroll-line"></span>
+  </div>
+</section>
+
+<!-- ==================== 3. OPERATOR DISPLAY ==================== -->
+<section class="ef-section ef-operator" id="operators">
+  <div class="ef-container">
+    <div class="ef-section__header">
+      <span class="ef-eyebrow">OPERATOR</span>
+      <h2 class="ef-section__title">干员</h2>
+    </div>
+    <div class="ef-operator__grid">
+      <!-- Character Visual -->
+      <div class="ef-operator__visual">
+        <div class="ef-operator__visual-placeholder"></div>
+        <div class="ef-operator__visual-silhouette" aria-hidden="true"></div>
+        <div class="ef-operator__visual-tag">
+          <span class="ef-operator__visual-tag-id">OP-06 / PERICA</span>
+          <span class="ef-operator__visual-tag-name">佩丽卡</span>
+        </div>
+        <span class="ef-operator__visual-corner">SILHOUETTE_PREVIEW</span>
+      </div>
+      <!-- Info Panel -->
+      <div class="ef-operator__info">
+        <div class="ef-operator__info-header">
+          <span class="ef-eyebrow">DRYCODE</span>
+          <h3 class="ef-operator__name">佩丽卡</h3>
+          <p class="ef-operator__role">战术工程师 · 远程部署</p>
+        </div>
+        <div class="ef-operator__stats">
+          <div class="ef-operator__stat">
+            <span class="ef-operator__stat-label">战斗力</span>
+            <span class="ef-operator__stat-value ef-operator__stat-value--rank-s">S</span>
+          </div>
+          <div class="ef-operator__stat">
+            <span class="ef-operator__stat-label">机动性</span>
+            <span class="ef-operator__stat-value ef-operator__stat-value--rank-a">A</span>
+          </div>
+          <div class="ef-operator__stat">
+            <span class="ef-operator__stat-label">生存力</span>
+            <span class="ef-operator__stat-value ef-operator__stat-value--rank-b">B</span>
+          </div>
+          <div class="ef-operator__stat">
+            <span class="ef-operator__stat-label">技术</span>
+            <span class="ef-operator__stat-value ef-operator__stat-value--rank-s">S</span>
+          </div>
+        </div>
+        <div class="ef-operator__skills">
+          <div class="ef-operator__skill">
+            <span class="ef-operator__skill-name">远程部署装置</span>
+            <p class="ef-operator__skill-desc">在战场上任意位置部署自动炮塔，持续对范围内敌人造成高额伤害，可同时维护多台装置。</p>
+          </div>
+          <div class="ef-operator__skill">
+            <span class="ef-operator__skill-name">电磁屏障</span>
+            <p class="ef-operator__skill-desc">生成电磁护盾，吸收即将到来的伤害并为范围内友军提供短暂无敌效果。</p>
+          </div>
+          <div class="ef-operator__skill">
+            <span class="ef-operator__skill-name">源能过载</span>
+            <p class="ef-operator__skill-desc">过载所有已部署装置，大幅提升攻击速度和伤害输出，持续时间内改变战场局势。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. WORLDVIEW ACCORDION ==================== -->
+<section class="ef-section ef-worldview" id="archive">
+  <div class="ef-container">
+    <div class="ef-section__header">
+      <span class="ef-eyebrow">WORLDVIEW</span>
+      <h2 class="ef-section__title">世界观</h2>
+    </div>
+    <div class="ef-accordion">
+      <details class="ef-accordion__item" open>
+        <summary class="ef-accordion__summary">
+          <span class="ef-accordion__index">01</span>
+          <span class="ef-accordion__title">泰拉大陆 — 被遗弃的工业区</span>
+          <span class="ef-accordion__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="ef-accordion__content">
+          <p>泰拉大陆曾是源能工业的核心地带，高耸的烟囱与交错的管道构成了大地的骨架。源石灾难后，整片工业区沦为废墟，巨型机械残骸在锈蚀中沉默。幸存者在钢铁丛林中穿行，搜寻可用的物资与零件，试图在遗忘的文明根基之上重建家园。空气中弥漫着源石粉尘的微光，每一口呼吸都是与末世的博弈。</p>
+        </div>
+      </details>
+      <details class="ef-accordion__item">
+        <summary class="ef-accordion__summary">
+          <span class="ef-accordion__index">02</span>
+          <span class="ef-accordion__title">源石技艺 — 科技与源能的融合</span>
+          <span class="ef-accordion__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="ef-accordion__content">
+          <p>源石是泰拉大陆最核心的能量来源，也是一切灾变的根源。通过对源石能量的驾驭与转化，人类发展出了独特的源石技艺体系——将科技与源能深度融合的战斗与生产方式。从自动化的工厂流水线到战场上的战术装置部署，源石技艺重塑了文明存续的形态。然而，过度使用源石也会引发侵蚀与变异，这是每一次技术突破背后的隐忧。</p>
+        </div>
+      </details>
+      <details class="ef-accordion__item">
+        <summary class="ef-accordion__summary">
+          <span class="ef-accordion__index">03</span>
+          <span class="ef-accordion__title">幸存者 — 在废墟中重建文明</span>
+          <span class="ef-accordion__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="ef-accordion__content">
+          <p>灾难过后，分散在大陆各处的幸存者逐渐汇聚成不同阵营。有人选择固守旧城废墟，在熟悉的街巷中维系日常；有人踏上远征，深入未知区域寻找资源与其他幸存者。干员们是其中的精英——她们接受源石技艺改造，配备特制装备，在最危险的前线执行探索、战斗与营救任务。每一个干员的背后，都是一段从废墟中站起的故事。</p>
+        </div>
+      </details>
+      <details class="ef-accordion__item">
+        <summary class="ef-accordion__summary">
+          <span class="ef-accordion__index">04</span>
+          <span class="ef-accordion__title">终末地 — 最后的庇护所</span>
+          <span class="ef-accordion__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="ef-accordion__content">
+          <p>终末地是泰拉大陆深处一片尚待探索的未知区域，也是传说中最后的庇护所。据残留的旧时代档案记载，这里曾是最核心的源石研究设施所在地，灾难发生时被紧急封锁。如今，干员探索部队正在逐步深入这片被遗忘的领域，试图揭开终末之地的真相——它究竟是文明的终点，还是重生的起点？答案埋藏在层层废墟之下，等待被发掘。</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. MEDIA GALLERY ==================== -->
+<section class="ef-section ef-media" id="media">
+  <div class="ef-container">
+    <div class="ef-section__header">
+      <span class="ef-eyebrow">MEDIA</span>
+      <h2 class="ef-section__title">媒体</h2>
+    </div>
+    <div class="ef-media__grid">
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--1"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">概念图</span>
+          <h3 class="ef-media__card-title">终末地概念设定</h3>
+        </div>
+      </article>
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--2"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">场景</span>
+          <h3 class="ef-media__card-title">废弃工业区全景</h3>
+        </div>
+      </article>
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--3"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">角色</span>
+          <h3 class="ef-media__card-title">干员立绘展示</h3>
+        </div>
+      </article>
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--4"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">战斗</span>
+          <h3 class="ef-media__card-title">实时战斗截屏</h3>
+        </div>
+      </article>
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--5"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">过场</span>
+          <h3 class="ef-media__card-title">剧情演出片段</h3>
+        </div>
+      </article>
+      <article class="ef-media__card">
+        <div class="ef-media__card-visual ef-media__card-visual--6"></div>
+        <div class="ef-media__card-info">
+          <span class="ef-media__card-tag">原声</span>
+          <h3 class="ef-media__card-title">原声音乐精选</h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. TIMELINE ==================== -->
+<section class="ef-section ef-timeline">
+  <div class="ef-container">
+    <div class="ef-section__header">
+      <span class="ef-eyebrow">TIMELINE</span>
+      <h2 class="ef-section__title">开发时间线</h2>
+    </div>
+    <div class="ef-timeline__track">
+      <div class="ef-timeline__line" aria-hidden="true"></div>
+      <div class="ef-timeline__item">
+        <div class="ef-timeline__dot" aria-hidden="true"></div>
+        <div class="ef-timeline__card">
+          <span class="ef-timeline__date">2024.03</span>
+          <h3 class="ef-timeline__title">首次公开</h3>
+          <p class="ef-timeline__desc">Endfield 正式公布首支预告片与核心概念设定，开启官方社区与预约通道。</p>
+        </div>
+      </div>
+      <div class="ef-timeline__item">
+        <div class="ef-timeline__dot" aria-hidden="true"></div>
+        <div class="ef-timeline__card">
+          <span class="ef-timeline__date">2024.07</span>
+          <h3 class="ef-timeline__title">Beta 测试启动</h3>
+          <p class="ef-timeline__desc">首轮封闭 Beta 测试开启，邀请部分预约玩家体验核心战斗与探索玩法。</p>
+        </div>
+      </div>
+      <div class="ef-timeline__item">
+        <div class="ef-timeline__dot" aria-hidden="true"></div>
+        <div class="ef-timeline__card">
+          <span class="ef-timeline__date">2024.12</span>
+          <h3 class="ef-timeline__title">正式版上线</h3>
+          <p class="ef-timeline__desc">Endfield 正式版全平台上线，首章主线剧情与全部核心系统开放体验。</p>
+        </div>
+      </div>
+      <div class="ef-timeline__item">
+        <div class="ef-timeline__dot" aria-hidden="true"></div>
+        <div class="ef-timeline__card">
+          <span class="ef-timeline__date">2025.06</span>
+          <h3 class="ef-timeline__title">首个大型更新</h3>
+          <p class="ef-timeline__desc">「锈蚀纪元」大型版本更新上线，新增终末地区域、新干员与高难副本。</p>
+        </div>
+      </div>
+      <div class="ef-timeline__item ef-timeline__item--future">
+        <div class="ef-timeline__dot" aria-hidden="true"></div>
+        <div class="ef-timeline__card">
+          <span class="ef-timeline__date">2026.09</span>
+          <h3 class="ef-timeline__title">周年庆</h3>
+          <p class="ef-timeline__desc">一周年庆典即将开启，限定干员、专属活动与全新剧情章节敬请期待。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. FEATURE SPLIT ==================== -->
+<section class="ef-section ef-feature-split">
+  <div class="ef-container">
+    <div class="ef-feature-split__grid">
+      <div class="ef-feature-split__text">
+        <span class="ef-eyebrow">COMBAT SYSTEM</span>
+        <h2 class="ef-feature-split__title">战斗系统</h2>
+        <p class="ef-feature-split__desc">融合即时战术与远程部署的全新战斗体验。在瞬息万变的战场上运筹帷幄，用策略与源石技艺改写战局。</p>
+        <ul class="ef-feature-split__list">
+          <li class="ef-feature-split__list-item">
+            <span class="ef-feature-split__list-marker" aria-hidden="true"></span>
+            <span>实时部署 — 在战场上任意位置即时部署战术装置，构建攻防一体的作战网络。</span>
+          </li>
+          <li class="ef-feature-split__list-item">
+            <span class="ef-feature-split__list-marker" aria-hidden="true"></span>
+            <span>源石连锁 — 多个部署装置可触发源石共鸣，释放范围连锁攻击彻底改变战局走向。</span>
+          </li>
+          <li class="ef-feature-split__list-item">
+            <span class="ef-feature-split__list-marker" aria-hidden="true"></span>
+            <span>动态环境 — 可破坏的地形与随机源石侵蚀事件，让每一次战斗都是独一无二的体验。</span>
+          </li>
+        </ul>
+      </div>
+      <div class="ef-feature-split__visual">
+        <div class="ef-geo-pattern">
+          <div class="ef-geo-square ef-geo-square--1"></div>
+          <div class="ef-geo-square ef-geo-square--2"></div>
+          <div class="ef-geo-square ef-geo-square--3"></div>
+          <div class="ef-geo-square ef-geo-square--4"></div>
+          <div class="ef-geo-core"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. INFO CARD GRID ==================== -->
+<section class="ef-section ef-info" id="intel">
+  <div class="ef-container">
+    <div class="ef-section__header">
+      <span class="ef-eyebrow">INTELLIGENCE</span>
+      <h2 class="ef-section__title">情报</h2>
+    </div>
+    <div class="ef-info__grid">
+      <article class="ef-info__card">
+        <div class="ef-info__card-icon">
+          <span class="ef-info__card-icon-shape ef-info__card-icon-shape--triangle"></span>
+        </div>
+        <h3 class="ef-info__card-title">新手指南</h3>
+        <p class="ef-info__card-desc">基础操作和入门指引，从零开始了解源石技艺、干员部署与战场策略，快速上手终末地的探索之旅。</p>
+        <a href="#guide" class="ef-info__card-link">了解更多<span class="ef-info__card-link-arrow"></span></a>
+      </article>
+      <article class="ef-info__card">
+        <div class="ef-info__card-icon">
+          <span class="ef-info__card-icon-shape ef-info__card-icon-shape--circle"></span>
+        </div>
+        <h3 class="ef-info__card-title">干员图鉴</h3>
+        <p class="ef-info__card-desc">全角色属性和技能查询，浏览每一位干员的详细档案、战斗数值、源石技艺特性与阵营背景故事。</p>
+        <a href="#operators-db" class="ef-info__card-link">了解更多<span class="ef-info__card-link-arrow"></span></a>
+      </article>
+      <article class="ef-info__card">
+        <div class="ef-info__card-icon">
+          <span class="ef-info__card-icon-shape ef-info__card-icon-shape--diamond"></span>
+        </div>
+        <h3 class="ef-info__card-title">攻略合集</h3>
+        <p class="ef-info__card-desc">高难度关卡攻略汇总，从源石侵蚀区到终末地深处，精选社区攻略与官方通关指南助你突破极限。</p>
+        <a href="#guides" class="ef-info__card-link">了解更多<span class="ef-info__card-link-arrow"></span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ==================== 9. FOOTER WITH CTA ==================== -->
+<div class="ef-hazard-bar" aria-hidden="true"></div>
+<footer class="ef-footer" id="download">
+  <div class="ef-footer__cta">
+    <div class="ef-container">
+      <div class="ef-footer__cta-inner">
+        <h2 class="ef-footer__cta-title">立即体验</h2>
+        <div class="ef-footer__cta-buttons">
+          <a href="#download-app" class="ef-btn ef-btn--primary ef-btn--lg ef-btn--clip">下载 Endfield</a>
+          <a href="#community" class="ef-btn ef-btn--secondary ef-btn--lg">加入社区</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ef-footer__links">
+    <div class="ef-container">
+      <div class="ef-footer__links-grid">
+        <div class="ef-footer__col">
+          <h4 class="ef-footer__col-title">产品</h4>
+          <a href="#">官网</a>
+          <a href="#">下载</a>
+          <a href="#">更新日志</a>
+        </div>
+        <div class="ef-footer__col">
+          <h4 class="ef-footer__col-title">社区</h4>
+          <a href="#">论坛</a>
+          <a href="#">Discord</a>
+          <a href="#">微博</a>
+        </div>
+        <div class="ef-footer__col">
+          <h4 class="ef-footer__col-title">支持</h4>
+          <a href="#">帮助中心</a>
+          <a href="#">联系我们</a>
+          <a href="#">问题反馈</a>
+        </div>
+        <div class="ef-footer__col">
+          <h4 class="ef-footer__col-title">法律</h4>
+          <a href="#">用户协议</a>
+          <a href="#">隐私政策</a>
+          <a href="#">版权声明</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ef-footer__bottom">
+    <div class="ef-container">
+      <div class="ef-footer__bottom-inner">
+        <p class="ef-footer__copyright">&copy; 2026 Hypergryph. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ef-hazard-bar" aria-hidden="true"></div>
+</footer>
+
+</body>
+</html>

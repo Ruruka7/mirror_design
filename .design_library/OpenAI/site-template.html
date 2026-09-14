@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <style>
+    /* ============================================
+       BASE RESET & GLOBAL STYLES
+       All values use CSS variables with fallbacks
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      font-weight: var(--font-weight-body, 400);
+      line-height: var(--line-height-body, 1.6);
+      color: var(--color-foreground, #000000);
+      background-color: var(--color-background, #ffffff);
+      letter-spacing: var(--letter-spacing-body, -0.17px);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================
+       LAYOUT UTILITIES
+       ============================================ */
+    .container {
+      max-width: var(--max-content, 1200px);
+      margin: 0 auto;
+      padding-left: var(--space-6, 32px);
+      padding-right: var(--space-6, 32px);
+    }
+
+    .section {
+      padding-top: var(--space-8, 64px);
+      padding-bottom: var(--space-8, 64px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: var(--space-6, 32px);
+    }
+
+    .section-title {
+      font-family: var(--font-heading, sans-serif);
+      font-size: var(--font-size-h1, 28px);
+      font-weight: var(--font-weight-h1, 600);
+      line-height: var(--line-height-h1, 1.3);
+      letter-spacing: var(--letter-spacing-h1, 0.3px);
+      color: var(--color-foreground, #000000);
+    }
+
+    .section-link {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-foreground, #000000);
+      transition: opacity 0.2s ease;
+    }
+
+    .section-link:hover {
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2, 8px);
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-button, 14px);
+      font-weight: var(--font-weight-button, 500);
+      line-height: 1;
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius-full, 9999px);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary, #000000);
+      color: var(--color-on-primary, #ffffff);
+      padding: 0 var(--space-5, 24px);
+      height: var(--size-button-md, 40px);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-hover, #333333);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-foreground, #000000);
+      padding: 0 var(--space-5, 24px);
+      height: var(--size-button-md, 40px);
+      border: 1px solid var(--color-border, #e5e5e5);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-muted, rgba(0,0,0,0.04));
+    }
+
+    .btn-lg {
+      height: var(--size-button-lg, 48px);
+      padding: 0 var(--space-6, 32px);
+      font-size: var(--font-size-body, 17px);
+    }
+
+    .text-link {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-button, 14px);
+      font-weight: var(--font-weight-button, 500);
+      color: var(--color-foreground, #000000);
+      transition: opacity 0.2s ease;
+    }
+
+    .text-link:hover {
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       IMAGE PLACEHOLDER
+       ============================================ */
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--color-muted, rgba(0,0,0,0.04)), var(--color-border, #e5e5e5));
+      border-radius: var(--radius-md, 12px);
+    }
+
+    .image-placeholder-wide {
+      aspect-ratio: 21 / 9;
+    }
+
+    .image-placeholder-square {
+      aspect-ratio: 1 / 1;
+    }
+
+    .image-placeholder-tall {
+      aspect-ratio: 4 / 5;
+    }
+
+    /* ============================================
+       1. NAVIGATION BAR
+       ============================================ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--size-nav, 68px);
+      background-color: var(--color-background, #ffffff);
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      max-width: var(--max-content, 1200px);
+      width: 100%;
+      margin: 0 auto;
+      padding-left: var(--space-6, 32px);
+      padding-right: var(--space-6, 32px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6, 32px);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6, 32px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo svg {
+      width: var(--size-icon-lg, 24px);
+      height: var(--size-icon-lg, 24px);
+      fill: var(--color-foreground, #000000);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6, 32px);
+    }
+
+    .nav-link {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-nav, 17px);
+      font-weight: var(--font-weight-nav, 400);
+      color: var(--color-foreground, #000000);
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 0.6;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4, 16px);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-2, 8px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-toggle svg {
+      width: var(--size-icon-md, 20px);
+      height: var(--size-icon-md, 20px);
+      stroke: var(--color-foreground, #000000);
+    }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--size-nav, 68px);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--color-background, #ffffff);
+      z-index: 99;
+      flex-direction: column;
+      padding: var(--space-6, 32px);
+      gap: var(--space-5, 24px);
+      overflow-y: auto;
+    }
+
+    .nav-mobile-menu.open {
+      display: flex;
+    }
+
+    .nav-mobile-menu .nav-link {
+      font-size: var(--font-size-h1, 28px);
+      font-weight: var(--font-weight-h1, 600);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .nav-right .text-link,
+      .nav-right .btn-primary {
+        display: none;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    /* ============================================
+       2. HERO / CHAT SECTION
+       ============================================ */
+    .hero {
+      padding-top: var(--space-8, 64px);
+      padding-bottom: var(--space-8, 64px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-heading {
+      font-family: var(--font-display, sans-serif);
+      font-size: var(--font-size-display, 28px);
+      font-weight: var(--font-weight-display, 600);
+      line-height: var(--line-height-display, 34px);
+      letter-spacing: var(--letter-spacing-display, 0.3px);
+      color: var(--color-foreground, #000000);
+      margin-bottom: var(--space-4, 16px);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-lead, 18px);
+      font-weight: var(--font-weight-body, 400);
+      line-height: var(--line-height-lead, 28px);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      margin-bottom: var(--space-6, 32px);
+      max-width: 500px;
+    }
+
+    .chat-input-container {
+      width: 100%;
+      max-width: 720px;
+      background-color: var(--color-surface, #ffffff);
+      border: 1px solid var(--color-border, #e5e5e5);
+      border-radius: var(--radius-lg, 16px);
+      box-shadow: var(--shadow-1, 0 3px 6px rgba(0,0,0,0.04));
+      padding: var(--space-4, 16px) var(--space-5, 24px);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3, 12px);
+      margin-bottom: var(--space-5, 24px);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .chat-input-container:focus-within {
+      box-shadow: var(--shadow-3, 0 8px 24px rgba(0,0,0,0.18));
+    }
+
+    .chat-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      color: var(--color-foreground, #000000);
+    }
+
+    .chat-input::placeholder {
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    }
+
+    .chat-send-btn {
+      flex-shrink: 0;
+      width: var(--size-button-md, 40px);
+      height: var(--size-button-md, 40px);
+      border-radius: var(--radius-full, 9999px);
+      background-color: var(--color-primary, #000000);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .chat-send-btn:hover {
+      background-color: var(--color-primary-hover, #333333);
+    }
+
+    .chat-send-btn svg {
+      width: var(--size-icon-sm, 16px);
+      height: var(--size-icon-sm, 16px);
+      fill: var(--color-on-primary, #ffffff);
+    }
+
+    .prompt-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3, 12px);
+      justify-content: center;
+      max-width: 720px;
+      margin-bottom: var(--space-6, 32px);
+    }
+
+    .prompt-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2, 8px);
+      padding: var(--space-2, 8px) var(--space-4, 16px);
+      background-color: var(--color-muted, rgba(0,0,0,0.04));
+      border: 1px solid var(--color-border, #e5e5e5);
+      border-radius: var(--radius-full, 9999px);
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-caption, 13px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-foreground, #000000);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .prompt-chip:hover {
+      background-color: var(--color-surface, #ffffff);
+      box-shadow: var(--shadow-1, 0 2px 4px rgba(0,0,0,0.04));
+    }
+
+    .prompt-chip svg {
+      width: var(--size-icon-sm, 16px);
+      height: var(--size-icon-sm, 16px);
+      stroke: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      flex-shrink: 0;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--space-3, 12px);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ============================================
+       3. FEATURED RESEARCH
+       ============================================ */
+    .featured-research {
+      padding-top: var(--space-8, 64px);
+      padding-bottom: var(--space-8, 64px);
+    }
+
+    .featured-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6, 32px);
+    }
+
+    .featured-card {
+      display: block;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: var(--radius-md, 12px);
+      overflow: hidden;
+    }
+
+    .featured-card:hover {
+      box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+    }
+
+    .featured-card-large {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6, 32px);
+      align-items: center;
+    }
+
+    .featured-card-large .image-placeholder {
+      aspect-ratio: 4 / 3;
+    }
+
+    .featured-card-large .featured-card-content {
+      padding-right: var(--space-4, 16px);
+    }
+
+    .featured-card-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6, 32px);
+    }
+
+    .featured-card-content {
+      padding: var(--space-4, 16px) 0;
+    }
+
+    .card-category {
+      display: inline-block;
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-caption, 13px);
+      font-weight: var(--font-weight-caption, 500);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      margin-bottom: var(--space-2, 8px);
+    }
+
+    .card-meta {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-caption, 13px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      margin-bottom: var(--space-2, 8px);
+    }
+
+    .card-title {
+      font-family: var(--font-heading, sans-serif);
+      font-size: var(--font-size-h2, 20px);
+      font-weight: var(--font-weight-h2, 500);
+      line-height: var(--line-height-h2, 1.3);
+      color: var(--color-foreground, #000000);
+      margin-bottom: var(--space-3, 12px);
+    }
+
+    .card-read-link {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      font-weight: var(--font-weight-button, 500);
+      color: var(--color-foreground, #000000);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2, 8px);
+      transition: opacity 0.2s ease;
+    }
+
+    .card-read-link:hover {
+      opacity: 0.6;
+    }
+
+    .card-read-link svg {
+      width: var(--size-icon-sm, 16px);
+      height: var(--size-icon-sm, 16px);
+      stroke: var(--color-foreground, #000000);
+    }
+
+    .featured-card-large .card-title {
+      font-size: var(--font-size-h1, 28px);
+      font-weight: var(--font-weight-h1, 600);
+      line-height: var(--line-height-h1, 1.3);
+    }
+
+    @media (max-width: 768px) {
+      .featured-card-large {
+        grid-template-columns: 1fr;
+      }
+      .featured-card-large .featured-card-content {
+        padding-right: 0;
+      }
+      .featured-card-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============================================
+       4. LATEST NEWS (GRID)
+       ============================================ */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6, 32px);
+    }
+
+    @media (max-width: 960px) {
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .news-card {
+      display: block;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: var(--radius-md, 12px);
+    }
+
+    .news-card:hover {
+      box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+    }
+
+    .news-card .image-placeholder {
+      margin-bottom: var(--space-4, 16px);
+    }
+
+    /* ============================================
+       5/6/7. STORY / RESEARCH / ENTERPRISE CARDS
+       ============================================ */
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6, 32px);
+    }
+
+    @media (max-width: 960px) {
+      .card-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card-grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .story-card {
+      display: block;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: var(--radius-md, 12px);
+      overflow: hidden;
+    }
+
+    .story-card:hover {
+      box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+    }
+
+    .story-card .image-placeholder {
+      margin-bottom: var(--space-4, 16px);
+    }
+
+    /* ============================================
+       8. CTA SECTION
+       ============================================ */
+    .cta-section {
+      padding-top: var(--space-8, 64px);
+      padding-bottom: var(--space-8, 64px);
+      text-align: center;
+      border-top: 1px solid var(--color-border, #e5e5e5);
+    }
+
+    .cta-heading {
+      font-family: var(--font-display, sans-serif);
+      font-size: var(--font-size-display, 28px);
+      font-weight: var(--font-weight-display, 600);
+      line-height: var(--line-height-display, 34px);
+      color: var(--color-foreground, #000000);
+      margin-bottom: var(--space-6, 32px);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: var(--space-3, 12px);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================
+       9. FOOTER
+       ============================================ */
+    .footer {
+      background-color: var(--color-muted, rgba(0,0,0,0.04));
+      border-top: 1px solid var(--color-border, #e5e5e5);
+      padding-top: var(--space-8, 64px);
+      padding-bottom: var(--space-6, 32px);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-6, 32px);
+      margin-bottom: var(--space-8, 64px);
+    }
+
+    .footer-brand .footer-logo svg {
+      width: var(--size-icon-lg, 24px);
+      height: var(--size-icon-lg, 24px);
+      fill: var(--color-foreground, #000000);
+      margin-bottom: var(--space-4, 16px);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      font-weight: var(--font-weight-body, 400);
+      line-height: var(--line-height-body, 1.6);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      margin-bottom: var(--space-5, 24px);
+      max-width: 280px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: var(--space-3, 12px);
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size-button-md, 40px);
+      height: var(--size-button-md, 40px);
+      border-radius: var(--radius-full, 9999px);
+      border: 1px solid var(--color-border, #e5e5e5);
+      transition: background-color 0.2s ease;
+    }
+
+    .footer-social a:hover {
+      background-color: var(--color-surface, #ffffff);
+    }
+
+    .footer-social svg {
+      width: var(--size-icon-sm, 16px);
+      height: var(--size-icon-sm, 16px);
+      stroke: var(--color-foreground, #000000);
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-heading, sans-serif);
+      font-size: var(--font-size-h4, 16px);
+      font-weight: var(--font-weight-h4, 500);
+      color: var(--color-foreground, #000000);
+      margin-bottom: var(--space-4, 16px);
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3, 12px);
+    }
+
+    .footer-col ul li a {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-body, 17px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      transition: color 0.2s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--color-foreground, #000000);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-6, 32px);
+      border-top: 1px solid var(--color-border, #e5e5e5);
+      flex-wrap: wrap;
+      gap: var(--space-4, 16px);
+    }
+
+    .footer-copyright {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-caption, 13px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: var(--space-5, 24px);
+    }
+
+    .footer-legal a {
+      font-family: var(--font-body, sans-serif);
+      font-size: var(--font-size-caption, 13px);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal a:hover {
+      color: var(--color-foreground, #000000);
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ============================================
+       ACCESSIBILITY
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       1. NAVIGATION BAR
+       ============================================ -->
+  <nav class="nav" role="navigation" aria-label="主导航">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="#" class="nav-logo" aria-label="OpenAI">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9024A5.9865 5.9865 0 0 0 4.0139 4.7056 6.0469 6.0469 0 0 0 .5159 9.7829a5.9869 5.9869 0 0 0 .7427 5.7714 6.0462 6.0462 0 0 0 6.5182 2.9024 5.9865 5.9865 0 0 0 4.2422 1.8061 6.0484 6.0484 0 0 0 5.7371-4.1429 5.9869 5.9869 0 0 0 4.0139-2.9024 6.0471 6.0471 0 0 0 .5149-4.4031Zm-9.4136 8.2826a4.4708 4.4708 0 0 1-2.8717-1.0391c.0366-.0198.1006-.0547.1432-.0804l4.7638-2.7505a.7772.7772 0 0 0 .3918-.6793V9.4597l2.0136 1.1621a.0724.0724 0 0 1 .0399.0561v5.579a4.4845 4.4845 0 0 1-4.4805 4.4851ZM6.5997 17.1025a4.4707 4.4707 0 0 1-.5349-6.0716c.0364.0216.1006.0566.1432.0804l4.7638 2.7505a.7767.7767 0 0 0 .7836 0l5.8245-3.3623v2.3236a.0723.0723 0 0 1-.0288.0671l-4.8243 2.7859a4.4844 4.4844 0 0 1-6.1271 1.6424Zm-1.244-13.3121a4.4707 4.4707 0 0 1 5.8553-1.4478c-.0375.0216-.0995.0547-.1432.0804L6.3041 5.1741a.7774.7774 0 0 0-.3918.6791v6.7247L3.8987 11.416a.0723.0723 0 0 1-.0398-.0561V5.7809a4.4845 4.4845 0 0 1 1.5168-2.9905Zm16.0437 3.5252L15.5756 6.0627l-2.0136-1.1622a.0723.0723 0 0 0-.0684 0l-5.8245 3.3623V6.0617a.0723.0723 0 0 1 .0288-.0671l4.8243-2.7859a4.4843 4.4843 0 0 1 6.7285 4.5306ZM9.6044 10.5517l2.0136-1.1622 2.0136 1.1622v2.3242l-2.0136 1.1622-2.0136-1.1622Z"/>
+          </svg>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#" class="nav-link">研究</a></li>
+          <li><a href="#" class="nav-link">API 平台</a></li>
+          <li><a href="#" class="nav-link">客户案例</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="text-link">登录</a>
+        <a href="#" class="btn btn-primary">开始使用</a>
+        <button class="nav-toggle" aria-label="打开菜单" id="navToggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile-menu" id="navMobileMenu">
+      <a href="#" class="nav-link">研究</a>
+      <a href="#" class="nav-link">API 平台</a>
+      <a href="#" class="nav-link">客户案例</a>
+      <a href="#" class="nav-link">登录</a>
+      <a href="#" class="btn btn-primary" style="align-self: flex-start;">开始使用</a>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       2. HERO / CHAT SECTION
+       ============================================ -->
+  <section class="hero section">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center;">
+      <h1 class="hero-heading">有什么可以帮忙的？</h1>
+      <p class="hero-subtitle">ChatGPT 可以为你写作、编程、分析和创造——随时准备好协助你的下一步。</p>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="给 ChatGPT 发送消息" aria-label="给 ChatGPT 发送消息">
+        <button class="chat-send-btn" aria-label="发送消息">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7 11V7a5 5 0 0 1 10 0v4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h1z M9 11h6V7a3 3 0 0 0-6 0v4z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="prompt-chips">
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          Quiz me on vocabulary
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Plan a surf trip to Costa Rica
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Explain this code
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          Write a Python script
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Recommend a book
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          Draft an email
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+          Make a table
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 3v18h18"/>
+            <path d="M7 14l4-4 4 4 6-6"/>
+          </svg>
+          Analyze data trends
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Translate to Japanese
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          Brainstorm ideas
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          Summarize an article
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+          Write a song
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Debug my code
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 21V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16l4-2 4 2 4-2 4 2z"/>
+          </svg>
+          Create a study plan
+        </button>
+        <button class="prompt-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Help me write a resume
+        </button>
+      </div>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary btn-lg">与 ChatGPT 对话</a>
+        <a href="#" class="btn btn-secondary btn-lg">开始使用</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       3. FEATURED RESEARCH
+       ============================================ -->
+  <section class="featured-research">
+    <div class="container">
+      <div class="featured-grid">
+        <!-- Large first card -->
+        <a href="#" class="featured-card featured-card-large">
+          <div class="image-placeholder image-placeholder-wide"></div>
+          <div class="featured-card-content">
+            <span class="card-category">研究</span>
+            <h3 class="card-title">GPT-6 Astra：新一代智能</h3>
+            <p class="card-meta">28 分钟阅读</p>
+            <span class="card-read-link">阅读
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+        <!-- Row of 2 cards -->
+        <div class="featured-card-row">
+          <a href="#" class="featured-card">
+            <div class="image-placeholder"></div>
+            <div class="featured-card-content">
+              <span class="card-category">产品</span>
+              <h3 class="card-title">隆重推出 ChatGPT 图像 2.5</h3>
+              <p class="card-meta">6 分钟阅读</p>
+              <span class="card-read-link">阅读
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+          <a href="#" class="featured-card">
+            <div class="image-placeholder"></div>
+            <div class="featured-card-content">
+              <span class="card-category">安全</span>
+              <h3 class="card-title">GPT-6 Astra 系统卡</h3>
+              <p class="card-meta">安全报告</p>
+              <span class="card-read-link">阅读
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       4. LATEST NEWS (最新动态)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">最新动态</h2>
+        <a href="#" class="section-link">查看更多</a>
+      </div>
+      <div class="news-grid">
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">公司</span>
+          <h3 class="card-title">以 GPT-5.6 拓展性价比的前沿边界</h3>
+          <p class="card-meta">2026年9月9日</p>
+        </a>
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">安全</span>
+          <h3 class="card-title">迈向 Astra：关键能力与前沿防护机制</h3>
+          <p class="card-meta">2026年9月1日</p>
+        </a>
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">工程</span>
+          <h3 class="card-title">Jalapeño 的首批测试结果展现出行业领先的 AI 推理速度与效率</h3>
+          <p class="card-meta">2026年8月25日</p>
+        </a>
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">公司</span>
+          <h3 class="card-title">网络安全关键能力时代的模型开发节奏</h3>
+          <p class="card-meta">2026年8月18日</p>
+        </a>
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">安全防护</span>
+          <h3 class="card-title">防御者的机遇窗口</h3>
+          <p class="card-meta">2026年8月17日</p>
+        </a>
+        <a href="#" class="news-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">公司</span>
+          <h3 class="card-title">OpenAI 任命 Dali Rajic 为首席营收官</h3>
+          <p class="card-meta">2026年8月13日</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       5. CUSTOMER STORIES (客户案例)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">客户案例</h2>
+        <a href="#" class="section-link">查看全部</a>
+      </div>
+      <div class="card-grid-3">
+        <a href="#" class="story-card">
+          <div class="image-placeholder image-placeholder-tall"></div>
+          <span class="card-category">客户故事</span>
+          <h3 class="card-title">Using ChatGPT to grow ATV Big Air Tour</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder image-placeholder-tall"></div>
+          <span class="card-category">客户故事</span>
+          <h3 class="card-title">Supporting the blind community with ChatGPT</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder image-placeholder-tall"></div>
+          <span class="card-category">客户故事</span>
+          <h3 class="card-title">Accelerating antibiotic discovery with ChatGPT</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       6. LATEST RESEARCH (最新研究)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">最新研究</h2>
+        <a href="#" class="section-link">查看全部</a>
+      </div>
+      <div class="card-grid-3">
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">研究</span>
+          <h3 class="card-title">An OpenAI model proposes a solution to the Navier–Stokes problem</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">研究</span>
+          <h3 class="card-title">研究加速：OpenAI 内部视角</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">研究</span>
+          <h3 class="card-title">数学与理论计算机科学的十项进展</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       7. ENTERPRISE SOLUTIONS (企业解决方案)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">OpenAI 企业解决方案</h2>
+        <a href="#" class="section-link">查看全部</a>
+      </div>
+      <div class="card-grid-3">
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">企业</span>
+          <h3 class="card-title">Model ML 借助 GPT-5.6 Sol 更高效地完成财务工作</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">企业</span>
+          <h3 class="card-title">Virgin Atlantic 借助 ChatGPT 工作优化客户旅程</h3>
+        </a>
+        <a href="#" class="story-card">
+          <div class="image-placeholder"></div>
+          <span class="card-category">企业</span>
+          <h3 class="card-title">Zapier 如何借助 ChatGPT 工作革新核心营销流程</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       8. CTA SECTION
+       ============================================ -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-heading">开始使用 ChatGPT</h2>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary btn-lg">与 ChatGPT 对话</a>
+        <a href="#" class="btn btn-secondary btn-lg">联系销售团队</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       9. FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9024A5.9865 5.9865 0 0 0 4.0139 4.7056 6.0469 6.0469 0 0 0 .5159 9.7829a5.9869 5.9869 0 0 0 .7427 5.7714 6.0462 6.0462 0 0 0 6.5182 2.9024 5.9865 5.9865 0 0 0 4.2422 1.8061 6.0484 6.0484 0 0 0 5.7371-4.1429 5.9869 5.9869 0 0 0 4.0139-2.9024 6.0471 6.0471 0 0 0 .5149-4.4031Zm-9.4136 8.2826a4.4708 4.4708 0 0 1-2.8717-1.0391c.0366-.0198.1006-.0547.1432-.0804l4.7638-2.7505a.7772.7772 0 0 0 .3918-.6793V9.4597l2.0136 1.1621a.0724.0724 0 0 1 .0399.0561v5.579a4.4845 4.4845 0 0 1-4.4805 4.4851ZM6.5997 17.1025a4.4707 4.4707 0 0 1-.5349-6.0716c.0364.0216.1006.0566.1432.0804l4.7638 2.7505a.7767.7767 0 0 0 .7836 0l5.8245-3.3623v2.3236a.0723.0723 0 0 1-.0288.0671l-4.8243 2.7859a4.4844 4.4844 0 0 1-6.1271 1.6424Zm-1.244-13.3121a4.4707 4.4707 0 0 1 5.8553-1.4478c-.0375.0216-.0995.0547-.1432.0804L6.3041 5.1741a.7774.7774 0 0 0-.3918.6791v6.7247L3.8987 11.416a.0723.0723 0 0 1-.0398-.0561V5.7809a4.4845 4.4845 0 0 1 1.5168-2.9905Zm16.0437 3.5252L15.5756 6.0627l-2.0136-1.1622a.0723.0723 0 0 0-.0684 0l-5.8245 3.3623V6.0617a.0723.0723 0 0 1 .0288-.0671l4.8243-2.7859a4.4843 4.4843 0 0 1 6.7285 4.5306ZM9.6044 10.5517l2.0136-1.1622 2.0136 1.1622v2.3242l-2.0136 1.1622-2.0136-1.1622Z"/>
+            </svg>
+          </div>
+          <p class="footer-tagline">通往 AGI 之路的开创性研究</p>
+          <div class="footer-social">
+            <a href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 4l16 16M20 4L4 20"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products column -->
+        <div class="footer-col">
+          <h4>产品</h4>
+          <ul>
+            <li><a href="#">ChatGPT</a></li>
+            <li><a href="#">API 平台</a></li>
+            <li><a href="#">Sora</a></li>
+            <li><a href="#">GPT-4</a></li>
+          </ul>
+        </div>
+
+        <!-- Company column -->
+        <div class="footer-col">
+          <h4>公司</h4>
+          <ul>
+            <li><a href="#">研究</a></li>
+            <li><a href="#">客户案例</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">招贤纳士</a></li>
+          </ul>
+        </div>
+
+        <!-- Support column -->
+        <div class="footer-col">
+          <h4>支持</h4>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">开发者文档</a></li>
+            <li><a href="#">社区</a></li>
+            <li><a href="#">状态</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">&copy; 2026 OpenAI</span>
+        <div class="footer-legal">
+          <a href="#">条款</a>
+          <a href="#">隐私</a>
+          <a href="#">Cookie 设置</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       MOBILE MENU TOGGLE SCRIPT
+       ============================================ -->
+  <script>
+    (function() {
+      var toggle = document.getElementById('navToggle');
+      var menu = document.getElementById('navMobileMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+          menu.classList.toggle('open');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

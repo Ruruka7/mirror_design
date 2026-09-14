@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>福伊特在中国 | Voith China</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+/* ========================================
+   Voith China — Site Template
+   All colors, fonts, spacing, shadows, radii
+   use CSS variables with fallback syntax.
+   Works with ANY brand's colors_and_type.css
+   ======================================== */
+
+/* --- Global Reset & Base --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body, 'Inter', Arial, sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    line-height: var(--line-height-body, 1.6);
+    color: var(--color-foreground, #000000);
+    background-color: var(--color-background, #ffffff);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: var(--color-primary, #006497);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-primary-hover, #00567e);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* --- Layout Helpers --- */
+.container {
+    max-width: var(--max-content, 1200px);
+    margin: 0 auto;
+    padding-left: var(--space-6, 32px);
+    padding-right: var(--space-6, 32px);
+}
+
+.section {
+    padding-top: var(--space-8, 48px);
+    padding-bottom: var(--space-8, 48px);
+}
+
+.section--muted {
+    background-color: var(--color-muted, #eff1f1);
+}
+
+.section-eyebrow {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-eyebrow, 11px);
+    font-weight: var(--font-weight-eyebrow, 600);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary, #006497);
+    margin-bottom: var(--space-3, 12px);
+    display: block;
+}
+
+.section-title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-h2, 32px);
+    font-weight: var(--font-weight-h2, 600);
+    line-height: var(--line-height-h2, 1.2);
+    color: var(--color-foreground, #000000);
+    margin-bottom: var(--space-3, 12px);
+}
+
+.section-subtitle {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-lead, 18px);
+    font-weight: var(--font-weight-lead, 400);
+    line-height: var(--line-height-lead, 1.7);
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    max-width: 640px;
+    margin-bottom: var(--space-6, 32px);
+}
+
+/* ========================================
+   1. NAVIGATION
+   ======================================== */
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--size-nav, 64px);
+    padding: 0 var(--space-6, 32px);
+    background-color: var(--color-background, #ffffff);
+    border-bottom: 1px solid var(--color-border, #e8eaea);
+    box-shadow: var(--shadow-1, 0 1px 2px rgba(0,0,0,0.06));
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.site-nav.is-scrolled {
+    box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+}
+
+.site-nav__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.site-nav__logo {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-h3, 24px);
+    font-weight: var(--font-weight-h1, 700);
+    color: var(--color-primary, #006497);
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.site-nav__tagline {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-body, 400);
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    margin-top: 2px;
+}
+
+.site-nav__links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-1, 4px);
+    list-style: none;
+}
+
+.site-nav__link {
+    display: block;
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    color: var(--color-foreground, #000000);
+    text-decoration: none;
+    border-radius: var(--radius-sm, 4px);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.site-nav__link:hover {
+    color: var(--color-primary, #006497);
+    background-color: var(--color-muted, #eff1f1);
+}
+
+.site-nav__link.is-active {
+    color: var(--color-primary, #006497);
+    font-weight: var(--font-weight-h4, 600);
+}
+
+.site-nav__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4, 16px);
+    flex-shrink: 0;
+}
+
+.site-nav__lang {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1, 4px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-body, 400);
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+}
+
+.site-nav__lang a {
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    padding: var(--space-1, 4px) var(--space-2, 8px);
+    border-radius: var(--radius-sm, 4px);
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.site-nav__lang a:hover {
+    color: var(--color-primary, #006497);
+}
+
+.site-nav__lang a.is-active {
+    color: var(--color-primary, #006497);
+    font-weight: var(--font-weight-h4, 600);
+}
+
+.site-nav__lang-divider {
+    color: var(--color-border, #e8eaea);
+    user-select: none;
+}
+
+/* Mobile hamburger */
+.site-nav__toggle {
+    display: none;
+}
+
+.site-nav__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.site-nav__hamburger span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background-color: var(--color-primary, #006497);
+    border-radius: var(--radius-sm, 4px);
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   2. HERO STAGE
+   ======================================== */
+.hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 500px;
+    padding: var(--space-8, 48px) var(--space-6, 32px);
+    background: linear-gradient(
+        135deg,
+        var(--color-primary, #006497) 0%,
+        var(--color-primary-hover, #00567e) 50%,
+        var(--color-accent, var(--color-primary, #00e5e5)) 100%
+    );
+    overflow: hidden;
+}
+
+/* Decorative pattern overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 50%
+    );
+    pointer-events: none;
+}
+
+/* Bottom gradient fade into page background */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--color-background, #ffffff) 100%
+    );
+    pointer-events: none;
+}
+
+.hero__inner {
+    position: relative;
+    z-index: 2;
+    max-width: var(--max-content, 1200px);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.hero__breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2, 8px);
+    margin-bottom: var(--space-5, 24px);
+    list-style: none;
+    padding: 0;
+}
+
+.hero__breadcrumb li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+}
+
+.hero__breadcrumb li:not(:last-child)::after {
+    content: '/';
+    color: rgba(255, 255, 255, 0.5);
+    font-size: var(--font-size-caption, 12px);
+}
+
+.hero__breadcrumb a {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hero__breadcrumb a:hover {
+    color: #ffffff;
+}
+
+.hero__breadcrumb [aria-current="page"] {
+    font-size: var(--font-size-caption, 12px);
+    color: #ffffff;
+    font-weight: var(--font-weight-h4, 600);
+}
+
+.hero__title {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-display, 68px);
+    font-weight: var(--font-weight-display, 700);
+    line-height: var(--line-height-display, 1.1);
+    color: #ffffff;
+    margin-bottom: var(--space-4, 16px);
+    letter-spacing: -0.02em;
+}
+
+.hero__subtitle {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-lead, 18px);
+    font-weight: var(--font-weight-lead, 400);
+    line-height: var(--line-height-lead, 1.7);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 580px;
+    margin-bottom: var(--space-6, 32px);
+}
+
+.hero__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4, 16px);
+    flex-wrap: wrap;
+}
+
+/* --- Button System --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2, 8px);
+    height: var(--size-button-lg, 48px);
+    padding: 0 var(--space-6, 32px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-h4, 600);
+    line-height: 1;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn--primary {
+    background-color: var(--color-primary, #006497);
+    color: var(--color-on-primary, #ffffff);
+    border-color: var(--color-primary, #006497);
+}
+
+.btn--primary:hover {
+    background-color: var(--color-primary-hover, #00567e);
+    border-color: var(--color-primary-hover, #00567e);
+    color: var(--color-on-primary, #ffffff);
+    box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+}
+
+.btn--outline {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn--outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/* Hero-specific button (on gradient background) */
+.hero .btn--primary {
+    background-color: #ffffff;
+    color: var(--color-primary, #006497);
+    border-color: #ffffff;
+}
+
+.hero .btn--primary:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--color-primary-hover, #00567e);
+}
+
+/* ========================================
+   3. CONTENT TILE GRID
+   ======================================== */
+.tile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5, 24px);
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6, 32px) var(--space-5, 24px);
+    background-color: var(--color-card, var(--color-surface, #ffffff));
+    border: 1px solid var(--color-border, #e8eaea);
+    border-radius: var(--radius-lg, 12px);
+    box-shadow: var(--shadow-1, 0 1px 2px rgba(0,0,0,0.06));
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.tile:hover {
+    box-shadow: var(--shadow-3, 0 8px 24px rgba(0,0,0,0.12));
+    transform: translateY(-4px);
+    border-color: var(--color-primary, #006497);
+}
+
+.tile__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-4, 16px);
+    background: linear-gradient(
+        135deg,
+        var(--color-primary, #006497),
+        var(--color-accent, var(--color-primary, #00e5e5))
+    );
+    border-radius: var(--radius-md, 8px);
+    color: var(--color-on-primary, #ffffff);
+    flex-shrink: 0;
+}
+
+.tile__icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--color-on-primary, #ffffff);
+    fill: none;
+    stroke-width: 2;
+}
+
+.tile__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-h4, 20px);
+    font-weight: var(--font-weight-h4, 600);
+    line-height: var(--line-height-h4, 1.35);
+    color: var(--color-foreground, #000000);
+    margin-bottom: var(--space-2, 8px);
+}
+
+.tile__desc {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    line-height: var(--line-height-body, 1.6);
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    margin-bottom: var(--space-4, 16px);
+    flex-grow: 1;
+}
+
+.tile__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-h4, 600);
+    color: var(--color-primary, #006497);
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.tile__link:hover {
+    color: var(--color-primary-hover, #00567e);
+    gap: var(--space-3, 12px);
+}
+
+.tile__link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* ========================================
+   4. CONTACT INFO SECTION
+   ======================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8, 48px);
+    align-items: start;
+}
+
+.contact-info__label {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-h4, 600);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    margin-bottom: var(--space-2, 8px);
+    display: block;
+}
+
+.contact-info__value {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    line-height: var(--line-height-body, 1.6);
+    color: var(--color-foreground, #000000);
+    margin-bottom: var(--space-5, 24px);
+}
+
+.contact-info__value a {
+    color: var(--color-primary, #006497);
+    text-decoration: none;
+}
+
+.contact-info__value a:hover {
+    color: var(--color-primary-hover, #00567e);
+    text-decoration: underline;
+}
+
+.contact-info__divider {
+    height: 1px;
+    background-color: var(--color-border, #e8eaea);
+    margin: var(--space-5, 24px) 0;
+    border: none;
+}
+
+.contact-map {
+    margin-top: var(--space-5, 24px);
+    height: 200px;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-border, #e8eaea);
+    background: linear-gradient(
+        135deg,
+        var(--color-muted, #eff1f1),
+        var(--color-border, #e8eaea)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+    font-size: var(--font-size-body, 16px);
+}
+
+.contact-map svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--color-primary, #006497);
+    fill: none;
+    stroke-width: 2;
+    margin-right: var(--space-2, 8px);
+}
+
+/* Contact Form */
+.contact-form {
+    padding: var(--space-6, 32px);
+    background-color: var(--color-card, var(--color-surface, #ffffff));
+    border: 1px solid var(--color-border, #e8eaea);
+    border-radius: var(--radius-lg, 12px);
+    box-shadow: var(--shadow-1, 0 1px 2px rgba(0,0,0,0.06));
+}
+
+.form-group {
+    margin-bottom: var(--space-5, 24px);
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-h4, 600);
+    color: var(--color-foreground, #000000);
+    margin-bottom: var(--space-2, 8px);
+}
+
+.form-label .required {
+    color: var(--color-error, #ff0032);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    height: var(--size-input-height, 40px);
+    padding: 0 var(--space-4, 16px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    color: var(--color-foreground, #000000);
+    background-color: var(--color-background, #ffffff);
+    border: 1px solid var(--color-border, #e8eaea);
+    border-radius: var(--radius-sm, 4px);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.form-textarea {
+    height: auto;
+    min-height: 120px;
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    resize: vertical;
+    line-height: var(--line-height-body, 1.6);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--color-primary, #006497);
+    box-shadow: 0 0 0 3px rgba(0, 100, 151, 0.12);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--color-muted-foreground, rgba(0,0,0,0.6));
+}
+
+.form-submit {
+    width: 100%;
+    height: var(--size-button-lg, 48px);
+    background-color: var(--color-primary, #006497);
+    color: var(--color-on-primary, #ffffff);
+    border: 2px solid var(--color-primary, #006497);
+    border-radius: var(--radius-sm, 4px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-h4, 600);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-submit:hover {
+    background-color: var(--color-primary-hover, #00567e);
+    border-color: var(--color-primary-hover, #00567e);
+    box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+}
+
+/* ========================================
+   5. RELATED LINKS SECTION
+   ======================================== */
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5, 24px);
+}
+
+.related-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-5, 24px);
+    background-color: var(--color-card, var(--color-surface, #ffffff));
+    border: 1px solid var(--color-border, #e8eaea);
+    border-radius: var(--radius-md, 8px);
+    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.related-card:hover {
+    box-shadow: var(--shadow-2, 0 4px 8px rgba(0,0,0,0.10));
+    transform: translateY(-2px);
+    border-color: var(--color-primary, #006497);
+}
+
+.related-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--space-4, 16px);
+    background-color: var(--color-muted, #eff1f1);
+    border-radius: var(--radius-md, 8px);
+    color: var(--color-primary, #006497);
+}
+
+.related-card__icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-primary, #006497);
+    fill: none;
+    stroke-width: 2;
+}
+
+.related-card__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-h4, 20px);
+    font-weight: var(--font-weight-h4, 600);
+    line-height: var(--line-height-h4, 1.35);
+    color: var(--color-foreground, #000000);
+    margin-bottom: var(--space-2, 8px);
+}
+
+.related-card__arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-h4, 600);
+    color: var(--color-primary, #006497);
+    margin-top: auto;
+    transition: gap 0.2s ease;
+}
+
+.related-card:hover .related-card__arrow {
+    gap: var(--space-3, 12px);
+}
+
+.related-card__arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* ========================================
+   6. FOOTER
+   ======================================== */
+.site-footer {
+    background-color: var(--color-foreground, #191c1d);
+    color: rgba(255, 255, 255, 0.7);
+    padding-top: var(--space-8, 48px);
+}
+
+.site-footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+.footer-top {
+    max-width: var(--max-content, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--space-6, 32px) var(--space-6, 32px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 8px);
+    margin-bottom: var(--space-6, 32px);
+}
+
+.footer-brand__logo {
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-h3, 24px);
+    font-weight: var(--font-weight-h1, 700);
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.footer-brand__tagline {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-lead, 18px);
+    font-weight: var(--font-weight-body, 400);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-cols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6, 32px);
+}
+
+.footer-col__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-h4, 600);
+    color: #ffffff;
+    margin-bottom: var(--space-4, 16px);
+}
+
+.footer-col__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, 12px);
+}
+
+.footer-col__links a {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-body, 400);
+    line-height: var(--line-height-body, 1.6);
+}
+
+.footer-bottom {
+    max-width: var(--max-content, 1200px);
+    margin: 0 auto;
+    padding: var(--space-5, 24px) var(--space-6, 32px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4, 16px);
+    flex-wrap: wrap;
+}
+
+.footer-bottom__copyright {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-body, 400);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-bottom__legal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4, 16px);
+    list-style: none;
+}
+
+.footer-bottom__legal a {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-caption, 12px);
+    font-weight: var(--font-weight-body, 400);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-bottom__legal a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+    .tile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-cols {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: var(--space-4, 16px);
+        padding-right: var(--space-4, 16px);
+    }
+
+    .section {
+        padding-top: var(--space-6, 32px);
+        padding-bottom: var(--space-6, 32px);
+    }
+
+    /* Mobile nav */
+    .site-nav {
+        height: var(--size-nav, 64px);
+        padding: 0 var(--space-4, 16px);
+    }
+
+    .site-nav__hamburger {
+        display: flex;
+    }
+
+    .site-nav__links {
+        position: fixed;
+        top: var(--size-nav, 64px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+        background-color: var(--color-background, #ffffff);
+        border-top: 1px solid var(--color-border, #e8eaea);
+        border-bottom: 1px solid var(--color-border, #e8eaea);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        z-index: 999;
+    }
+
+    .site-nav__toggle:checked ~ .site-nav__links {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .site-nav__link {
+        padding: var(--space-4, 16px) var(--space-5, 24px);
+        border-bottom: 1px solid var(--color-border, #e8eaea);
+    }
+
+    .site-nav__lang {
+        display: none;
+    }
+
+    /* Hero */
+    .hero {
+        min-height: 400px;
+        padding: var(--space-6, 32px) var(--space-4, 16px);
+    }
+
+    .hero__title {
+        font-size: var(--font-size-h1, 40px);
+    }
+
+    .hero__subtitle {
+        font-size: var(--font-size-body, 16px);
+    }
+
+    /* Tile grid */
+    .tile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Contact */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6, 32px);
+    }
+
+    /* Related links */
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Footer */
+    .footer-cols {
+        grid-template-columns: 1fr;
+        gap: var(--space-5, 24px);
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 375px) {
+    .hero {
+        min-height: 320px;
+    }
+
+    .hero__title {
+        font-size: var(--font-size-h2, 32px);
+    }
+
+    .hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     1. NAVIGATION
+     ============================================ -->
+<header class="site-nav" role="banner" id="siteNav">
+    <a href="#" class="site-nav__brand">
+        <span class="site-nav__logo">Voith</span>
+        <span class="site-nav__tagline">Engineering for the Future</span>
+    </a>
+
+    <input type="checkbox" id="navToggle" class="site-nav__toggle">
+    <label for="navToggle" class="site-nav__hamburger" aria-label="切换菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+
+    <nav class="site-nav__links" role="navigation" aria-label="主导航">
+        <a href="#" class="site-nav__link is-active">关于我们</a>
+        <a href="#" class="site-nav__link">产品与服务</a>
+        <a href="#" class="site-nav__link">市场与行业</a>
+        <a href="#" class="site-nav__link">新闻中心</a>
+        <a href="#" class="site-nav__link">招贤纳士</a>
+    </nav>
+
+    <div class="site-nav__right">
+        <div class="site-nav__lang">
+            <a href="#" class="is-active">中文</a>
+            <span class="site-nav__lang-divider">/</span>
+            <a href="#">EN</a>
+        </div>
+    </div>
+</header>
+
+<!-- ============================================
+     2. HERO STAGE
+     ============================================ -->
+<section class="hero" role="banner">
+    <div class="hero__inner">
+        <ol class="hero__breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">市场与所在地</a></li>
+            <li aria-current="page">中国</li>
+        </ol>
+
+        <h1 class="hero__title">福伊特在中国</h1>
+        <p class="hero__subtitle">工程技术 — 源自德国，服务中国。自1910年进入中国市场以来，福伊特始终以创新技术和可靠品质，为水电、造纸、驱动等核心工业领域提供卓越解决方案。</p>
+
+        <div class="hero__actions">
+            <a href="#" class="btn btn--primary">了解更多</a>
+            <a href="#" class="btn btn--outline">联系我们</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     3. CONTENT TILE GRID — 业务领域
+     ============================================ -->
+<section class="section" id="business">
+    <div class="container">
+        <span class="section-eyebrow">Business Areas</span>
+        <h2 class="section-title">业务领域</h2>
+        <p class="section-subtitle">福伊特在中国深耕六大核心业务领域，以德国工程技术和本地化服务能力，为各行业客户提供全生命周期解决方案。</p>
+
+        <div class="tile-grid">
+            <!-- Tile 1: 水电设备 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/><path d="M12 12L4 7"/><path d="M12 12l8-5"/><path d="M12 12v10"/><path d="M8 9.5l4 2.5 4-2.5"/></svg>
+                </div>
+                <h3 class="tile__title">水电设备</h3>
+                <p class="tile__desc">水轮机、发电机及控制系统。提供从设计、制造到安装调试的完整水电解决方案，助力中国清洁能源发展。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+
+            <!-- Tile 2: 造纸技术 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+                </div>
+                <h3 class="tile__title">造纸技术</h3>
+                <p class="tile__desc">完整造纸生产线与智能服务。涵盖纸机流浆箱、压榨部、烘干部等核心装备，提供智能化造纸工艺优化。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+
+            <!-- Tile 3: 驱动技术 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                </div>
+                <h3 class="tile__title">驱动技术</h3>
+                <p class="tile__desc">工业传动系统与变速解决方案。为各类工业场景提供高效可靠的变矩器、耦合器及智能驱动控制系统。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+
+            <!-- Tile 4: 智能控制 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                </div>
+                <h3 class="tile__title">智能控制</h3>
+                <p class="tile__desc">数字化工厂与工业4.0方案。以物联网、大数据和人工智能技术赋能传统工业，实现生产过程的智能化管理。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+
+            <!-- Tile 5: 环保技术 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8 6 6 9 6 13a6 6 0 0012 0c0-4-2-7-6-11z"/><path d="M12 18a3 3 0 01-3-3"/></svg>
+                </div>
+                <h3 class="tile__title">环保技术</h3>
+                <p class="tile__desc">废水处理与资源循环利用。提供工业废水深度处理、污泥减量化及资源回收的整体解决方案。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+
+            <!-- Tile 6: 售后服务 -->
+            <article class="tile">
+                <div class="tile__icon">
+                    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.1 2.1-2.4-2.4z"/></svg>
+                </div>
+                <h3 class="tile__title">售后服务</h3>
+                <p class="tile__desc">全生命周期维护与备件供应。提供设备运维、现场维修、备件管理及远程诊断等一站式服务保障。</p>
+                <a href="#" class="tile__link">了解详情 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     4. CONTACT INFO SECTION — 联系方式
+     ============================================ -->
+<section class="section section--muted" id="contact">
+    <div class="container">
+        <span class="section-eyebrow">Contact Us</span>
+        <h2 class="section-title">联系方式</h2>
+        <p class="section-subtitle">如有任何疑问或合作意向，欢迎通过以下方式与我们取得联系，我们的专业团队将竭诚为您服务。</p>
+
+        <div class="contact-grid">
+            <!-- Left: Company Info -->
+            <div class="contact-info">
+                <span class="contact-info__label">公司地址</span>
+                <p class="contact-info__value">
+                    福伊特（中国）投资有限公司<br>
+                    上海市浦东新区世纪大道88号<br>
+                    金茂大厦32楼 200120
+                </p>
+
+                <span class="contact-info__label">联系电话</span>
+                <p class="contact-info__value">
+                    总机：+86 21 5010 6688<br>
+                    传真：+86 21 5010 6699
+                </p>
+
+                <span class="contact-info__label">电子邮箱</span>
+                <p class="contact-info__value">
+                    <a href="mailto:info@voith.com">info@voith.com</a><br>
+                    <a href="mailto:sales.china@voith.com">sales.china@voith.com</a>
+                </p>
+
+                <hr class="contact-info__divider">
+
+                <div class="contact-map">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    地图位置 — 上海市浦东新区
+                </div>
+            </div>
+
+            <!-- Right: Contact Form -->
+            <form class="contact-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="contactName" class="form-label">姓名 <span class="required">*</span></label>
+                    <input type="text" id="contactName" name="name" class="form-input" placeholder="请输入您的姓名" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactEmail" class="form-label">电子邮箱 <span class="required">*</span></label>
+                    <input type="email" id="contactEmail" name="email" class="form-input" placeholder="请输入您的电子邮箱" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactCompany" class="form-label">公司名称</label>
+                    <input type="text" id="contactCompany" name="company" class="form-input" placeholder="请输入您的公司名称">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactMessage" class="form-label">留言内容 <span class="required">*</span></label>
+                    <textarea id="contactMessage" name="message" class="form-textarea" placeholder="请输入您想咨询的内容..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">提交留言</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     5. RELATED LINKS SECTION — 相关页面
+     ============================================ -->
+<section class="section" id="related">
+    <div class="container">
+        <span class="section-eyebrow">Related Links</span>
+        <h2 class="section-title">相关页面</h2>
+        <p class="section-subtitle">了解更多关于福伊特全球网络、产品目录及企业动态的资讯。</p>
+
+        <div class="related-grid">
+            <a href="#" class="related-card">
+                <div class="related-card__icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+                </div>
+                <h3 class="related-card__title">全球官网</h3>
+                <span class="related-card__arrow">访问 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+
+            <a href="#" class="related-card">
+                <div class="related-card__icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+                </div>
+                <h3 class="related-card__title">产品目录</h3>
+                <span class="related-card__arrow">浏览 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+
+            <a href="#" class="related-card">
+                <div class="related-card__icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M6 8h12M6 12h12M6 16h8"/></svg>
+                </div>
+                <h3 class="related-card__title">新闻中心</h3>
+                <span class="related-card__arrow">查看 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+
+            <a href="#" class="related-card">
+                <div class="related-card__icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+                </div>
+                <h3 class="related-card__title">人才招聘</h3>
+                <span class="related-card__arrow">加入 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     6. FOOTER
+     ============================================ -->
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <span class="footer-brand__logo">Voith</span>
+            <span class="footer-brand__tagline">Voith — 工程创造未来</span>
+        </div>
+
+        <div class="footer-cols">
+            <div class="footer-col">
+                <h4 class="footer-col__title">关于福伊特</h4>
+                <ul class="footer-col__links">
+                    <li><a href="#">公司简介</a></li>
+                    <li><a href="#">发展历程</a></li>
+                    <li><a href="#">企业文化</a></li>
+                    <li><a href="#">管理团队</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col__title">产品与服务</h4>
+                <ul class="footer-col__links">
+                    <li><a href="#">水电</a></li>
+                    <li><a href="#">造纸</a></li>
+                    <li><a href="#">驱动</a></li>
+                    <li><a href="#">智能控制</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col__title">新闻与媒体</h4>
+                <ul class="footer-col__links">
+                    <li><a href="#">新闻中心</a></li>
+                    <li><a href="#">媒体资料库</a></li>
+                    <li><a href="#">出版物</a></li>
+                    <li><a href="#">活动日历</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-col__title">联系我们</h4>
+                <ul class="footer-col__links">
+                    <li><a href="#">地址</a></li>
+                    <li><a href="#">电话</a></li>
+                    <li><a href="#">邮箱</a></li>
+                    <li><a href="#">在线咨询</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span class="footer-bottom__copyright">&copy; 2026 Voith Group. 保留所有权利。</span>
+        <ul class="footer-bottom__legal">
+            <li><a href="#">法律声明</a></li>
+            <li><a href="#">隐私保护</a></li>
+            <li><a href="#">Cookie 设置</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT — Sticky Nav Shadow on Scroll
+     ============================================ -->
+<script>
+(function() {
+    var nav = document.getElementById('siteNav');
+    if (!nav) return;
+
+    var lastScroll = 0;
+
+    function handleScroll() {
+        var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > 10) {
+            nav.classList.add('is-scrolled');
+        } else {
+            nav.classList.remove('is-scrolled');
+        }
+
+        lastScroll = currentScroll;
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+})();
+</script>
+
+</body>
+</html>
